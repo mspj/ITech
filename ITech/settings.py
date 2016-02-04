@@ -1,5 +1,5 @@
 """
-Django settings for tango_with_django_project project.
+Django settings for ITech project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '%9gtx##cabn0%rxe9i4$3r7(7ehu3-ii8v-ifws&sks64w(!nc'
+SECRET_KEY = '8d=1v29-kjk8#)-dc=(-+_kerva=bv&fh51hgr95$ivn_7as1b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -48,9 +48,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'tango_with_django_project.urls'
+ROOT_URLCONF = 'ITech.urls'
 
-WSGI_APPLICATION = 'tango_with_django_project.wsgi.application'
+WSGI_APPLICATION = 'ITech.wsgi.application'
 
 
 # Database

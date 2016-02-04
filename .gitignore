@@ -1,0 +1,14 @@
+# Jetbrains project files
+*.iml
+.idea/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django stuff
+*.log
+
+# DB file
+*.sqlite3

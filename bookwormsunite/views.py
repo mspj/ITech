@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
-
+from bookwormsunite.models import Readathon
 
 @require_http_methods(["GET"])
 def index(request):
@@ -39,6 +39,12 @@ def register(request):
 
 
 @require_http_methods(["POST"])
-def search(request):
-    html = "<html><body>search</body></html>"
+def search(request, readathonName):
+    try:
+        readathons = Readathon.objects.filter(name=readathonName)
+    except Readathon.DoesNotExist:
+        readathons = None
+        pass
+
+    html = "<html><body>search: {{s}}</body></html>"
     return HttpResponse(html)

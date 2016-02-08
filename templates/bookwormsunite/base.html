@@ -5,23 +5,49 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Title{% endblock %}</title>
-    {% block js %}
-        <script src="https://fb.me/react-with-addons-0.14.7.min.js"></script>
-        <script src="https://fb.me/react-dom-0.14.7.min.js"></script>
-    {% endblock %}
+
     {% block css %}
         <link rel="stylesheet" type="text/css" href="{% static "bookwormsunite/css/app.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "bookwormsunite/css/foundation.css" %}"/>
     {% endblock %}
 </head>
 <body>
+
 {% block search %}
-    <form type="post" action="." style="margin: 0">
-        <input  id="search_box" type="text" name="search_box"  placeholder="Search..." >
-        <button id="search_submit" type="submit" >Submit</button>
-    </form>
+    <div>
+        <form id="search_form" method="post" action="/search/">
+            {% csrf_token %}
+            <input type="text" name="query" id="query" />
+            <button type="submit" name="submit" value="Search">Search</button>
+        </form>
+    </div>
+    <div>
+        {% if result_list %}
+            <!-- Display search results in an ordered list -->
+            <ol>
+                {% for result in result_list %}
+                <li>
+                    <strong>result.name</strong><br >
+                </li>
+                {% endfor %}
+            </ol>
+        {% else %}
+            <br/>
+            <p>No results found</p>
+        {% endif %}
+    </div>
+
 {% endblock%}
+
 {% block content %}
-This is content
+    This is content
+{% endblock %}
+
+{% block js %}
+    <script src="{% static "bookwormsunite/js/vendor/jquery.min.js" %}"></script>
+    <script src="{% static "bookwormsunite/js/vendor/what-input.min.js" %}"></script>
+    <script src="{% static "bookwormsunite/js/foundation.min.js" %}"></script>
+    <script src="{% static "bookwormsunite/js/app.js" %}"></script>
 {% endblock %}
 </body>
 </html>

@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.views.decorators.http import require_http_methods
 from bookwormsunite.models import Readathon
 from django.shortcuts import render
@@ -50,15 +50,35 @@ def register(request):
 
 
 @require_POST
-def search(request, readathonName):
-    context_dict = {}
+def search(request):
+    # context_dict = {}
+    # try:
+    #     readathons = Readathon.objects.filter(name=readathon_name)
+    # except Readathon.DoesNotExist:
+    #     readathons = None
+    #     pass
+    # print('Hello')
+    # context_dict['readathons'] = readathons
+    # html = "<html><body>search: {{s}}</body></html>"
+    # return HttpResponse(html)
+
+    if request.method == "POST":
+        search_text = request.POST['query']
+    else:
+        search_text = ''
+    print(search_text)
     try:
-        readathons = Readathon.objects.filter(name=readathonName)
+        readathons = Readathon.objects.filter(name__contains=search_text)
     except Readathon.DoesNotExist:
         readathons = None
         pass
 
-    context_dict['readathons'] = readathons
-    # html = "<html><body>search: {{s}}</body></html>"
-    # return HttpResponse(html)
-    return render(request, '.....html', context_dict)
+    return render('bookwormsunite/base.html', {'readathons': readathons})
+    # if request.method == 'POST':
+    #     query = request.POST['query'].strip()
+    #     if query:
+    #         result_list = run_query(query)
+    #         context_dict['result_list'] = result_list
+    #
+    # # Go render the response and return it to the client.
+    # return render_to_response('base.html', context_dict, context)

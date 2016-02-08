@@ -1,12 +1,13 @@
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.template.defaultfilters import slugify
 
 
-class Reader(AbstractBaseUser):
+class Reader(AbstractBaseUser, PermissionsMixin):
     username = models.CharField('username', max_length=30, unique=True)
-    goodread_id = models.IntegerField(unique=True)
-    goodread_img = models.URLField()
+    img = models.URLField()
+
+    USERNAME_FIELD = 'username'
 
     def get_full_name(self):
         return self.get_username()

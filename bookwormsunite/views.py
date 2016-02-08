@@ -50,17 +50,6 @@ def register(request):
 
 @require_POST
 def search(request):
-    # context_dict = {}
-    # try:
-    #     readathons = Readathon.objects.filter(name=readathon_name)
-    # except Readathon.DoesNotExist:
-    #     readathons = None
-    #     pass
-    # print('Hello')
-    # context_dict['readathons'] = readathons
-    # html = "<html><body>search: {{s}}</body></html>"
-    # return HttpResponse(html)
-
     if request.method == "POST":
         search_text = request.POST['query']
     else:
@@ -73,11 +62,4 @@ def search(request):
         pass
     context_dict = {'readathons': readathons}
     return render(request, 'bookwormsunite/base.html', context_dict)
-    # if request.method == 'POST':
-    #     query = request.POST['query'].strip()
-    #     if query:
-    #         result_list = run_query(query)
-    #         context_dict['result_list'] = result_list
-    #
-    # # Go render the response and return it to the client.
-    # return render_to_response('base.html', context_dict, context)
+  

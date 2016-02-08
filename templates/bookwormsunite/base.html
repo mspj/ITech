@@ -1,5 +1,6 @@
-{% load staticfiles %}
+
 <!DOCTYPE html>
+{% load staticfiles %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,6 +14,12 @@
     {% endblock %}
 </head>
 <body>
+{% block search %}
+    <form type="post" action="." style="margin: 0">
+        <input  id="search_box" type="text" name="search_box"  placeholder="Search..." >
+        <button id="search_submit" type="submit" >Submit</button>
+    </form>
+{% endblock%}
 {% block content %}
 This is content
 {% endblock %}

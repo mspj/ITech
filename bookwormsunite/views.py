@@ -51,11 +51,14 @@ def register(request):
 
 @require_POST
 def search(request, readathonName):
+    context_dict = {}
     try:
         readathons = Readathon.objects.filter(name=readathonName)
     except Readathon.DoesNotExist:
         readathons = None
         pass
 
-    html = "<html><body>search: {{s}}</body></html>"
-    return HttpResponse(html)
+    context_dict['readathons'] = readathons
+    # html = "<html><body>search: {{s}}</body></html>"
+    # return HttpResponse(html)
+    return render(request, '.....html', context_dict)

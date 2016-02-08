@@ -1,0 +1,20 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Title{% endblock %}</title>
+    {% block js %}
+        <script src="https://fb.me/react-with-addons-0.14.7.min.js"></script>
+        <script src="https://fb.me/react-dom-0.14.7.min.js"></script>
+    {% endblock %}
+    {% block css %}
+        <link rel="stylesheet" type="text/css" href="{% static "bookwormsunite/css/app.css" %}">
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+This is content
+{% endblock %}
+</body>
+</html>

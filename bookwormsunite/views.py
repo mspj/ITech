@@ -1,5 +1,4 @@
-from django.http import HttpResponse, Http404
-from django.views.decorators.http import require_http_methods
+from django.http import HttpResponse
 from bookwormsunite.models import Readathon
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods, require_GET, require_POST
@@ -72,8 +71,8 @@ def search(request):
     except Readathon.DoesNotExist:
         readathons = None
         pass
-
-    return render('bookwormsunite/base.html', {'readathons': readathons})
+    context_dict = {'readathons': readathons}
+    return render(request, 'bookwormsunite/base.html', context_dict)
     # if request.method == 'POST':
     #     query = request.POST['query'].strip()
     #     if query:

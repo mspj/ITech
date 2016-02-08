@@ -15,19 +15,19 @@
 
 {% block search %}
     <div>
-        <form id="search_form" method="post" action="/search/">
+        <form id="search_form" method="post" action="/search/" >
             {% csrf_token %}
-            <input type="text" name="query" id="query" />
-            <button type="submit" name="submit" value="Search">Search</button>
+            <input type="text" name="query" id="query" placeholder="Search..."/></div>
+            <input type="submit" name="submit" value="Search"></input>
         </form>
     </div>
     <div>
-        {% if result_list %}
+        {% if readathons %}
             <!-- Display search results in an ordered list -->
             <ol>
-                {% for result in result_list %}
+                {% for readathon in readathons %}
                 <li>
-                    <strong>result.name</strong><br >
+                    <strong>{{ readathon.name }}</strong><br >
                 </li>
                 {% endfor %}
             </ol>

@@ -54,17 +54,17 @@ class Challenge(TimeStampedModel):
         return "{0}".format(self.name)
 
 
-class Accomplishment(TimeStampedModel):
-    user = models.ForeignKey(Reader, on_delete=models.CASCADE)
-    challenge = models.ForeignKey(Challenge, on_delete=models.CASCADE)
-    books = models.ManyToManyField(Book)
-
-
 class Book(TimeStampedModel):
     book_name = models.CharField(max_length=512)
     isbn = models.CharField(max_length=13)
     cover = models.URLField()
     author = models.CharField(max_length=128)
+
+
+class Accomplishment(TimeStampedModel):
+    user = models.ForeignKey(Reader, on_delete=models.CASCADE)
+    challenge = models.ForeignKey(Challenge, on_delete=models.CASCADE)
+    books = models.ManyToManyField(Book)
 
 
 class Activity(TimeStampedModel):

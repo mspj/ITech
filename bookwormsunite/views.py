@@ -1,29 +1,38 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.views.decorators.http import require_http_methods, require_GET, require_POST
 
 
 @require_GET
 def index(request):
-    html = "<html><body>index</body></html>"
-    return HttpResponse(html)
+    title = "Index"
+    content = "This is index page"
+    context_dict = {'title': title, 'content': content}
+    return render(request, 'bookwormsunite/index.html', context_dict)
 
 
 @require_http_methods(["GET", "POST"])
 def readathon_info(request, readathon_name_slug):
-    html = "<html><body>readathon_info: {0}</body></html>".format(readathon_name_slug)
-    return HttpResponse(html)
+    title = "Readathon"
+    content = "This is readathon page"
+    context_dict = {'title': title, 'content': content}
+    return render(request, 'bookwormsunite/readathon.html', context_dict)
 
 
 @require_GET
 def user_info(request, uid):
-    html = "<html><body>user_info: {0}</body></html>".format(uid)
-    return HttpResponse(html)
+    title = "User Information"
+    content = "This is user information page"
+    context_dict = {'title': title, 'content': content}
+    return render(request, 'bookwormsunite/user_info.html', context_dict)
 
 
 @require_GET
 def user_summary(request, uid):
-    html = "<html><body>user_summary: {0}</body></html>".format(uid)
-    return HttpResponse(html)
+    title = "Index"
+    content = "This is index page"
+    context_dict = {'title': title, 'content': content}
+    return render(request, 'bookwormsunite/user_summary.html', context_dict)
 
 
 @require_POST

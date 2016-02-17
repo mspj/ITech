@@ -54,7 +54,6 @@ def search(request):
         search_text = request.POST['query']
     else:
         search_text = ''
-    print(search_text)
     try:
         readathons = Readathon.objects.filter(name__contains=search_text)
     except Readathon.DoesNotExist:
@@ -62,4 +61,3 @@ def search(request):
         pass
     context_dict = {'readathons': readathons}
     return render(request, 'bookwormsunite/base.html', context_dict)
-  

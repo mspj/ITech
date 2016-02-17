@@ -2,12 +2,16 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.template.defaultfilters import slugify
 
+from bookwormsunite.managers import ReaderManager
+
 
 class Reader(AbstractBaseUser, PermissionsMixin):
     username = models.CharField('username', max_length=30, unique=True)
     img = models.URLField()
 
     USERNAME_FIELD = 'username'
+
+    objects = ReaderManager()
 
     def get_full_name(self):
         return self.get_username()
@@ -16,7 +20,7 @@ class Reader(AbstractBaseUser, PermissionsMixin):
         return self.get_username()
 
     def __unicode__(self):
-        return "[{0}]{1}: {2}".format(self.id, self.goodread_id, self.username)
+        return "{0}: {1}".format(self.id, self.username)
 
 
 class TimeStampedModel(models.Model):

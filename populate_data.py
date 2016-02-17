@@ -17,7 +17,7 @@ def populate():
     reader3 = add_reader("emily-may", 'https://d.gr-assets.com/users/1402215455p3/4622890.jpg')
     reader4 = add_reader("beckfoster", 'https://d.gr-assets.com/users/1383924009p3/5875398.jpg')
     reader5 = add_reader("maliemania", 'https://d.gr-assets.com/users/1415192892p3/1334245.jpg')
-    reader6 = add_reader("pimjunha", 'https://d.gr-assets.com/users/1376729372p3/15480984.jpg', True)
+    reader6 = add_reader("pimjunha", 'https://d.gr-assets.com/users/1376729372p3/15480984.jpg', is_superuser=True)
 
     r1 = add_readathon("Winter Biannual Bibliothon",
                        "A week of reading and booktubing hosted by MissSassyKassie, emmmabooks, Kellys BookSpill, Little Red Reader, sierrareads, OHxXxSNAP13 and Brittni's Book Find!",
@@ -115,7 +115,7 @@ def populate():
 
 
 def add_reader(username, img, is_superuser=False):
-    r = Reader.objects.get_or_create(username=username, img=img, is_superuser=False)[0]
+    r = Reader.objects.get_or_create(username=username, img=img, is_superuser=is_superuser)[0]
     r.set_password('1234')
     r.save()
     return r

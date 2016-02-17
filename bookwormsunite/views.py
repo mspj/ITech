@@ -1,7 +1,17 @@
-from django.http import HttpResponse
+from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
+from django.contrib.auth.forms import AuthenticationForm
+from django.http import HttpResponse, HttpResponseRedirect
+from django.utils.decorators import method_decorator
+from django.views.decorators.debug import sensitive_post_parameters
+from django.views.generic import FormView, View
+from django.contrib.auth import login as auth_login, logout as auth_logout
+
+from bookwormsunite.forms import ReaderForm, ReaderCreationForm
 from bookwormsunite.models import Readathon
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods, require_GET, require_POST
+from ITech.settings import LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL
+
 
 @require_GET
 def index(request):
@@ -37,15 +47,33 @@ def user_summary(request, uid):
 
 @require_POST
 def login(request):
-    html = "<html><body>login</body></html>"
-    return HttpResponse(html)
+    username = request.POST.get('username', '')
+    password = request.POST.get('password', '')
+    user = authenticate(username=username, password=password)
+
+    if user:
+        if user.is_active:
+            auth_login(request, user)
+            return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+        else:
+            return HttpResponse("Your account is disabled.")
+    return HttpResponse(status=401)
+
+
+@require_GET
+def logout(request):
+    auth_logout(request)
+    return HttpResponseRedirect(LOGOUT_REDIRECT_URL)
 
 
 @require_POST
 def register(request):
-    html = "<html><body>register</body></html>"
-    return HttpResponse(html)
-
+    reader_form = ReaderCreationForm(data=request.POST)
+    if reader_form.is_valid():
+        reader = reader_form.save(commit=True)
+    else:
+        return HttpResponse(status=400)
+    return HttpResponse(status=200)
 
 
 @require_POST

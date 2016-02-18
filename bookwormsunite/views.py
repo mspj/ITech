@@ -11,13 +11,16 @@ from bookwormsunite.models import Readathon
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods, require_GET, require_POST
 from ITech.settings import LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL
-
+import twitter
+# from datetime import datetime
+# from django.core.cache import cache
+from django.conf import settings
 
 @require_GET
 def index(request):
     title = "Index"
     content = "This is index page"
-    context_dict = {'title': title, 'content': content}
+    context_dict = {'title': title, 'content': content, 'tweets': get_tweet()}
     return render(request, 'bookwormsunite/index.html', context_dict)
 
 
@@ -89,3 +92,18 @@ def search(request):
         pass
     context_dict = {'readathons': readathons}
     return render(request, 'bookwormsunite/base.html', context_dict)
+
+def get_tweet():
+    tweets = []
+    try:
+        api = twitter.Api()
+        # print(api.GetUserTimeline(screen_name='@MailOnline'))
+        lastest = api.GetUserTimeline(screen_name=set)
+        for tweet in lastest:
+            status = tweet.text
+            print(status)
+            tweet_date = tweet.relative_created_at
+            tweets.append({'status':status, 'date': tweet_date})
+    except:
+        tweets.append({'status': 'Follow as ...', 'date': 'about 10 minutes ago'})
+    return {'tweets':tweets}

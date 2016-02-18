@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -53,6 +54,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'bookwormsunite.context_processors.include_login_form',
     'bookwormsunite.context_processors.include_register_form',
 )
+
 
 ROOT_URLCONF = 'ITech.urls'
 

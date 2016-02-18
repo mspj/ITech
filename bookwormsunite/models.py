@@ -13,6 +13,10 @@ class Reader(AbstractBaseUser, PermissionsMixin):
 
     objects = ReaderManager()
 
+    @property
+    def is_staff(self):
+        return self.is_superuser
+
     def get_full_name(self):
         return self.get_username()
 
@@ -20,7 +24,7 @@ class Reader(AbstractBaseUser, PermissionsMixin):
         return self.get_username()
 
     def __unicode__(self):
-        return "{0}: {1}".format(self.id, self.username)
+        return "{0}".format(self.username)
 
 
 class TimeStampedModel(models.Model):

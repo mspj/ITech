@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bookwormsunite',
+    'twitter_tag',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -54,6 +55,15 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'bookwormsunite.context_processors.include_login_form',
     'bookwormsunite.context_processors.include_register_form',
 )
+
+# Your access token: Access token
+TWITTER_OAUTH_TOKEN = '4925320361-NfqsXqimaoh1w47oRkhLMTfsyMTY5wKVoOJC9KI'
+# Your access token: Access token secret
+TWITTER_OAUTH_SECRET = 'sYwMWdy0HYYt0suHi7lAqGWBzg5iT0YGx3vXOdfZq9Mub'
+# OAuth settings: Consumer key
+TWITTER_CONSUMER_KEY = 'jzaX3FpCkrjVLox9WCxdRSeuK'
+# OAuth settings: Consumer secret
+TWITTER_CONSUMER_SECRET = 'NxRDUo7zKXPVmmK6vKUpHEwxwpmbCg3vx3Nyp0ocr4M4L62QrR'
 
 
 ROOT_URLCONF = 'ITech.urls'

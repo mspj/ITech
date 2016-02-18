@@ -2,5 +2,20 @@
 
 {% block title %}{{ title }}{% endblock %}
 
-{% block content %}{{ content }}{% endblock %}
+{% block content %}{{ content }}
+    {% block twitter_feed %}
+        {% load cache %}
+        {% load twitter_tag cache %}
+        {% cache 60 my_tweets %}
+        {% search_tweets for "readathon" as tweets limit 10 %}
+
+        {% endcache %}
+
+        <ul>
+        {% for tweet in tweets %}
+            <li>{{ tweet.html|safe }}.....{{ tweet.datetime|date:"D d M Y" }}</li>
+        {% endfor %}
+        </ul>
+    {% endblock %}
+{% endblock %}
 

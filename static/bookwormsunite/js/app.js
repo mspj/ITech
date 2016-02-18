@@ -37,14 +37,18 @@ $(function () {
 
         $.ajax({
             type: 'POST',
-            url: '/login/',
+            url: $(this).attr('action'),
             data: $('#login_form').serialize(),
             dataType: 'json',
             encode: true,
-            success: function(){
-                //display success msg
+            success: function(data){
+                if(data.status === "success"){
+                    window.location = data.redirect_to;
+                } else {
+                    alert(data.msg);
+                }
             },
-            fail: function(){
+            error: function(data){
                 //display failed msg
             }
         });
@@ -55,14 +59,18 @@ $(function () {
 
         $.ajax({
             type: 'POST',
-            url: '/register/',
+            url: $(this).attr('action'),
             data: $('#register_form').serialize(),
             dataType: 'json',
             encode: true,
-            success: function(){
-                //display success msg
+            success: function(data){
+                if(data.status === "success"){
+                    window.location = data.redirect_to;
+                } else {
+                    alert(data.msg);
+                }
             },
-            fail: function(){
+            error: function(data){
                 //display failed msg
             }
         });

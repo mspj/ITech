@@ -7,6 +7,10 @@
     font-family: MyRoboto;
 }
 
+hr {
+    color: rgb(174, 170, 198);
+}
+
 .top-bar {
     width: 100%;
 }
@@ -15,18 +19,36 @@
     background-color: rgb(255, 255, 255);
 }
 
-body {
-    background-color: rgb(244, 244, 244);
+.top-bar input {
+    width: 400px;
 }
 
+.top-bar .icon {
+    position: absolute;
+    margin-left: 17px;
+    margin-top: 2px;
+    opacity: 0.2;
+}
 
-hr {
-    color: rgb(174, 170, 198);
+.top-bar-search-box {
+    height: 30px;
+    background: rgba(0, 0, 0, -1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 11pt;
+    padding-left: 45px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.page-content {
+    background-color: rgb(244, 244, 244);
 }
 
 #index_header {
     background-color: rgb(255, 255, 255);
     border: none;
+    padding-bottom: 4rem;
 }
 
 .blog-post {
@@ -51,6 +73,11 @@ hr {
     width: 100%;
 }
 
+.blog-content.index_readathon_list.row{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
 .poster {
     width: 24%;
     height: 233px;
@@ -70,9 +97,9 @@ hr {
     height: 40px;
     bottom: 0;
     right: 0;
-    color: black;
+    color: white;
     text-transform: uppercase;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(240, 100, 81, 1);
     text-align: right;
     font-weight: bold;
     font-size: 11px;
@@ -100,5 +127,5 @@ hr {
 
 .poster:hover .caption {
     color: white;
-    background: rgba(240, 100, 81, 1);
+    background: rgba(253, 175, 43, 1);
 }

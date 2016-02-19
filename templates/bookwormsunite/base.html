@@ -7,6 +7,8 @@
 
     {% block css %}
         <link rel="stylesheet" type="text/css" href="{% static "bookwormsunite/css/foundation.css" %}"/>
+        <link rel="stylesheet" type="text/css"
+              href="{% static "bookwormsunite/font/foundation-icons/foundation-icons.css" %}"/>
         <link rel="stylesheet" type="text/css" href="{% static "bookwormsunite/css/app.css" %}">
     {% endblock %}
 </head>
@@ -64,21 +66,22 @@
 
 {% block navbar %}
 
-    <div data-sticky-container>
-        <div class="top-bar" data-sticky data-options="marginTop:0;">
-            <div class="top-bar-left">
-                <ul class="dropdown menu" data-dropdown-menu>
-                    <li class="menu-text">Bookwormsunite</li>
-                    <li><input type="search" placeholder="Search"></li>
-                    <li>
-                        <button type="button" class="button">Search</button>
-                    </li>
-                </ul>
-            </div>
-            <div class="top-bar-right">
-                <ul class="menu">
-                    <li class="menu-text">login</li>
-                </ul>
+    <div class="row medium-9 large-8 columns">
+        <div data-sticky-container >
+            <div class="top-bar" data-sticky data-options="marginTop:0;">
+                <div class="top-bar-left">
+                    <ul class="dropdown menu" data-dropdown-menu style="margin-left: -30px;">
+                        <li class="menu-text">Bookwormsunite</li>
+                        <li>
+                            <span class="icon"><i class="fi-magnifying-glass"></i></span>
+                            <input type="search" class="top-bar-search-box" placeholder="Search Readathon"></li>
+                    </ul>
+                </div>
+                <div class="top-bar-right">
+                    <ul class="menu">
+                        <li class="menu-text">login</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

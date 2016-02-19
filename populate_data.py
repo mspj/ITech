@@ -12,12 +12,12 @@ from bookwormsunite.models import *
 
 
 def populate():
-    reader1 = add_reader("sashaalsberg", 'https://d.gr-assets.com/users/1444743640p3/10915830.jpg')
-    reader2 = add_reader("tammy", 'https://d.gr-assets.com/users/1394292082p3/28395194.jpg')
-    reader3 = add_reader("emily-may", 'https://d.gr-assets.com/users/1402215455p3/4622890.jpg')
-    reader4 = add_reader("beckfoster", 'https://d.gr-assets.com/users/1383924009p3/5875398.jpg')
-    reader5 = add_reader("maliemania", 'https://d.gr-assets.com/users/1415192892p3/1334245.jpg')
-    reader6 = add_reader("pimjunha", 'https://d.gr-assets.com/users/1376729372p3/15480984.jpg', is_superuser=True)
+    reader1 = add_reader("sashaalsberg", 'https://d.gr-assets.com/users/1444743640p6/10915830.jpg')
+    reader2 = add_reader("tammy", 'https://d.gr-assets.com/users/1394292082p6/28395194.jpg')
+    reader3 = add_reader("emily-may", 'https://d.gr-assets.com/users/1402215455p6/4622890.jpg')
+    reader4 = add_reader("beckfoster", 'https://d.gr-assets.com/users/1383924009p6/5875398.jpg')
+    reader5 = add_reader("maliemania", 'https://d.gr-assets.com/users/1415192892p6/1334245.jpg')
+    reader6 = add_reader("pimjunha", 'https://d.gr-assets.com/users/1376729372p6/15480984.jpg', is_superuser=True)
 
     r1 = add_readathon("Winter Biannual Bibliothon",
                        "A week of reading and booktubing hosted by MissSassyKassie, emmmabooks, Kellys BookSpill, Little Red Reader, sierrareads, OHxXxSNAP13 and Brittni's Book Find!",

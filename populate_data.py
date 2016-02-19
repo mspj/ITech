@@ -98,20 +98,66 @@ def populate():
                   "V.E. Schwab")
     b6 = add_book("Symptoms of Being Human", "9780062382863", "https://d.gr-assets.com/books/1434997054l/22692740.jpg",
                   "Jeff Garvin")
+    b7 = add_book("The End of Average: How We Succeed in a World That Values Sameness", "9780062358363",
+                  "https://d.gr-assets.com/books/1444614253l/24186666.jpg",
+                  "Todd Rose")
+    b8 = add_book("Dream Cities: Seven Urban Ideas That Shape the World", "9780062196316",
+                  "https://d.gr-assets.com/books/1444241846l/25816683.jpg",
+                  "Wade Graham")
+    b9 = add_book("The Raven King (The Raven Cycle #4)", "9780545424981",
+                  "https://d.gr-assets.com/books/1446703135l/17378527.jpg",
+                  "Maggie Stiefvater")
+    b10 = add_book("The Hidden Oracle (The Trials of Apollo #1)", "9781484732748",
+                   "https://d.gr-assets.com/books/1449765273l/26252859.jpg",
+                   "Rick Riordan")
+    b11 = add_book("Legend (Legend #1)", "9780142422076", "https://d.gr-assets.com/books/1386781154l/15753977.jpg",
+                   "Marie Lu")
+    b12 = add_book("The Forgotten Room", "9780451474629", "https://d.gr-assets.com/books/1430158925l/25431172.jpg",
+                   "Karen White, Beatriz Williams, Lauren Willig")
+    b13 = add_book("We Are the Ants", "9781481449632", "https://d.gr-assets.com/books/1425574151l/23677341.jpg",
+                   " Shaun David Hutchinson")
+    b14 = add_book("Poor Your Soul", "9781616956349", "https://d.gr-assets.com/books/1449997163l/25387760.jpg",
+                   "Mira Ptacin")
+    b15 = add_book("Why Not Me?", "9780804138147", "https://d.gr-assets.com/books/1442548684l/22716447.jpg",
+                   "Mindy Kaling")
+    b16 = add_book("Modern Romance", "9781594206276", "https://d.gr-assets.com/books/1432335014l/23453112.jpg",
+                   "Aziz Ansari, Eric Klinenberg")
+    b17 = add_book("When Breath Becomes Air", "9780812988406", "https://d.gr-assets.com/books/1442836741l/25614898.jpg",
+                   "Paul Kalanithi")
+    b18 = add_book("To Kill a Mockingbird", "9780061120084", "https://d.gr-assets.com/books/1361975680l/2657.jpg",
+                   "Harper Lee")
+    b19 = add_book("Pride and Prejudice", "9780679783268", "https://d.gr-assets.com/books/1320399351l/1885.jpg",
+                   "Jane Austen")
+    b20 = add_book("The Picture of Dorian Gray", "9780375751516", "https://d.gr-assets.com/books/1424596966l/5297.jpg",
+                   "Oscar Wilde")
 
-    add_accomplishment(reader1, r1c1, [b1,b6])
+    add_accomplishment(reader1, r1c1, [b1, b6])
     add_accomplishment(reader2, r1c1, [b2])
     add_accomplishment(reader3, r1c1, [b3])
     add_accomplishment(reader4, r1c1, [b4])
     add_accomplishment(reader5, r1c1, [b5])
     add_accomplishment(reader6, r1c1, [b6])
 
-    add_accomplishment(reader1, r1c3,[b1,b6])
+    add_accomplishment(reader1, r1c3, [b1, b6])
     add_accomplishment(reader2, r1c3, [b5])
     add_accomplishment(reader3, r1c1, [b4])
-    add_accomplishment(reader4, r1c1, [b2,b3])
+    add_accomplishment(reader4, r1c1, [b2, b3])
     add_accomplishment(reader5, r1c1, [b2])
     add_accomplishment(reader6, r1c1, [b1])
+
+    add_accomplishment(reader1, r10c1, [b7])
+    add_accomplishment(reader2, r10c1, [b8])
+    add_accomplishment(reader3, r10c1, [b9])
+    add_accomplishment(reader4, r10c1, [b10])
+    add_accomplishment(reader5, r10c1, [b11])
+    add_accomplishment(reader6, r10c1, [b12])
+
+    add_accomplishment(reader1, r10c2, [b13])
+    add_accomplishment(reader2, r10c2, [b14])
+    add_accomplishment(reader3, r10c2, [b15])
+    add_accomplishment(reader4, r10c2, [b16])
+    add_accomplishment(reader5, r10c2, [b17])
+    add_accomplishment(reader6, r10c2, [b18, b19, b20])
 
 
 def add_reader(username, img, is_superuser=False):

@@ -9,14 +9,22 @@ from django.views.decorators.http import require_http_methods, require_GET, requ
 from ITech.settings import LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL, SUCCESS_MSG, FAIL_MSG, INCORRECT_CREDS_MSG, \
     DISABLED_ACC_MSG
 from bookwormsunite.forms import ReaderCreationForm
-from bookwormsunite.models import Readathon
+from bookwormsunite.models import Readathon, Book, Accomplishment
 
 
 @require_GET
 def index(request):
     title = "Index"
     upcoming_readathons = Readathon.objects.filter(start_date__gt=timezone.now())[:4]
-    context_dict = {'title': title, 'upcoming_readathons': upcoming_readathons}
+    accomplishments = Accomplishment.objects.order_by('-created')
+    recent_books = []
+    for accomplishment in accomplishments:
+        for book in accomplishment.books.all():
+            recent_books.append(book)
+
+    recent_books = list(set(recent_books))[:12]
+
+    context_dict = {'title': title, 'upcoming_readathons': upcoming_readathons, 'recent_books': recent_books}
     return render(request, 'bookwormsunite/index.html', context_dict)
 
 

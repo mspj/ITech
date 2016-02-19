@@ -73,7 +73,7 @@ hr {
     width: 100%;
 }
 
-.blog-content.index_readathon_list.row{
+.blog-content.index_readathon_list.row {
     margin-left: 0px;
     margin-right: 0px;
 }
@@ -128,4 +128,8 @@ hr {
 .poster:hover .caption {
     color: white;
     background: rgba(253, 175, 43, 1);
+}
+
+#readathon-books-carousel img {
+    width: 90%;
 }

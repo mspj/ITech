@@ -9,7 +9,8 @@
         <link rel="stylesheet" type="text/css" href="{% static "bookwormsunite/css/foundation.css" %}"/>
         <link rel="stylesheet" type="text/css"
               href="{% static "bookwormsunite/font/foundation-icons/foundation-icons.css" %}"/>
-        <link rel="stylesheet" type="text/css" href="{% static "bookwormsunite/css/app.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "bookwormsunite/css/jcarousel.responsive.css" %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static "bookwormsunite/css/app.css" %}"/>
     {% endblock %}
 </head>
 <body>
@@ -67,21 +68,19 @@
 {% block navbar %}
 
     <div class="row medium-9 large-8 columns">
-        <div data-sticky-container >
-            <div class="top-bar" data-sticky data-options="marginTop:0;">
-                <div class="top-bar-left">
-                    <ul class="dropdown menu" data-dropdown-menu style="margin-left: -30px;">
-                        <li class="menu-text">Bookwormsunite</li>
-                        <li>
-                            <span class="icon"><i class="fi-magnifying-glass"></i></span>
-                            <input type="search" class="top-bar-search-box" placeholder="Search Readathon"></li>
-                    </ul>
-                </div>
-                <div class="top-bar-right">
-                    <ul class="menu">
-                        <li class="menu-text">login</li>
-                    </ul>
-                </div>
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <ul class="dropdown menu" data-dropdown-menu style="margin-left: -30px;">
+                    <li class="menu-text">Bookwormsunite</li>
+                    <li>
+                        <span class="icon"><i class="fi-magnifying-glass"></i></span>
+                        <input type="search" class="top-bar-search-box" placeholder="Search Readathon"></li>
+                </ul>
+            </div>
+            <div class="top-bar-right">
+                <ul class="menu">
+                    <li class="menu-text">login</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -97,6 +96,8 @@
     <script src="{% static "bookwormsunite/js/vendor/jquery.min.js" %}"></script>
     <script src="{% static "bookwormsunite/js/vendor/what-input.min.js" %}"></script>
     <script src="{% static "bookwormsunite/js/foundation.min.js" %}"></script>
+    <script src="{% static "bookwormsunite/js/jquery.jcarousel.min.js" %}"></script>
+    <script src="{% static "bookwormsunite/js/jcarousel.responsive.js" %}"></script>
     <script src="{% static "bookwormsunite/js/app.js" %}"></script>
 {% endblock %}
 </body>

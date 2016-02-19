@@ -20,11 +20,12 @@
                 <div class="blog-content index_readathon_list row">
 
                     {% for readathon in upcoming_readathons %}
-
-                        <div class="poster column">
-                            <div class="topcaption">St. {{ readathon.start_date|date:"D d M y" }}</div>
-                            <div class="caption">{{ readathon.name }} ></div>
-                        </div>
+                        <a href="{% url 'readathon' %}{{ readathon.slug }}">
+                            <div class="poster column">
+                                <div class="topcaption">St. {{ readathon.start_date|date:"D d M y" }}</div>
+                                <div class="caption">{{ readathon.name }} ></div>
+                            </div>
+                        </a>
 
                     {% endfor %}
 
@@ -36,12 +37,33 @@
         <div class="row medium-9 large-8 columns">
             <div class="blog-post">
                 <h3 class="blog-title"><span>Recent Books Read in Readathons</span></h3>
-                <div class="callout">
+                <div class="jcarousel-wrapper">
+                    <div class="jcarousel" id="readathon-books-carousel">
+                        <ul>
+                            {% for recent_book in recent_books %}
+                                <li>
+                                    <a href="http://www.bookdepository.com/search?searchTerm={{ recent_book.book_name|urlencode }}">
+                                        <img src="{{ recent_book.cover }}" alt="{{ recent_book.book_name }}"
+                                             data-tooltip aria-haspopup="true" class="has-tip"
+                                             title="{{ recent_book.book_name }}">
+                                    </a>
+                                </li>
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+
+                    <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+                    <a href="#" class="jcarousel-control-next">&rsaquo;</a>
 
                 </div>
             </div>
         </div>
 
-    </div>
+        <div class="row medium-9 large-8 columns">
+            <div class="blog-post">
+                <h3 class="blog-title"><span>Readathon Calendar</span></h3>
+            </div>
+        </div>
 
 {% endblock %}

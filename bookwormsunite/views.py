@@ -1,16 +1,14 @@
-from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
-from django.contrib.auth.forms import AuthenticationForm
-from django.http import HttpResponse, HttpResponseRedirect
-from django.utils.decorators import method_decorator
-from django.views.decorators.debug import sensitive_post_parameters
-from django.views.generic import FormView, View
+from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login, logout as auth_logout
-
-from bookwormsunite.forms import ReaderForm, ReaderCreationForm
-from bookwormsunite.models import Readathon
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods, require_GET, require_POST
-from ITech.settings import LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL
+from django.http import JsonResponse
+
+from ITech.settings import LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL, SUCCESS_MSG, FAIL_MSG, INCORRECT_CREDS_MSG, \
+    DISABLED_ACC_MSG
+from bookwormsunite.forms import ReaderCreationForm
+from bookwormsunite.models import Readathon
 
 
 @require_GET
@@ -47,6 +45,7 @@ def user_summary(request, uid):
 
 @require_POST
 def login(request):
+    response = {'status': FAIL_MSG}
     username = request.POST.get('username', '')
     password = request.POST.get('password', '')
     user = authenticate(username=username, password=password)
@@ -54,10 +53,13 @@ def login(request):
     if user:
         if user.is_active:
             auth_login(request, user)
-            return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+            response['status'] = SUCCESS_MSG
+            response['redirect_to'] = LOGIN_REDIRECT_URL
         else:
-            return HttpResponse("Your account is disabled.")
-    return HttpResponse(status=401)
+            response = {'msg': DISABLED_ACC_MSG}
+    else:
+            response = {'msg': INCORRECT_CREDS_MSG}
+    return JsonResponse(response)
 
 
 @require_GET
@@ -68,12 +70,15 @@ def logout(request):
 
 @require_POST
 def register(request):
+    response = {'status': FAIL_MSG}
     reader_form = ReaderCreationForm(data=request.POST)
     if reader_form.is_valid():
         reader = reader_form.save(commit=True)
+        response['status'] = SUCCESS_MSG
+        response['redirect_to'] = LOGIN_REDIRECT_URL
     else:
-        return HttpResponse(status=400)
-    return HttpResponse(status=200)
+        response['msg'] = reader_form.errors
+    return JsonResponse(response)
 
 
 @require_POST
@@ -82,7 +87,6 @@ def search(request):
         search_text = request.POST['query']
     else:
         search_text = ''
-    print(search_text)
     try:
         readathons = Readathon.objects.filter(name__contains=search_text)
     except Readathon.DoesNotExist:

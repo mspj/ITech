@@ -9,6 +9,7 @@
         <link rel="stylesheet" type="text/css" href="{% static "bookwormsunite/css/foundation.css" %}"/>
         <link rel="stylesheet" type="text/css"
               href="{% static "bookwormsunite/font/foundation-icons/foundation-icons.css" %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static "bookwormsunite/css/motion-ui.min.css" %}">
         <link rel="stylesheet" type="text/css" href="{% static "bookwormsunite/css/jcarousel.responsive.css" %}"/>
         <link rel="stylesheet" type="text/css" href="{% static "bookwormsunite/css/app.css" %}"/>
     {% endblock %}
@@ -79,12 +80,40 @@
             </div>
             <div class="top-bar-right">
                 <ul class="menu">
-                    <li class="menu-text">login</li>
+                    {% if user.is_authenticated %}
+                        <li class="menu-text">Hi {{ user.username }}</li>
+                        <li class="menu-text"><a href="{% url 'logout' %}">logout</a></li>
+                    {% else %}
+                        <li class="menu-text"><a data-open="loginModal">login/register</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
     </div>
 
+    <div class="large reveal" id="loginModal" data-animation-in="fade-in" data-animation-out="fade-out" data-reveal>
+        <button class="close-button" data-close aria-label="Close reveal" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="row">
+            <div class="large-6 columns">
+                <h2>Register</h2>
+                <form action="{% url 'register' %}" id="register_form" method="post"
+                      enctype="multipart/form-data">{% csrf_token %}
+                    {{ register_form.as_p }}
+                    <input class="button success" type="submit" name="submit" value="Register"/>
+                </form>
+            </div>
+            <div class="large-6 columns">
+                <h2>Login</h2>
+                <form action="{% url 'login' %}" id="login_form" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ login_form.as_p }}
+                    <input class="button" type="submit" value="Login">
+                </form>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
 
@@ -96,6 +125,7 @@
     <script src="{% static "bookwormsunite/js/vendor/jquery.min.js" %}"></script>
     <script src="{% static "bookwormsunite/js/vendor/what-input.min.js" %}"></script>
     <script src="{% static "bookwormsunite/js/foundation.min.js" %}"></script>
+    <script src="{% static "bookwormsunite/js/motion-ui.min.js" %}"></script>
     <script src="{% static "bookwormsunite/js/jquery.jcarousel.min.js" %}"></script>
     <script src="{% static "bookwormsunite/js/jcarousel.responsive.js" %}"></script>
     <script src="{% static "bookwormsunite/js/app.js" %}"></script>

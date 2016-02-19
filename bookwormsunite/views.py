@@ -1,9 +1,10 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login, logout as auth_logout
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
-from django.views.decorators.http import require_http_methods, require_GET, require_POST
+from django.http import HttpResponseRedirect
 from django.http import JsonResponse
+from django.shortcuts import render
+from django.utils import timezone
+from django.views.decorators.http import require_http_methods, require_GET, require_POST
 
 from ITech.settings import LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL, SUCCESS_MSG, FAIL_MSG, INCORRECT_CREDS_MSG, \
     DISABLED_ACC_MSG
@@ -14,8 +15,8 @@ from bookwormsunite.models import Readathon
 @require_GET
 def index(request):
     title = "Index"
-    content = "This is index page"
-    context_dict = {'title': title, 'content': content}
+    upcoming_readathons = Readathon.objects.filter(start_date__gt=timezone.now())[:5]
+    context_dict = {'title': title, 'upcoming_readathons': upcoming_readathons}
     return render(request, 'bookwormsunite/index.html', context_dict)
 
 

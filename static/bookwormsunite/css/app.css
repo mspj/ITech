@@ -77,3 +77,28 @@ hr {
     font-weight: bold;
     font-size: 11px;
 }
+
+.poster .topcaption {
+    position: absolute;
+    padding-top: 10px;
+    padding-left: 10px;
+    width: 100%;
+    height: 40px;
+    top: 0;
+    left: 0;
+    color: black;
+    text-transform: uppercase;
+    background: transparent;
+    text-align: left;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.poster:hover .topcaption {
+    color: rgb(240, 95, 74);
+}
+
+.poster:hover .caption {
+    color: white;
+    background: rgba(240, 100, 81, 1);
+}

@@ -20,6 +20,7 @@
                 {% for readathon in upcoming_readathons %}
 
                     <div class="poster column">
+                        <div class="topcaption">St. {{  readathon.start_date|date:"D d M y" }}</div>
                         <div class="caption">{{ readathon.name }} ></div>
                     </div>
 

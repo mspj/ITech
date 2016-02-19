@@ -6,58 +6,84 @@
     <title>{% block title %}Title{% endblock %}</title>
 
     {% block css %}
-        <link rel="stylesheet" type="text/css" href="{% static "bookwormsunite/css/app.css" %}">
         <link rel="stylesheet" type="text/css" href="{% static "bookwormsunite/css/foundation.css" %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static "bookwormsunite/css/app.css" %}">
     {% endblock %}
 </head>
 <body>
 
-{% block search %}
-    <div>
-        <form id="search_form" method="post" action="/search/">
-            {% csrf_token %}
-            <input type="text" name="query" id="query" placeholder="Search..."/>
-            <input type="submit" name="submit" value="Search"/>
-        </form>
-    </div>
+{#{% block search %}#}
+{##}
+{#    <div>#}
+{#        <form id="search_form" method="post" action="/search/">#}
+{#            {% csrf_token %}#}
+{#            <input type="text" name="query" id="query" placeholder="Search..."/>#}
+{#            <input type="submit" name="submit" value="Search"/>#}
+{#        </form>#}
+{#    </div>#}
+{##}
+{#    <div>#}
+{#        {% if readathons %}#}
+{#            <!-- Display search results in an ordered list -->#}
+{#            <ol>#}
+{#                {% for readathon in readathons %}#}
+{#                    <li>#}
+{#                        <strong>{{ readathon.name }}</strong><br>#}
+{#                    </li>#}
+{#                {% endfor %}#}
+{#            </ol>#}
+{#        {% else %}#}
+{#            <br/>#}
+{#            <p>No results found</p>#}
+{#        {% endif %}#}
+{#    </div>#}
+{##}
+{#{% endblock %}#}
+{##}
+{#{% block login %}#}
+{#    {% if user.is_authenticated %}#}
+{#        Hi {{ user.username }}#}
+{#        <a href="{% url 'logout' %}">Logout</a>#}
+{#    {% else %}#}
+{#        <form action="{% url 'login' %}" id="login_form" method="post" enctype="multipart/form-data">{% csrf_token %}#}
+{#            {{ login_form.as_p }}#}
+{#            <input type="submit" value="Login">#}
+{#        </form>#}
+{#    {% endif %}#}
+{#{% endblock %}#}
+{##}
+{#{% block register %}#}
+{#    {% if not user.is_authenticated %}#}
+{#        <form action="{% url 'register' %}" id="register_form" method="post"#}
+{#              enctype="multipart/form-data">{% csrf_token %}#}
+{#            {{ register_form.as_p }}#}
+{#            <input type="submit" name="submit" value="Register"/>#}
+{#        </form>#}
+{#    {% endif %}#}
+{#{% endblock %}#}
 
-    <div>
-        {% if readathons %}
-            <!-- Display search results in an ordered list -->
-            <ol>
-                {% for readathon in readathons %}
+{% block navbar %}
+
+    <div data-sticky-container>
+        <div class="top-bar" data-sticky data-options="marginTop:0;">
+            <div class="top-bar-left">
+                <ul class="dropdown menu" data-dropdown-menu>
+                    <li class="menu-text">Bookwormsunite</li>
+                    <li><input type="search" placeholder="Search"></li>
                     <li>
-                        <strong>{{ readathon.name }}</strong><br>
+                        <button type="button" class="button">Search</button>
                     </li>
-                {% endfor %}
-            </ol>
-        {% else %}
-            <br/>
-            <p>No results found</p>
-        {% endif %}
+                </ul>
+            </div>
+            <div class="top-bar-right">
+                <ul class="menu">
+                    <li class="menu-text">login</li>
+                </ul>
+            </div>
+        </div>
     </div>
 
-{% endblock %}
 
-{% block login %}
-    {% if user.is_authenticated %}
-        Hi {{ user.username }}
-        <a href="{% url 'logout' %}">Logout</a>
-    {% else %}
-        <form action="{% url 'login' %}" id="login_form" method="post" enctype="multipart/form-data">{% csrf_token %}
-            {{ login_form.as_p }}
-            <input type="submit" value="Login">
-        </form>
-    {% endif %}
-{% endblock %}
-
-{% block register %}
-    {% if not user.is_authenticated %}
-        <form action="{% url 'register' %}" id="register_form" method="post" enctype="multipart/form-data">{% csrf_token %}
-            {{ register_form.as_p }}
-            <input type="submit" name="submit" value="Register"/>
-        </form>
-    {% endif %}
 {% endblock %}
 
 {% block content %}

@@ -15,7 +15,7 @@ from bookwormsunite.models import Readathon
 @require_GET
 def index(request):
     title = "Index"
-    upcoming_readathons = Readathon.objects.filter(start_date__gt=timezone.now())[:5]
+    upcoming_readathons = Readathon.objects.filter(start_date__gt=timezone.now())[:4]
     context_dict = {'title': title, 'upcoming_readathons': upcoming_readathons}
     return render(request, 'bookwormsunite/index.html', context_dict)
 

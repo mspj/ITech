@@ -3,9 +3,46 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
+
+    <div class="callout large primary" id="index_header">
+        <div class="row column text-center">
+            <h1>Bookwormsunite</h1>
+            <h3 class="subheader">Read, Challenge, Connect</h3>
+        </div>
+    </div>
+
+    <div class="row medium-9 large-8 columns">
+        <div class="blog-post">
+            <h3 class="blog-title"><span>Current Readathons & Upcoming</span></h3>
+
+            <div class="blog-content row">
+
+                {% for readathon in upcoming_readathons %}
+
+                    <div class="poster column">
+                        <div class="caption">{{ readathon.name }} ></div>
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row medium-9 large-8 columns">
+        <div class="blog-post">
+            <h3 class="blog-title"><span>Recent Books Read in Readathons</span></h3>
+            <div class="callout">
+
+            </div>
+        </div>
+    </div>
+
     {% for readathon in upcoming_readathons %}
         <div>
-            <a href="{% url 'readathon' %}{{ readathon.slug }}">{{ readathon.name }}</a>: {{ readathon.start_date }} - {{ readathon.end_date }}
+            <a href="{% url 'readathon' %}{{ readathon.slug }}">{{ readathon.name }}</a>: {{ readathon.start_date }}
+            - {{ readathon.end_date }}
         </div>
     {% endfor %}
 {% endblock %}

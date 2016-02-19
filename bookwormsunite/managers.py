@@ -19,3 +19,5 @@ class ReaderManager(BaseUserManager):
 
     def create_superuser(self, username, email, password, **extra_fields):
         return self._create_user(username, email, password, is_superuser=True, **extra_fields)
+
+

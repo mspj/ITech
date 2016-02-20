@@ -9,7 +9,7 @@ from django.views.decorators.http import require_http_methods, require_GET, requ
 from ITech.settings import LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL, SUCCESS_MSG, FAIL_MSG, INCORRECT_CREDS_MSG, \
     DISABLED_ACC_MSG
 from bookwormsunite.forms import ReaderCreationForm
-from bookwormsunite.models import Readathon, Book, Accomplishment
+from bookwormsunite.models import Readathon, Book, Accomplishment, Reader, Challenge
 
 
 @require_GET
@@ -39,8 +39,9 @@ def readathon_info(request, readathon_name_slug):
 @require_GET
 def user_info(request, uid):
     title = "User Information"
-    content = "This is user information page"
-    context_dict = {'title': title, 'content': content}
+    joined_readathons = Readathon.objects.filter(readers=uid)
+    reader = Reader.objects.get(id=uid)
+    context_dict = {'title': title, 'joined_readathons': joined_readathons, 'reader': reader}
     return render(request, 'bookwormsunite/user_info.html', context_dict)
 
 

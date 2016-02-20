@@ -36,6 +36,7 @@ class TimeStampedModel(models.Model):
 
 
 class Readathon(TimeStampedModel):
+    readers = models.ManyToManyField(Reader)
     name = models.CharField(max_length=64)
     description = models.CharField(max_length=1024)
     start_date = models.DateTimeField()

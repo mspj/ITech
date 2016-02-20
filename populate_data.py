@@ -22,54 +22,56 @@ def populate():
     r1 = add_readathon("Winter Biannual Bibliothon",
                        "A week of reading and booktubing hosted by MissSassyKassie, emmmabooks, Kellys BookSpill, Little Red Reader, sierrareads, OHxXxSNAP13 and Brittni's Book Find!",
                        datetime.datetime(2016, 1, 3, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
-                       datetime.datetime(2016, 1, 9, 23, 59, 59, tzinfo=timezone.get_current_timezone()))
+                       datetime.datetime(2016, 1, 9, 23, 59, 59, tzinfo=timezone.get_current_timezone()),
+                       [reader1, reader2, reader3, reader4, reader5, reader6])
 
     r2 = add_readathon("Bout of Books 15.0",
                        "The Bout of Books Read-a-Thon was created by Amanda @ On a Book Bender on a complete whim in August 2011*. It took on a life of its own and was such a hit that Amanda decided to do it again and turn it into a somewhat regular occurrence. \n" +
                        "It is low pressure, meaning participants are only asked to push themselves to read more than they normally would during any given week. There is no competition between readers.",
                        datetime.datetime(2016, 1, 4, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
-                       datetime.datetime(2016, 1, 10, 23, 59, 59, tzinfo=timezone.get_current_timezone()))
+                       datetime.datetime(2016, 1, 10, 23, 59, 59, tzinfo=timezone.get_current_timezone()), [])
 
     r3 = add_readathon("TopicAThon",
                        "",
                        datetime.datetime(2016, 2, 10, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
-                       datetime.datetime(2016, 2, 14, 23, 59, 59, tzinfo=timezone.get_current_timezone()))
+                       datetime.datetime(2016, 2, 14, 23, 59, 59, tzinfo=timezone.get_current_timezone()), [])
 
     r4 = add_readathon("AYearAThon (Horror/Suspense)",
                        "This group is for yearly read-a-thons.We'll do one read-a-thon a month, the first full week of every month. We also occasionally vote on one group read a month.",
                        datetime.datetime(2016, 3, 7, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
-                       datetime.datetime(2016, 3, 13, 23, 59, 59, tzinfo=timezone.get_current_timezone()))
+                       datetime.datetime(2016, 3, 13, 23, 59, 59, tzinfo=timezone.get_current_timezone()), [])
 
     r5 = add_readathon("AYearAThon (Re-reads)",
                        "This group is for yearly read-a-thons.We'll do one read-a-thon a month, the first full week of every month. We also occasionally vote on one group read a month.",
                        datetime.datetime(2016, 4, 4, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
-                       datetime.datetime(2016, 4, 10, 23, 59, 59, tzinfo=timezone.get_current_timezone()))
+                       datetime.datetime(2016, 4, 10, 23, 59, 59, tzinfo=timezone.get_current_timezone()), [])
 
     r6 = add_readathon("Bout of Books 16.0",
                        "The Bout of Books Read-a-Thon was created by Amanda @ On a Book Bender on a complete whim in August 2011*. It took on a life of its own and was such a hit that Amanda decided to do it again and turn it into a somewhat regular occurrence. \n" +
                        "It is low pressure, meaning participants are only asked to push themselves to read more than they normally would during any given week. There is no competition between readers.",
                        datetime.datetime(2016, 5, 9, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
-                       datetime.datetime(2016, 5, 15, 23, 59, 59, tzinfo=timezone.get_current_timezone()))
+                       datetime.datetime(2016, 5, 15, 23, 59, 59, tzinfo=timezone.get_current_timezone()), [])
 
     r7 = add_readathon("Summer Biannual Bibliothon",
                        "A week of reading and booktubing hosted by MissSassyKassie, emmmabooks, Kellys BookSpill, Little Red Reader, sierrareads, OHxXxSNAP13 and Brittni's Book Find!",
                        datetime.datetime(2016, 6, 3, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
-                       datetime.datetime(2016, 6, 9, 23, 59, 59, tzinfo=timezone.get_current_timezone()))
+                       datetime.datetime(2016, 6, 9, 23, 59, 59, tzinfo=timezone.get_current_timezone()), [])
 
     r8 = add_readathon("MS Readathon",
                        "The MS Readathon run by MS Australia started in 1979 and is Australia's premier reading-based fundraiser. The MS Readathon encourages Australians to read books, learn about multiple sclerosis (MS) and raise funds to help people living with Multiple Sclerosis.",
                        datetime.datetime(2016, 8, 1, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
-                       datetime.datetime(2016, 8, 31, 23, 59, 59, tzinfo=timezone.get_current_timezone()))
+                       datetime.datetime(2016, 8, 31, 23, 59, 59, tzinfo=timezone.get_current_timezone()), [])
 
     r9 = add_readathon("Harry Xmas To You",
                        "A Read-a-Watch-a-Long-a-Thon of Harry Potter in the month of December!",
                        datetime.datetime(2016, 12, 1, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
-                       datetime.datetime(2016, 12, 31, 23, 59, 59, tzinfo=timezone.get_current_timezone()))
+                       datetime.datetime(2016, 12, 31, 23, 59, 59, tzinfo=timezone.get_current_timezone()), [])
 
     r10 = add_readathon("CramAThon",
                         "",
                         datetime.datetime(2016, 12, 17, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
-                        datetime.datetime(2016, 12, 20, 23, 59, 59, tzinfo=timezone.get_current_timezone()))
+                        datetime.datetime(2016, 12, 20, 23, 59, 59, tzinfo=timezone.get_current_timezone()),
+                        [reader1, reader2, reader3, reader4, reader5, reader6])
 
     r1c1 = add_challenge(r1, "Read a book that has been sitting on your shelf for over a year")
     r1c2 = add_challenge(r1, "Read a book that you haven't read the synopsis of/can't remember the synopsis of")
@@ -167,8 +169,11 @@ def add_reader(username, img, is_superuser=False):
     return r
 
 
-def add_readathon(name, desc, stDate, edDate):
+def add_readathon(name, desc, stDate, edDate, users):
     r = Readathon.objects.get_or_create(name=name, description=desc, start_date=stDate, end_date=edDate)[0]
+    r.save()
+    for user in users:
+        r.readers.add(user)
     r.save()
     return r
 

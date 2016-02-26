@@ -2,6 +2,27 @@
 
 {% block title %}{{ title }}{% endblock %}
 
+<h1>Reader Profile: {{ reader }}</h1>
+
+{% block joined_r %}
+    <ul>
+    {% for joined_r in joined_r %}
+        <li>{% joined_r %}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block activity %}
+<ul>
+{% for activity in activity %}
+<li>{%activity%}</li>
+{% endfor %}
+</ul>
+{% endblock %}
+
+
+
+
 {% block content %}
 
     <div class="page-content">

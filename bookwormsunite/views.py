@@ -9,7 +9,7 @@ from django.views.decorators.http import require_http_methods, require_GET, requ
 from ITech.settings import LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL, SUCCESS_MSG, FAIL_MSG, INCORRECT_CREDS_MSG, \
     DISABLED_ACC_MSG
 from bookwormsunite.forms import ReaderCreationForm
-from bookwormsunite.models import Readathon, Book, Accomplishment, Reader, Challenge
+from bookwormsunite.models import Readathon, Book, Accomplishment, Reader, Challenge, Activity, TimeStampedModel
 
 
 @require_GET
@@ -30,9 +30,11 @@ def index(request):
 
 @require_http_methods(["GET", "POST"])
 def readathon_info(request, readathon_name_slug):
-    title = "Readathon"
-    content = "This is readathon page"
-    context_dict = {'title': title, 'content': content}
+    title = Readathon.objects.get(slug=readathon_name_slug)
+    content = Readathon.objects.filter(slug=readathon_name_slug)
+    user_in_readathon = Readathon.readers.get()
+    challenge = Challenge.objects.filter(slug=readathon_name_slug)
+    context_dict = {'title': title, 'content': content, 'challenge':challenge, 'user':user_in_readathon}
     return render(request, 'bookwormsunite/readathon.html', context_dict)
 
 
@@ -41,7 +43,8 @@ def user_info(request, uid):
     title = "User Information"
     joined_readathons = Readathon.objects.filter(readers=uid)
     reader = Reader.objects.get(id=uid)
-    context_dict = {'title': title, 'joined_readathons': joined_readathons, 'reader': reader}
+    activity = Activity.objects.order_by('-time')[:10]
+    context_dict = {'title': title, 'joined_r': joined_readathons, 'reader': reader, 'activity':activity}
     return render(request, 'bookwormsunite/user_info.html', context_dict)
 
 

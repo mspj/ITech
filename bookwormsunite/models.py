@@ -80,3 +80,4 @@ class Accomplishment(TimeStampedModel):
 class Activity(TimeStampedModel):
     user = models.ForeignKey(Reader, on_delete=models.CASCADE)
     message = models.CharField(max_length=512)
+    time = models.DateTimeField()

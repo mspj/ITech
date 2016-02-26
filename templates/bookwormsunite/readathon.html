@@ -2,7 +2,16 @@
 
 {% block title %}{{ title }}{% endblock %}
 
-{% block content %}{{ content }}
+{% block content %}{{ content }}{% endblock %}
+    
+    {% block challenge %}
+        <ul>
+        {%for challenge in challenge %}
+          <li> {{ challenge }}</li>
+        {% endfor %}
+        </ul>
+    
+    {% endblock %}
     {% block twitter_feed %}
         {% load cache %}
         {% load twitter_tag cache %}
@@ -17,5 +26,16 @@
         {% endfor %}
         </ul>
     {% endblock %}
+
+{% block user %}
+    <ul>
+    {% for user in user %}
+        <li>{{ user }}</li>
+    {% endfor %}
+    </ul>
 {% endblock %}
+
+
+
+
 

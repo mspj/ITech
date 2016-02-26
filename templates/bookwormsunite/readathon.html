@@ -2,39 +2,38 @@
 
 {% block title %}{{ title }}{% endblock %}
 
-{% block content %}{{ content }}{% endblock %}
-    
-    {% block challenge %}
-        <ul>
-        {%for challenge in challenge %}
-          <li> {{ challenge }}</li>
-        {% endfor %}
-        </ul>
-    
-    {% endblock %}
-    {% block twitter_feed %}
-        {% load cache %}
-        {% load twitter_tag cache %}
-        {% cache 60 my_tweets %}
-        {% search_tweets for "readathon" as tweets limit 10 %}
+{% block content %}
 
-        {% endcache %}
+    <div class="page-content">
 
-        <ul>
-        {% for tweet in tweets %}
-            <li>{{ tweet.html|safe }}.....{{ tweet.datetime|date:"D d M Y" }}</li>
-        {% endfor %}
-        </ul>
-    {% endblock %}
+    <div class="row medium-9 large-8 columns">
 
-{% block user %}
-    <ul>
-    {% for user in user %}
-        <li>{{ user }}</li>
-    {% endfor %}
-    </ul>
+        <div class="blog-post">
+            <h3 class="blog-title"><span>{{ readathon.name | title }}
+                <small>(#{{ readathon.slug }})</small></span>
+                <a href="#" class="button hollow" id="readathon-join-btn">Join</a>
+            </h3>
+        </div>
+
+    </div>
+
 {% endblock %}
 
+
+{#    {% block twitter_feed %}#}
+{#        {% load cache %}#}
+{#        {% load twitter_tag cache %}#}
+{#        {% cache 60 my_tweets %}#}
+{#        {% search_tweets for "readathon" as tweets limit 10 %}#}
+{##}
+{#        {% endcache %}#}
+{##}
+{#        <ul>#}
+{#        {% for tweet in tweets %}#}
+{#            <li>{{ tweet.html|safe }}.....{{ tweet.datetime|date:"D d M Y" }}</li>#}
+{#        {% endfor %}#}
+{#        </ul>#}
+{#    {% endblock %}#}
 
 
 

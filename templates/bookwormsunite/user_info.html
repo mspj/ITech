@@ -2,25 +2,14 @@
 
 {% block title %}{{ title }}{% endblock %}
 
-<h1>Reader Profile: {{ reader }}</h1>
 
-{% block joined_r %}
-    <ul>
-    {% for joined_r in joined_r %}
-        <li>{% joined_r %}</li>
-    {% endfor %}
-    </ul>
-{% endblock %}
-
-{% block activity %}
-<ul>
-{% for activity in activity %}
-<li>{%activity%}</li>
-{% endfor %}
-</ul>
-{% endblock %}
-
-
+{#{% block activity %}#}
+{#    <ul>#}
+{#        {% for activity in activity %}#}
+{#            <li>{% activity %}</li>#}
+{#        {% endfor %}#}
+{#    </ul>#}
+{#{% endblock %}#}
 
 
 {% block content %}
@@ -32,93 +21,121 @@
             <div class="row" id="content">
                 <div class="medium-9 large-9 columns">
                     <div class="blog-post">
-                        <h3>Awesome blog post title
-                            <small>3/6/2015</small>
-                        </h3>
-                        <img class="thumbnail" src="http://placehold.it/850x350">
-                        <p>Praesent id metus massa, ut blandit odio. Proin quis tortor orci. Etiam at risus et justo
-                            dignissim
-                            congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu
-                            ullamcorper
-                            orci.
-                            Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque faucibus
-                            vestibulum.
-                            Nulla at nulla justo, eget luctus.</p>
-                        <div class="callout">
-                            <ul class="menu simple">
-                                <li><a href="#">Author: Mike Mikers</a></li>
-                                <li><a href="#">Comments: 3</a></li>
-                            </ul>
+                        <div class="row" id="profile-profile-plate">
+
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="profile-img-lg"
+                                             style="background-image: url('{{ reader.img }}');"></div>
+                                    </td>
+                                    <td style="width: 100%;">
+                                        <h3 style="font-weight: 200;"> {{ reader.username | title }}</h3>
+                                        <hr style="margin: 1rem auto;">
+                                        <h4 style="font-weight: 100; margin-bottom: 0;">Readathons</h4>
+                                        <h6><span class="hili-text">{{ joined_r | length }}</span>
+                                            Readathons Joined
+                                            | <span class="hili-text">{{ accomplishments | length }}</span>
+                                            Challenges Acoomplished</h6>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+
                     <div class="blog-post">
-                        <h3>Awesome blog post title
-                            <small>3/6/2015</small>
-                        </h3>
-                        <img class="thumbnail" src="http://placehold.it/850x350">
-                        <p>Praesent id metus massa, ut blandit odio. Proin quis tortor orci. Etiam at risus et justo
-                            dignissim
-                            congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu
-                            ullamcorper
-                            orci.
-                            Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque faucibus
-                            vestibulum.
-                            Nulla at nulla justo, eget luctus.</p>
-                        <div class="callout">
-                            <ul class="menu simple">
-                                <li><a href="#">Author: Mike Mikers</a></li>
-                                <li><a href="#">Comments: 3</a></li>
-                            </ul>
+                        <h3 class="blog-title"><span>{{ reader.username | title }}'s Recent Reads</span></h3>
+                        <div class="jcarousel-wrapper">
+                            <div class="jcarousel" id="profile-books-carousel">
+                                <ul>
+                                    {% for recent_book in recent_books %}
+                                        <li>
+                                            <a href="http://www.bookdepository.com/search?searchTerm={{ recent_book.book_name|urlencode }}">
+                                                <img src="{{ recent_book.cover }}" alt="{{ recent_book.book_name }}"
+                                                     data-tooltip aria-haspopup="true" class="has-tip"
+                                                     title="{{ recent_book.book_name }}">
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+
+                                </ul>
+                            </div>
+
+                            <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+                            <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+
                         </div>
                     </div>
+
                     <div class="blog-post">
-                        <h3>Awesome blog post title
-                            <small>3/6/2015</small>
-                        </h3>
-                        <img class="thumbnail" src="http://placehold.it/850x350">
-                        <p>Praesent id metus massa, ut blandit odio. Proin quis tortor orci. Etiam at risus et justo
-                            dignissim
-                            congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu
-                            ullamcorper
-                            orci.
-                            Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque faucibus
-                            vestibulum.
-                            Nulla at nulla justo, eget luctus.</p>
-                        <div class="callout">
-                            <ul class="menu simple">
-                                <li><a href="#">Author: Mike Mikers</a></li>
-                                <li><a href="#">Comments: 3</a></li>
-                            </ul>
+                        <h3 class="blog-title"><span>{{ reader.username | title }}'s Recent Activities</span></h3>
+
+                        {#                        example acitivity #}
+                        <div>
+                            <p style="margin-bottom: 0"><i class="fi-trophy"
+                                                           style="opacity: 0.5; margin-right: 10px;"></i> <span
+                                    style="font-weight: bolder;">{{ reader.username | title }}</span>
+                                completed all challenges in TBR Takedown Readathon!</p>
+                            <p style="font-weight: bolder; font-size: 13px; color: rgba(253, 175, 43, 1)">Fri 28 Feb
+                                16 10:30 PM</p>
                         </div>
-                    </div>
-                    <div class="blog-post">
-                        <h3>Awesome blog post title
-                            <small>3/6/2015</small>
-                        </h3>
-                        <img class="thumbnail" src="http://placehold.it/850x350">
-                        <p>Praesent id metus massa, ut blandit odio. Proin quis tortor orci. Etiam at risus et justo
-                            dignissim
-                            congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu
-                            ullamcorper
-                            orci.
-                            Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque faucibus
-                            vestibulum.
-                            Nulla at nulla justo, eget luctus.</p>
-                        <div class="callout">
-                            <ul class="menu simple">
-                                <li><a href="#">Author: Mike Mikers</a></li>
-                                <li><a href="#">Comments: 3</a></li>
-                            </ul>
+                        <hr>
+
+                        <div>
+                            <p style="margin-bottom: 0"><i class="fi-book"
+                                                           style="opacity: 0.5; margin-right: 10px;"></i> <span
+                                    style="font-weight: bolder;">{{ reader.username | title }}</span>
+                                completed challenge 'Read a book written by your favourite author' in TBR Takedown
+                                Readathon by reading 'Pride and Prejudice'</p>
+                            <p style="font-weight: bolder; font-size: 13px; color: rgba(253, 175, 43, 1)">Fri 28 Feb
+                                16 10:30 PM</p>
                         </div>
+                        <hr>
+
+                        <div>
+                            <p style="margin-bottom: 0"><i class="fi-book"
+                                                           style="opacity: 0.5; margin-right: 10px;"></i> <span
+                                    style="font-weight: bolder;">{{ reader.username | title }}</span>
+                                completed challenge 'Read a book written by your favourite author' in TBR Takedown
+                                Readathon by reading 'Pride and Prejudice'</p>
+                            <p style="font-weight: bolder; font-size: 13px; color: rgba(253, 175, 43, 1)">Fri 28 Feb
+                                16 10:30 PM</p>
+                        </div>
+                        <hr>
+
+                        <div>
+                            <p style="margin-bottom: 0"><i class="fi-asterisk"
+                                                           style="opacity: 0.5; margin-right: 10px;"></i> <span
+                                    style="font-weight: bolder;">{{ reader.username | title }}</span>
+                                joined TBR Takedown Readathon</p>
+                            <p style="font-weight: bolder; font-size: 13px; color: rgba(253, 175, 43, 1)">Fri 28 Feb
+                                16 09:23 AM</p>
+                        </div>
+                        <hr>
+
+                        <div>
+                            <p style="margin-bottom: 0"><i class="fi-heart"
+                                                           style="opacity: 0.5; margin-right: 10px;"></i> <span
+                                    style="font-weight: bolder;">{{ reader.username | title }}</span>
+                                joined Bookwormsunite!</p>
+                            <p style="font-weight: bolder; font-size: 13px; color: rgba(253, 175, 43, 1)">Fri 28 Feb
+                                16 09:23 AM</p>
+                        </div>
+                        <hr>
+
                     </div>
+
                 </div>
 
                 <div class="medium-3 large-3 columns">
                     <div class="blog-post" id="profile-readathon-list">
                         <h5>{{ reader }}'s Readathons</h5>
                         <ul>
-                            {% for readathon in joined_readathons %}
-                                <li><a href="{% url 'readathon' %}{{ readathon.slug }}">{{ readathon.name }}</a></li>
+                            {% for readathon in joined_r %}
+                                <li><a href="{% url 'readathon' %}{{ readathon.slug }}">{{ readathon.name }}
+                                    ({{ readathon.start_date|date:"d M y" }})</a></li>
                             {% endfor %}
                         </ul>
                     </div>

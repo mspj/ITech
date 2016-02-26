@@ -30,21 +30,29 @@ def index(request):
 
 @require_http_methods(["GET", "POST"])
 def readathon_info(request, readathon_name_slug):
-    title = Readathon.objects.get(slug=readathon_name_slug)
-    content = Readathon.objects.filter(slug=readathon_name_slug)
-    user_in_readathon = Readathon.readers.get()
-    challenge = Challenge.objects.filter(slug=readathon_name_slug)
-    context_dict = {'title': title, 'content': content, 'challenge':challenge, 'user':user_in_readathon}
+    readathon = Readathon.objects.get(slug=readathon_name_slug)
+    challenges = Challenge.objects.filter(readathon=readathon.id).all()
+    readers = readathon.readers.all()
+    title = readathon.name
+    context_dict = {'title': title, 'readathon': readathon, 'challenges': challenges, 'readers': readers}
     return render(request, 'bookwormsunite/readathon.html', context_dict)
 
 
 @require_GET
 def user_info(request, uid):
-    title = "User Information"
-    joined_readathons = Readathon.objects.filter(readers=uid)
+    joined_readathons = Readathon.objects.filter(readers=uid).order_by('-created')
     reader = Reader.objects.get(id=uid)
-    activity = Activity.objects.order_by('-time')[:10]
-    context_dict = {'title': title, 'joined_r': joined_readathons, 'reader': reader, 'activity':activity}
+    title = reader.username
+    activity = Activity.objects.order_by('-created')[:10]
+    accomplishments = Accomplishment.objects.filter(user_id=uid).order_by('-created')
+    recent_books = []
+    for accomplishment in accomplishments:
+        for book in accomplishment.books.all():
+            recent_books.append(book)
+    recent_books = list(set(recent_books))[:12]
+
+    context_dict = {'title': title, 'joined_r': joined_readathons, 'reader': reader, 'activity': activity,
+                    'accomplishments': accomplishments, 'recent_books': recent_books}
     return render(request, 'bookwormsunite/user_info.html', context_dict)
 
 
@@ -71,7 +79,7 @@ def login(request):
         else:
             response = {'msg': DISABLED_ACC_MSG}
     else:
-            response = {'msg': INCORRECT_CREDS_MSG}
+        response = {'msg': INCORRECT_CREDS_MSG}
     return JsonResponse(response)
 
 
@@ -107,5 +115,3 @@ def search(request):
         pass
     context_dict = {'readathons': readathons}
     return render(request, 'bookwormsunite/base.html', context_dict)
-
-

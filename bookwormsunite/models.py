@@ -52,7 +52,7 @@ class Readathon(TimeStampedModel):
 
 
 class Challenge(TimeStampedModel):
-    readathon_id = models.ForeignKey(Readathon, on_delete=models.CASCADE)
+    readathon = models.ForeignKey(Readathon, on_delete=models.CASCADE)
     name = models.CharField(max_length=256)
     slug = models.SlugField()
 
@@ -80,4 +80,3 @@ class Accomplishment(TimeStampedModel):
 class Activity(TimeStampedModel):
     user = models.ForeignKey(Reader, on_delete=models.CASCADE)
     message = models.CharField(max_length=512)
-    time = models.DateTimeField()

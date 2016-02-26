@@ -171,7 +171,7 @@ div#profile-readathon-list a {
 #profile-profile-plate {
     border-radius: 3px;
     padding: 0.5rem;
-    border: 1px solid rgba(0,0,0,0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     /*background-color: rgb(173, 169, 198);*/
     /*background-color: rgb(255, 255, 255);*/
 }
@@ -197,6 +197,30 @@ div#profile-readathon-list a {
     float: right;
     margin-bottom: 0;
     margin-top: -1rem;
+    border: 1px solid rgb(174, 170, 198);
     background-color: rgb(244, 244, 244);
+    color: rgb(174, 170, 198);
+    font-weight: 700;
 }
 
+#readathon-join-btn:hover {
+    background-color: white;
+    font-weight: 900;
+}
+
+.datetime-text {
+    font-weight: bolder;
+    font-size: 13px;
+    color: rgba(253, 175, 43, 1)
+}
+
+#readathon-summary-plate table {
+    margin-bottom: 0;
+    width: 100%;
+}
+
+#readathon-summary-plate table tbody {
+    border: none;
+    background-color: transparent;
+    vertical-align: middle;
+}

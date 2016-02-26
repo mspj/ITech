@@ -13,7 +13,35 @@
                 <small>(#{{ readathon.slug }})</small></span>
                 <a href="#" class="button hollow" id="readathon-join-btn">Join</a>
             </h3>
+            <div id="readathon-summary-plate">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td style="width: 70%">
+                            <div class="datetime-text">Period: Mon 5 Feb 16 - Fri 10 Feb 16</div>
+                            <div>This is where the description of the readathon is. Currently this readathon has no
+                                description, so I'm just typing bla bla bla bla to fill the gap.
+                            </div>
+                        </td>
+                        <td style="width: 30%; text-align: right;">
+                            <div>Number of Participants: 11</div>
+                            <div>Number of Books Read: 43</div>
+                            <div>Avg Number of Books Read: 4</div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
+        {% for challenge in challenges %}
+
+            <div class="blog-post">
+                <h5 class="blog-title smaller"><span>Challenge #{{ forloop.counter }}</span></h5>
+                <h5>{{ challenge.name }}</h5>
+            </div>
+
+        {% endfor %}
 
     </div>
 

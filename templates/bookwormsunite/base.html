@@ -81,7 +81,8 @@
             <div class="top-bar-right">
                 <ul class="menu">
                     {% if user.is_authenticated %}
-                        <li class="menu-text">Hi {{ user.username }}</li>
+                        <li class="menu-text">Hi <a href="{% url 'user_info' uid=user.id %}">{{ user.username }}</a>
+                        </li>
                         <li class="menu-text"><a href="{% url 'logout' %}">logout</a></li>
                     {% else %}
                         <li class="menu-text"><a data-open="loginModal">login/register</a></li>

@@ -2,16 +2,6 @@
 
 {% block title %}{{ title }}{% endblock %}
 
-
-{#{% block activity %}#}
-{#    <ul>#}
-{#        {% for activity in activity %}#}
-{#            <li>{% activity %}</li>#}
-{#        {% endfor %}#}
-{#    </ul>#}
-{#{% endblock %}#}
-
-
 {% block content %}
 
     <div class="page-content">
@@ -72,58 +62,16 @@
                     <div class="blog-post">
                         <h3 class="blog-title"><span>{{ reader.username | title }}'s Recent Activities</span></h3>
 
-                        {#                        example acitivity #}
-                        <div>
-                            <p style="margin-bottom: 0"><i class="fi-trophy"
-                                                           style="opacity: 0.5; margin-right: 10px;"></i> <span
-                                    style="font-weight: bolder;">{{ reader.username | title }}</span>
-                                completed all challenges in TBR Takedown Readathon!</p>
-                            <p style="font-weight: bolder; font-size: 13px; color: rgba(253, 175, 43, 1)">Fri 28 Feb
-                                16 10:30 PM</p>
-                        </div>
-                        <hr>
-
-                        <div>
-                            <p style="margin-bottom: 0"><i class="fi-book"
-                                                           style="opacity: 0.5; margin-right: 10px;"></i> <span
-                                    style="font-weight: bolder;">{{ reader.username | title }}</span>
-                                completed challenge 'Read a book written by your favourite author' in TBR Takedown
-                                Readathon by reading 'Pride and Prejudice'</p>
-                            <p class="datetime-text">Fri 28 Feb
-                                16 10:30 PM</p>
-                        </div>
-                        <hr>
-
-                        <div>
-                            <p style="margin-bottom: 0"><i class="fi-book"
-                                                           style="opacity: 0.5; margin-right: 10px;"></i> <span
-                                    style="font-weight: bolder;">{{ reader.username | title }}</span>
-                                completed challenge 'Read a book written by your favourite author' in TBR Takedown
-                                Readathon by reading 'Pride and Prejudice'</p>
-                            <p class="datetime-text">Fri 28 Feb
-                                16 10:30 PM</p>
-                        </div>
-                        <hr>
-
-                        <div>
-                            <p style="margin-bottom: 0"><i class="fi-asterisk"
-                                                           style="opacity: 0.5; margin-right: 10px;"></i> <span
-                                    style="font-weight: bolder;">{{ reader.username | title }}</span>
-                                joined TBR Takedown Readathon</p>
-                            <p class="datetime-text">Fri 28 Feb
-                                16 09:23 AM</p>
-                        </div>
-                        <hr>
-
-                        <div>
-                            <p style="margin-bottom: 0"><i class="fi-heart"
-                                                           style="opacity: 0.5; margin-right: 10px;"></i> <span
-                                    style="font-weight: bolder;">{{ reader.username | title }}</span>
-                                joined Bookwormsunite!</p>
-                            <p class="datetime-text">Fri 28 Feb
-                                16 09:23 AM</p>
-                        </div>
-                        <hr>
+                        {% for activity in activities %}
+                            <div>
+                                <p style="margin-bottom: 0"><i class="fi-{{ activity.icon }}"
+                                                               style="opacity: 0.5; margin-right: 10px;"></i> <span
+                                        style="font-weight: bolder;">{{ reader.username | title }}</span>
+                                    {{ activity.message }}</p>
+                                <p style="font-weight: bolder; font-size: 13px; color: rgba(253, 175, 43, 1)">{{ activity.created }}</p>
+                            </div>
+                            <hr>
+                        {% endfor %}
 
                     </div>
 

@@ -78,5 +78,6 @@ class Accomplishment(TimeStampedModel):
 
 
 class Activity(TimeStampedModel):
+    icon = models.CharField(max_length=20, default='star')
     user = models.ForeignKey(Reader, on_delete=models.CASCADE)
     message = models.CharField(max_length=512)

@@ -1,4 +1,5 @@
 {% extends "bookwormsunite/base.html" %}
+{% load dict_filter %}
 
 {% block title %}{{ title }}{% endblock %}
 
@@ -18,15 +19,15 @@
                     <tbody>
                     <tr>
                         <td style="width: 70%">
-                            <div class="datetime-text">Period: Mon 5 Feb 16 - Fri 10 Feb 16</div>
-                            <div>This is where the description of the readathon is. Currently this readathon has no
-                                description, so I'm just typing bla bla bla bla to fill the gap.
+                            <div class="datetime-text">Period: {{ readathon.start_date|date:"D d M y" }}
+                                - {{ readathon.end_date|date:"D d M y" }}</div>
+                            <div>{{ readathon.description }}
                             </div>
                         </td>
                         <td style="width: 30%; text-align: right;">
-                            <div>Number of Participants: 11</div>
-                            <div>Number of Books Read: 43</div>
-                            <div>Avg Number of Books Read: 4</div>
+                            <div>Number of Participants: {{ readers|length }}</div>
+                            <div>Number of Books Read: {{ num_books_read }}</div>
+                            <div>Avg Number of Books Read: {{ avg_num_books_read }}</div>
                         </td>
                     </tr>
                     </tbody>
@@ -37,11 +38,76 @@
         {% for challenge in challenges %}
 
             <div class="blog-post">
-                <h5 class="blog-title smaller"><span>Challenge #{{ forloop.counter }}</span></h5>
-                <h5>{{ challenge.name }}</h5>
+                <h5 class="blog-title challenge-title smaller"><span>Challenge #{{ forloop.counter }}</span></h5>
+                <h5 class="readathon-challenge-title">{{ challenge.name }}</h5>
+                <div>Top Books People Read in This Challenge</div>
+
+                <div class="row">
+                    <div class="medium-10 large-10 column">
+                        {% if challenge_books_read|get_item:challenge.id|length > 0 %}
+                            <div class="jcarousel-wrapper" style="margin: 0;">
+                                <div class="jcarousel">
+                                    <ul>
+                                        {% for book, count in  challenge_books_read|get_item:challenge.id %}
+                                            <li>
+                                                <a href="http://www.bookdepository.com/search?searchTerm={{ book.book_name|urlencode }}">
+                                                    <img src="{{ book.cover }}" alt="{{ book.book_name }}"
+                                                         data-tooltip aria-haspopup="true" class="has-tip"
+                                                         title="{{ book.book_name }} (read {{ count }} times)">
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+
+                                    </ul>
+                                </div>
+
+                                <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+                                <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+                            </div>
+                        {% else %}
+                            <div style="margin: 1rem; width: 100%; opacity: 0.5; text-align: center;">No books has been
+                                read in this
+                                challenge
+                                yet.
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="medium-2 large-2 column readathon-add-book-plate">
+
+                    </div>
+                </div>
             </div>
 
         {% endfor %}
+
+    </div>
+
+    <div class="row medium-9 large-8">
+
+
+        <div class="medium-6 large-6 columns">
+            <div id="readathon-thumbnail-panel">
+                <div class="blog-post">
+                    <h3 class="blog-title"><span>Joined Readers</span></h3>
+
+                    <ul>
+                        {% for reader in  readers %}
+                            <li><a href="{% url 'user_info' uid=reader.id %}"><img
+                                    src="{{ reader.img }}"></a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="medium-6 large-6 columns" id="twitter-widget">
+            <div id="readathon-tweet-panel">
+                <div class="blog-post">
+                    <h3 class="blog-title"><span>#{{ readathon.slug }}</span></h3>
+                </div>
+            </div>
+        </div>
 
     </div>
 

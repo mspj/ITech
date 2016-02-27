@@ -76,6 +76,10 @@ hr {
     padding-right: 10px;
 }
 
+.blog-title.challenge-title {
+    margin-bottom: 0.8rem;
+}
+
 .blog-content {
     width: 100%;
 }
@@ -150,9 +154,8 @@ hr {
     background: rgba(253, 175, 43, 1);
 }
 
-#readathon-books-carousel img {
-    width: 99%;
-    height: 220px !important;
+.jcarousel img {
+    width: 100%;
 }
 
 div#profile-readathon-list {
@@ -223,4 +226,43 @@ div#profile-readathon-list a {
     border: none;
     background-color: transparent;
     vertical-align: middle;
+}
+
+.readathon-challenge-title {
+    font-size: 30px;
+    font-weight: 200;
+    width: 100%;
+    color: rgb(242, 99, 75);
+}
+
+.readathon-add-book-plate {
+    height: 100%;
+}
+
+#readathon-thumbnail-panel {
+    width: 100%;
+    margin: 0 auto;
+    overflow: auto;
+}
+
+#readathon-thumbnail-panel ul {
+    list-style-type: none;
+}
+
+#readathon-thumbnail-panel li img {
+    float: left;
+    margin: 2px;
+    border-radius: 2px;
+    width: 50px;
+    height: 50px;
+}
+
+#readathon-thumbnail-panel li img:hover {
+    border: 1px solid white;
+}
+
+#readathon-tweet-panel {
+    width: 100%;
+    margin: 0 auto;
+    overflow: auto;
 }

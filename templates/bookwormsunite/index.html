@@ -24,7 +24,8 @@
                                 <td>
                                     <a href="{% url 'readathon' %}{{ readathon.slug }}">
                                         <div class="poster column">
-                                            <div class="topcaption">St. {{ readathon.start_date|date:"D d M y" }}</div>
+                                            <div class="topcaption">{{ readathon.start_date|date:"D d M y" }}
+                                                - {{ readathon.end_date|date:"D d M y" }}</div>
                                             <div class="caption">{{ readathon.name }} ></div>
                                         </div>
                                     </a>

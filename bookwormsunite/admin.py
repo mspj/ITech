@@ -1,13 +1,14 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.forms import UserChangeForm
 
-from bookwormsunite.forms import ReaderChangeForm, ReaderCreationForm
+from bookwormsunite.forms import ReaderCreationForm
 from bookwormsunite.models import Reader, Readathon, Challenge, Accomplishment, Book, Activity
 
 
 @admin.register(Reader)
 class ReaderAdmin(UserAdmin):
-    form = ReaderChangeForm
+    form = UserChangeForm
     add_form = ReaderCreationForm
 
     list_display = ('username', 'is_superuser', 'is_active', 'img',)
@@ -15,7 +16,7 @@ class ReaderAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
         ('Information', {'fields': ('img',)}),
-        ('Permissions', {'fields': ('is_superuser', 'is_active',)}),
+        ('Permissions', {'fields': ('is_superuser',)}),
     )
     add_fieldsets = (
         (None, {

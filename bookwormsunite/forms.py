@@ -12,17 +12,6 @@ class ReaderForm(AuthenticationForm):
         fields = ('username', 'password')
 
 
-class ReaderChangeForm(forms.ModelForm):
-    password = ReadOnlyPasswordHashField()
-
-    class Meta:
-        model = Reader
-        fields = ('username', 'password', 'is_superuser')
-
-    def clean_password(self):
-        return self.initial["password"]
-
-
 class ReaderCreationForm(forms.ModelForm):
     error_messages = {
         'duplicate_username': "A user with that username already exists.",

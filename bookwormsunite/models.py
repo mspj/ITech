@@ -7,7 +7,7 @@ from bookwormsunite.managers import ReaderManager
 
 class Reader(AbstractBaseUser, PermissionsMixin):
     username = models.CharField('username', max_length=30, unique=True)
-    img = models.URLField()
+    img = models.URLField(blank=True)
 
     USERNAME_FIELD = 'username'
 

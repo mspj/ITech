@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -64,7 +65,6 @@ TWITTER_OAUTH_SECRET = 'sYwMWdy0HYYt0suHi7lAqGWBzg5iT0YGx3vXOdfZq9Mub'
 TWITTER_CONSUMER_KEY = 'jzaX3FpCkrjVLox9WCxdRSeuK'
 # OAuth settings: Consumer secret
 TWITTER_CONSUMER_SECRET = 'NxRDUo7zKXPVmmK6vKUpHEwxwpmbCg3vx3Nyp0ocr4M4L62QrR'
-
 
 ROOT_URLCONF = 'ITech.urls'
 

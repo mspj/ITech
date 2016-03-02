@@ -12,3 +12,6 @@ __pycache__/
 
 # DB file
 *.sqlite3
+
+# Test
+*.coverage

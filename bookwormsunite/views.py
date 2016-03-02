@@ -8,8 +8,8 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.views.decorators.http import require_http_methods, require_GET, require_POST
 
-from ITech.settings import LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL, SUCCESS_MSG, FAIL_MSG, INCORRECT_CREDS_MSG, \
-    DISABLED_ACC_MSG
+from ITech.settings import LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL, SUCCESS_STATUS, FAIL_STATUS, INCORRECT_CREDS_MSG, \
+    DISABLED_ACC_MSG, SUCCESS_LOGIN_MSG, SUCCESS_REGISTER_MSG
 from bookwormsunite.forms import ReaderCreationForm
 from bookwormsunite.models import Readathon, Accomplishment, Reader, Challenge, Activity
 
@@ -97,7 +97,7 @@ def user_summary(request, uid):
 
 @require_POST
 def login(request):
-    response = {'status': FAIL_MSG}
+    response = {'status': FAIL_STATUS}
     username = request.POST.get('username', '')
     password = request.POST.get('password', '')
     user = authenticate(username=username, password=password)
@@ -105,7 +105,8 @@ def login(request):
     if user:
         if user.is_active:
             auth_login(request, user)
-            response['status'] = SUCCESS_MSG
+            response['status'] = SUCCESS_STATUS
+            response['msg'] = SUCCESS_LOGIN_MSG
             response['redirect_to'] = LOGIN_REDIRECT_URL
         else:
             response = {'msg': DISABLED_ACC_MSG}
@@ -122,14 +123,15 @@ def logout(request):
 
 @require_POST
 def register(request):
-    response = {'status': FAIL_MSG}
+    response = {'status': FAIL_STATUS}
     reader_form = ReaderCreationForm(data=request.POST)
     if reader_form.is_valid():
         reader = reader_form.save(commit=True)
         reader = authenticate(username=reader_form.cleaned_data['username'],
                               password=reader_form.cleaned_data['password'])
         auth_login(request, reader)
-        response['status'] = SUCCESS_MSG
+        response['status'] = SUCCESS_STATUS
+        response['msg'] = SUCCESS_REGISTER_MSG
         response['redirect_to'] = LOGIN_REDIRECT_URL
     else:
         response['msg'] = reader_form.errors

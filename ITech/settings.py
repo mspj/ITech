@@ -117,7 +117,9 @@ TEMPLATE_DIRS = (
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-SUCCESS_MSG = 'success'
-FAIL_MSG = 'fail'
+SUCCESS_STATUS = 'success'
+FAIL_STATUS = 'fail'
+SUCCESS_LOGIN_MSG = 'Successfully logged in'
+SUCCESS_REGISTER_MSG = 'Successfully registered'
 INCORRECT_CREDS_MSG = 'Your username and/or password are incorrect.'
 DISABLED_ACC_MSG = 'Your account is disabled.'

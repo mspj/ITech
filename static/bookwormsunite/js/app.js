@@ -34,6 +34,7 @@ $(function () {
 
     $('#login_form').on('submit', function (event) {
         event.preventDefault();
+        $('#modalAlert').fadeIn();
 
         $.ajax({
             type: 'POST',
@@ -42,10 +43,16 @@ $(function () {
             dataType: 'json',
             encode: true,
             success: function (data) {
+                var alertArea = $('#modalAlert');
+                var alertMsg = $('#modalAlertMsg');
                 if (data.status === "success") {
+                    alertMsg.text(data.msg);
+                    alertArea.attr('class', 'callout success');
+                    alertArea.fadeIn();
                     window.location = data.redirect_to;
                 } else {
-                    alert(data.msg);
+                    alertMsg.text(data.msg);
+                    alertArea.fadeIn();
                 }
             },
             error: function (data) {
@@ -56,6 +63,7 @@ $(function () {
 
     $('#register_form').on('submit', function (event) {
         event.preventDefault();
+        $('#modalAlert').fadeIn();
 
         $.ajax({
             type: 'POST',
@@ -64,10 +72,16 @@ $(function () {
             dataType: 'json',
             encode: true,
             success: function (data) {
+                var alertArea = $('#modalAlert');
+                var alertMsg = $('#modalAlertMsg');
                 if (data.status === "success") {
+                    alertMsg.text(data.msg);
+                    alertArea.attr('class', 'callout success');
+                    alertArea.fadeIn();
                     window.location = data.redirect_to;
                 } else {
-                    alert(data.msg);
+                    alertMsg.text(data.msg);
+                    alertArea.fadeIn();
                 }
             },
             error: function (data) {

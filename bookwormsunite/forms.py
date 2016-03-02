@@ -28,14 +28,13 @@ class ReaderCreationForm(forms.ModelForm):
         'duplicate_username': "A user with that username already exists.",
         'password_mismatch': "The two password fields didn't match.",
     }
-    username = forms.CharField(label="Username", max_length=30,
-                               help_text="Required. 30 characters or fewer. Letters, and digits.",
-                               error_messages={
-                                   'invalid': "This value may contain only letters, and numbers"})
+    username = forms.CharField(label="Username", widget=forms.TextInput(attrs={'id': 'registration_username'}),
+                               max_length=30, help_text="Required. 30 characters or fewer. Letters, and digits.",
+                               error_messages={'invalid': "This value may contain only letters, and numbers"})
     password = forms.CharField(label="Password",
-                               widget=forms.PasswordInput)
+                               widget=forms.PasswordInput(attrs={'id': 'registration_password'}))
     password2 = forms.CharField(label="Password confirmation",
-                                widget=forms.PasswordInput,
+                                widget=forms.PasswordInput(attrs={'id': 'registration_password2'}),
                                 help_text="Enter the same password as above, for verification.")
 
     class Meta:

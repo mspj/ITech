@@ -126,6 +126,9 @@ def register(request):
     reader_form = ReaderCreationForm(data=request.POST)
     if reader_form.is_valid():
         reader = reader_form.save(commit=True)
+        reader = authenticate(username=reader_form.cleaned_data['username'],
+                              password=reader_form.cleaned_data['password'])
+        auth_login(request, reader)
         response['status'] = SUCCESS_MSG
         response['redirect_to'] = LOGIN_REDIRECT_URL
     else:

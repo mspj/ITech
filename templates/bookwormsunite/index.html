@@ -85,7 +85,20 @@
 
                     <li class="week">
                         {% for dayobj in calendar_obj %}
-                            <div class="large-1 day">{{ dayobj.day|date:"d" }}</div>
+                            <div class="large-1 day">
+                                <div>{{ dayobj.day|date:"d" }}</div>
+
+                                <div style="background-color: rgba(146, 207, 92, 0.5); margin: 3px; padding: 3px; font-size: 10px; height: 1rem; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">
+                                    Whatever The Name Readathon
+                                </div>
+
+                                {% if forloop.counter0|divisibleby:2 %}
+                                    <div style="background-color: rgba(146, 207, 92, 0.5); margin: 3px; padding: 3px; font-size: 10px; height: 1rem; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">
+                                        Another Readathon
+                                    </div>
+                                {% endif %}
+
+                            </div>
                         {% endfor %}
                     </li>
 

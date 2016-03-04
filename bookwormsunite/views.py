@@ -26,7 +26,15 @@ def index(request):
 
     recent_books = list(set(recent_books))[:12]
 
-    context_dict = {'title': title, 'upcoming_readathons': upcoming_readathons, 'recent_books': recent_books}
+    today = timezone.now()
+    monday = today - timezone.timedelta(days=today.weekday())
+    calendar_obj = [{}, {}, {}, {}, {}, {}, {}]
+
+    for i in range(7):
+        calendar_obj[i]['day'] = monday + timezone.timedelta(i)
+
+    context_dict = {'title': title, 'upcoming_readathons': upcoming_readathons, 'recent_books': recent_books,
+                    'calendar_obj': calendar_obj, 'today': today}
     return render(request, 'bookwormsunite/index.html', context_dict)
 
 

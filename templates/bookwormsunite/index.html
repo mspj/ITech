@@ -68,26 +68,25 @@
             <div class="blog-post">
                 <h3 class="blog-title"><span>Readathon Calendar</span></h3>
 
+                <div></div>
                 <ul class="calendar">
-                    <li class="title">June 4-10</li>
+                    <li class="week-header"><span style="float: left; margin-left: 2rem;"><</span>
+                        {{ today|date:"F Y" }}
+                        <span style="float: right; margin-right: 2rem;">></span></li>
                     <li class="day-header">
-                        <div class="large-1 day">Sun</div>
                         <div class="large-1 day">Mon</div>
                         <div class="large-1 day">Tue</div>
                         <div class="large-1 day">Wed</div>
                         <div class="large-1 day">Thu</div>
                         <div class="large-1 day">Fri</div>
                         <div class="large-1 day">Sat</div>
+                        <div class="large-1 day">Sun</div>
                     </li>
 
                     <li class="week">
-                        <div class="large-1 day">4</div>
-                        <div class="large-1 day">5</div>
-                        <div class="large-1 day">6</div>
-                        <div class="large-1 day">7</div>
-                        <div class="large-1 day">8</div>
-                        <div class="large-1 day">9</div>
-                        <div class="large-1 day">10</div>
+                        {% for dayobj in calendar_obj %}
+                            <div class="large-1 day">{{ dayobj.day|date:"d" }}</div>
+                        {% endfor %}
                     </li>
 
                     <!-- Repeat for additional weeks -->

@@ -11,8 +11,12 @@
 
         <div class="blog-post">
             <h3 class="blog-title"><span>{{ readathon.name | title }}
-                <small>(#{{ readathon.slug }})</small></span>
-                <a href="#" class="button hollow" id="readathon-join-btn">Join</a>
+                {% if is_open == False %}
+                    <small>(Close)</small></span>
+                {% endif %}
+                {% if is_open == True %}
+                    <a href="#" class="button hollow" id="readathon-join-btn">Join</a>
+                {% endif %}
             </h3>
             <div id="readathon-summary-plate">
                 <table>
@@ -65,10 +69,18 @@
                                 <a href="#" class="jcarousel-control-next">&rsaquo;</a>
                             </div>
                         {% else %}
-                            <div style="margin: 1rem; width: 100%; opacity: 0.5; text-align: center;">No books has been
-                                read in this
-                                challenge
-                                yet.
+                            <div class="jcarousel-wrapper" style="margin: 0;">
+                                <div class="jcarousel">
+                                    <ul>
+                                        <li style="border: none;">
+
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+                                <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+                                <a href="#" class="jcarousel-control-next">&rsaquo;</a>
                             </div>
                         {% endif %}
                     </div>

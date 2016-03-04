@@ -195,15 +195,15 @@ def populate():
                        "These are valid points but I'd rather do something positive about it."
                        "So this readathon is for anyone who wants to promote under-hyped books, "
                        "books you think are worth the buzz but just aren't getting the attention they deserve.",
-                       datetime.datetime(2016, 1, 19, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
-                       datetime.datetime(2016, 1, 25, 23, 59, 59, tzinfo=timezone.get_current_timezone()),
+                       datetime.datetime(2016, 2, 25, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
+                       datetime.datetime(2016, 3, 25, 23, 59, 59, tzinfo=timezone.get_current_timezone()),
                        [reader1, reader3, reader5, reader7, reader9, reader11, reader13, reader15, reader17, reader19])
     r4c1 = add_challenge(r4, "Read an underhyped book.")
 
     r5 = add_readathon("Continent Readathon",
                        "Let's read more books by authors from different continents.",
-                       datetime.datetime(2016, 2, 1, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
-                       datetime.datetime(2016, 3, 7, 23, 59, 59, tzinfo=timezone.get_current_timezone()),
+                       datetime.datetime(2016, 3, 1, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
+                       datetime.datetime(2016, 3, 31, 23, 59, 59, tzinfo=timezone.get_current_timezone()),
                        [reader1, reader2, reader4, reader6, reader8, reader10])
     r5c1 = add_challenge(r5, "Read a book written by African author.")
     r5c2 = add_challenge(r5, "Read a book written by Asian author.")
@@ -224,8 +224,8 @@ def populate():
     r7 = add_readathon("Read-O-Rama Readathon",
                        "This readathon is hosted by the following Booktubers: Chloe (@brunettebiblio), "
                        "Elizabeth (@zizzybookbabble), Danne (@DanneLen),  Katie (@kitkatscanread), and Emily Jean (@emilyjeanlives).",
-                       datetime.datetime(2016, 3, 8, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
-                       datetime.datetime(2016, 3, 14, 23, 59, 59, tzinfo=timezone.get_current_timezone()),
+                       datetime.datetime(2016, 4, 8, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
+                       datetime.datetime(2016, 4, 14, 23, 59, 59, tzinfo=timezone.get_current_timezone()),
                        [])
     r7c1 = add_challenge(r7, "A book from your TBR jar or that someone else picks.")
     r7c2 = add_challenge(r7, "A book with green on the cover.")
@@ -235,16 +235,16 @@ def populate():
     r8 = add_readathon("SWinter",
                        "Remember that Phineas and Ferb episode where they built a ski hill in their backyard during the Summer and called it 'Swinter.'"
                        " Yeah, well, this read-a-thon was kind of inspired by that.",
-                       datetime.datetime(2016, 3, 16, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
-                       datetime.datetime(2016, 3, 25, 23, 59, 59, tzinfo=timezone.get_current_timezone()),
+                       datetime.datetime(2016, 4, 16, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
+                       datetime.datetime(2016, 4, 25, 23, 59, 59, tzinfo=timezone.get_current_timezone()),
                        [])
     r8c1 = add_challenge(r8, "Read a summertime book.")
     r8c2 = add_challenge(r8, "Read a wintertime book.")
 
     r9 = add_readathon("AYearAThon (Fantasy & Scifi)",
                        "In this readathon, we pick a genre of books a year. :)",
-                       datetime.datetime(2016, 4, 6, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
-                       datetime.datetime(2016, 4, 12, 23, 59, 59, tzinfo=timezone.get_current_timezone()),
+                       datetime.datetime(2016, 5, 6, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
+                       datetime.datetime(2016, 5, 12, 23, 59, 59, tzinfo=timezone.get_current_timezone()),
                        [])
     r9c1 = add_challenge(r9, "Read a high-fantasy book.")
     r9c2 = add_challenge(r9, "Read a scifi book.")
@@ -254,8 +254,8 @@ def populate():
                         "The goal is to read as many books as you can in 48 hours. "
                         "It is impossible to be able to stay up for 48 hours straight, "
                         "so you can go to sleep in the middle of it.",
-                        datetime.datetime(2016, 4, 17, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
-                        datetime.datetime(2016, 4, 19, 23, 59, 59, tzinfo=timezone.get_current_timezone()),
+                        datetime.datetime(2016, 5, 17, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
+                        datetime.datetime(2016, 5, 19, 23, 59, 59, tzinfo=timezone.get_current_timezone()),
                         [])
     r10c1 = add_challenge(r10, "Read a graphic novel.")
     r10c2 = add_challenge(r10, "Read a chapter book that you missed out reading as a child.")
@@ -268,8 +268,8 @@ def populate():
                         "BookTubeAThon is a week-long reading challenge where participants are encouraged to read as much as they can. "
                         "In addition to reading at a ferocious pace and engaging the community on YouTube and Twitter, "
                         "there are seven specific book challenges each year.",
-                        datetime.datetime(2016, 5, 3, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
-                        datetime.datetime(2016, 5, 9, 23, 59, 59, tzinfo=timezone.get_current_timezone()),
+                        datetime.datetime(2016, 6, 3, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
+                        datetime.datetime(2016, 6, 9, 23, 59, 59, tzinfo=timezone.get_current_timezone()),
                         [])
     r11c1 = add_challenge(r11, "Read a book with blue on the cover.")
     r11c2 = add_challenge(r11, "Read a book by an author who shares the same first letter of your last name")
@@ -279,8 +279,8 @@ def populate():
 
     r12 = add_readathon("Ramazanathon",
                         "Ramazan/Ramadan-a-Thon (n): A Turkish/English read-a-thon that takes place during (the month of) Ramadan.",
-                        datetime.datetime(2016, 6, 18, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
-                        datetime.datetime(2016, 7, 16, 23, 59, 59, tzinfo=timezone.get_current_timezone()),
+                        datetime.datetime(2016, 7, 18, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
+                        datetime.datetime(2016, 8, 16, 23, 59, 59, tzinfo=timezone.get_current_timezone()),
                         [])
 
     # --------------------------------------

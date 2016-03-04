@@ -71,9 +71,12 @@ def readathon_info(request, readathon_name_slug):
         avg_num_books_read = num_books_read // len(readers)
 
     title = readathon.name
+
+    is_open = (readathon.end_date > timezone.now())
+
     context_dict = {'title': title, 'readathon': readathon, 'challenges': challenges, 'readers': readers,
                     'num_books_read': num_books_read, 'challenge_books_read': challenge_books_read,
-                    'avg_num_books_read': avg_num_books_read}
+                    'avg_num_books_read': avg_num_books_read, 'is_open': is_open}
     return render(request, 'bookwormsunite/readathon.html', context_dict)
 
 

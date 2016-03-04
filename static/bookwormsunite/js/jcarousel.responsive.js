@@ -1,5 +1,5 @@
-(function($) {
-    $(function() {
+(function ($) {
+    $(function () {
         var jcarousel = $('.jcarousel');
 
         jcarousel
@@ -7,13 +7,11 @@
                 var carousel = $(this),
                     width = carousel.innerWidth();
 
-                if (width >= 600) {
-                    width = width / 6;
-                } else if (width >= 350) {
-                    width = width / 4;
-                }
+                height = 240.0 * width / 1000;
+                width = width / 6;
 
                 carousel.jcarousel('items').css('width', Math.ceil(width) + 'px');
+                carousel.jcarousel('items').css('height', Math.ceil(height) + 'px');
             })
             .jcarousel({
                 wrap: 'circular'
@@ -30,18 +28,18 @@
             });
 
         $('.jcarousel-pagination')
-            .on('jcarouselpagination:active', 'a', function() {
+            .on('jcarouselpagination:active', 'a', function () {
                 $(this).addClass('active');
             })
-            .on('jcarouselpagination:inactive', 'a', function() {
+            .on('jcarouselpagination:inactive', 'a', function () {
                 $(this).removeClass('active');
             })
-            .on('click', function(e) {
+            .on('click', function (e) {
                 e.preventDefault();
             })
             .jcarouselPagination({
                 perPage: 1,
-                item: function(page) {
+                item: function (page) {
                     return '<a href="#' + page + '">' + page + '</a>';
                 }
             });

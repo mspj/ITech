@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.views.generic import RedirectView
 
+
 from bookwormsunite.views import index, readathon_info, user_info, user_summary, login, logout, register, search
 
 urlpatterns = patterns('',
@@ -19,5 +20,7 @@ urlpatterns = patterns('',
                        url(r'^register/$', register, name='register'),
                        url(r'^search/$', search),
                        url(r'^admin/', include(admin.site.urls)),
+                       url(r'^user/(?P<uid>[0-9]+)/upload_picture', name='upload_pic'),)
 
-                       )
+
+

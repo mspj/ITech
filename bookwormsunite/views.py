@@ -162,3 +162,14 @@ def search(request):
         pass
     context_dict = {'readathons': readathons}
     return render(request, 'bookwormsunite/base.html', context_dict)
+
+def upload_pic(request):
+    if request.method == 'POST':
+        form = ImageUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            m = ExampleModel.objects.get(readers=uid)
+            m.model_pic = form.cleaned_data['image']
+            m.save()
+            return render(request, 'bookwormsunite/upload_picture.html')
+
+    return HttpResponseForbidden('allowed only via POST')

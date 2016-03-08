@@ -4,10 +4,15 @@ from django.template.defaultfilters import slugify
 
 from bookwormsunite.managers import ReaderManager
 
+#class ImageUpload(models.Model):
+#        picture = models.ImageField(upload_to='/media', null=True)
+
+
 
 class Reader(AbstractBaseUser, PermissionsMixin):
     username = models.CharField('username', max_length=30, unique=True)
     img = models.URLField(blank=True)
+
 
     USERNAME_FIELD = 'username'
 

@@ -16,6 +16,47 @@ function getCookie(name) {
     return cookieValue;
 }
 
+function updateCalendar(offset) {
+
+    // Check to see if the counter has been initialized
+    if (typeof updateCalendar.counter == 'undefined') {
+        // It has not... perform the initialization
+        updateCalendar.counter = offset;
+    } else {
+        updateCalendar.counter = updateCalendar.counter + offset;
+    }
+
+    $.ajax({
+        type: 'GET',
+        url: "calendar/" + updateCalendar.counter,
+        success: function (data) {
+
+            $('#readathon-calendar-month').html(data.month);
+
+            var cal = "";
+
+            for (var i = 0; i < data.calendar_obj.length; i++) {
+                cal = cal + "<div class='large-1 day' style='cursor: pointer;'>" +
+                    "<div style='margin-bottom: 0.5rem;'>" + data.calendar_obj[i].day + "</div>";
+
+                for (var j = 0; j < data.calendar_obj[i].readathons.length; j++) {
+                    cal = cal + "<div class='calendar-event'><a href=\"/readathon/" +
+                        data.calendar_obj[i].readathons[j].slug +
+                        "\">" + data.calendar_obj[i].readathons[j].name + "</a></div>";
+                }
+
+                cal = cal + "</div>";
+            }
+
+            $('#readathon-calendar-events').html(cal);
+        },
+        error: function (data) {
+            alert('cannot update calendar');
+        }
+    })
+
+}
+
 function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
@@ -89,4 +130,13 @@ $(function () {
             }
         });
     });
+
+    $('#readathon-calendar-left').click(function () {
+        updateCalendar(-1);
+    });
+
+    $('#readathon-calendar-right').click(function () {
+        updateCalendar(1);
+    });
+
 });

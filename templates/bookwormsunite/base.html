@@ -132,6 +132,19 @@
     This is content
 {% endblock %}
 
+{% block footer %}
+
+    <div class="row medium-9 large-8 columns footer" style="padding-left: 0;">
+
+        <a href="{% url 'index' %}">Bookwormsunite</a>
+
+        <span class="float-right"><a href="#">Tell Us About New Readathon</a></span>
+        <span class="float-right">|</span>
+        <span class="float-right"><a href="#">About Us</a></span>
+
+    </div>
+
+{% endblock %}
 
 {% block js %}
     <script src="{% static "bookwormsunite/js/vendor/jquery.min.js" %}"></script>

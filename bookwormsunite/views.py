@@ -1,8 +1,9 @@
+import json
 import operator
 
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login, logout as auth_logout
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.utils import timezone
@@ -31,7 +32,10 @@ def index(request):
     calendar_obj = [{}, {}, {}, {}, {}, {}, {}]
 
     for i in range(7):
-        calendar_obj[i]['day'] = monday + timezone.timedelta(i)
+        event_day = monday + timezone.timedelta(i)
+        calendar_obj[i]['day'] = event_day
+        readathons = Readathon.objects.filter(start_date__lt=event_day, end_date__gt=event_day)
+        calendar_obj[i]['readathons'] = readathons
 
     context_dict = {'title': title, 'upcoming_readathons': upcoming_readathons, 'recent_books': recent_books,
                     'calendar_obj': calendar_obj, 'today': today}
@@ -163,7 +167,37 @@ def search(request):
     context_dict = {'readathons': readathons}
     return render(request, 'bookwormsunite/base.html', context_dict)
 
-def upload_pic(request):
+
+@require_GET
+def calendar(request, offset):
+    offset = int(offset)
+
+    today = timezone.now()
+    monday = today - timezone.timedelta(days=today.weekday())
+
+    if (offset < 0):
+        monday = monday - timezone.timedelta(abs(offset) * 7)
+    else:
+        monday = monday + timezone.timedelta(abs(offset) * 7)
+
+    midweek = monday + timezone.timedelta(3)
+
+    calendar_obj = [{}, {}, {}, {}, {}, {}, {}]
+
+    for i in range(7):
+        event_day = monday + timezone.timedelta(i)
+        calendar_obj[i]['day'] = event_day.strftime("%d")
+        readathons = Readathon.objects.filter(start_date__lt=event_day, end_date__gt=event_day)
+        calendar_obj[i]['readathons'] = []
+        for readathon in readathons:
+            calendar_obj[i]['readathons'].append({'name': readathon.name, 'slug': readathon.slug})
+
+    response = {'month': midweek.strftime("%B %Y"), 'calendar_obj': calendar_obj}
+    response = json.dumps(response)
+    return HttpResponse(response, content_type='application/json')
+
+
+def upload_pic(request, uid):
     if request.method == 'POST':
         form = ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():

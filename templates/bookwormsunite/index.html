@@ -70,9 +70,12 @@
 
                 <div></div>
                 <ul class="calendar">
-                    <li class="week-header"><span style="float: left; margin-left: 2rem;"><</span>
-                        {{ today|date:"F Y" }}
-                        <span style="float: right; margin-right: 2rem;">></span></li>
+                    <li class="week-header">
+                        <span style="float: left; margin-left: 2rem; cursor: pointer;"
+                              id="readathon-calendar-left"><</span>
+                        <span id="readathon-calendar-month">{{ today|date:"F Y" }}</span>
+                        <span style="float: right; margin-right: 2rem; cursor: pointer;"
+                              id="readathon-calendar-right">></span></li>
                     <li class="day-header">
                         <div class="large-1 day">Mon</div>
                         <div class="large-1 day">Tue</div>
@@ -83,26 +86,22 @@
                         <div class="large-1 day">Sun</div>
                     </li>
 
-                    <li class="week">
+                    <li class="week" id="readathon-calendar-events">
                         {% for dayobj in calendar_obj %}
-                            <div class="large-1 day">
-                                <div>{{ dayobj.day|date:"d" }}</div>
+                            <div class="large-1 day" style="cursor: pointer;">
+                                <div style="margin-bottom: 0.5rem;">{{ dayobj.day|date:"d" }}</div>
 
-                                <div style="background-color: rgba(146, 207, 92, 0.5); margin: 3px; padding: 3px; font-size: 10px; height: 1rem; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">
-                                    Whatever The Name Readathon
-                                </div>
+                                {% for readathon in dayobj.readathons %}
 
-                                {% if forloop.counter0|divisibleby:2 %}
-                                    <div style="background-color: rgba(146, 207, 92, 0.5); margin: 3px; padding: 3px; font-size: 10px; height: 1rem; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">
-                                        Another Readathon
+                                    <div class="calendar-event">
+                                        <a href="{% url 'readathon' %}{{ readathon.slug }}">{{ readathon.name }}</a>
                                     </div>
-                                {% endif %}
+
+                                {% endfor %}
 
                             </div>
                         {% endfor %}
                     </li>
-
-                    <!-- Repeat for additional weeks -->
 
                 </ul>
 

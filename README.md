@@ -9,7 +9,7 @@ Trello for todo list and progress: [Link](https://trello.com/b/IXdehIOW)
 ### To deploy
 ```
 $ make        # pull new commits
-# make clean  # clear db, install dependencies, make migrations, migrate, and populate data
+$ make clean  # clear db, install dependencies, make migrations, migrate, and populate data
 $ make deploy # pull new commits, clear db, install dependencies, make migrations, migrate, and populate data
 ```
 

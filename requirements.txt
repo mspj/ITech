@@ -1,7 +1,9 @@
+-f /usr/share/pip-wheels
 Django==1.7.11
 django-appconf==1.0.1
 django-classy-tags==0.7.1
 django-twitter-tag==1.2.1
+Pillow==3.1.1
 six==1.10.0
 twitter==1.17.1
 virtualenv==14.0.6

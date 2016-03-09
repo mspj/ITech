@@ -8,6 +8,9 @@ pull:
 clean:
 	@echo "[*] Removing db.sqlite3..."
 	-rm -f db.sqlite3
+	@echo "[*] Installing new packages..."
+	pip install -r requirements.txt
+	@echo "[+] Installing new packages done"
 	@echo "[*] Making migrations..."
 	python manage.py makemigrations
 	@echo "[+] Making migrations done"

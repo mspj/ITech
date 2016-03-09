@@ -1,11 +1,21 @@
 all: pull
 
 pull:
+	@echo "[*] Pulling new commits..."
 	git pull
+	@echo "[+] Pulling done"
 
 clean:
-	rm db.sqlite3
+	@echo "[*] Removing db.sqlite3..."
+	-rm -f db.sqlite3
+	@echo "[*] Making migrations..."
+	python manage.py makemigrations
+	@echo "[+] Making migrations done"
+	@echo "[*] Migrating new db file..."
 	python manage.py migrate
+	@echo "[+] Migrating done"
+	@echo "[*] Populating data..."
 	python populate_data.py
+	@echo "[+] Populating data done"
 
 deploy: pull clean

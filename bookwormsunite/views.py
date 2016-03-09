@@ -199,12 +199,14 @@ def calendar(request, offset):
 
 
 def upload_pic(request, uid):
-    if request.method == 'POST':
-        form = ImageUploadForm(request.POST, request.FILES)
+    if request.method == 'GET':
+        return render(request, 'bookwormsunite/upload_picture.html')
+
         if form.is_valid():
-            m = ExampleModel.objects.get(readers=uid)
+            m = Reader.objects.get(readers=uid)
             m.model_pic = form.cleaned_data['image']
             m.save()
             return render(request, 'bookwormsunite/upload_picture.html')
 
-    return HttpResponseForbidden('allowed only via POST')
+    if request.method == 'POST:':
+        return HttpResponseForbidden('allowed only via POST')

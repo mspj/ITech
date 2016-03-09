@@ -20,5 +20,5 @@ urlpatterns = patterns('',
                        url(r'^register/$', register, name='register'),
                        url(r'^search/$', search),
                        url(r'^admin/', include(admin.site.urls)),
-                       url(r'^user/(?P<uid>[0-9]+)/upload_picture/$', upload_pic, name='upload_pic'),
+                       url(r'^user/(?P<uid>[0-9]+)/upload_picture/', upload_pic, name='upload_pic'),
                        )

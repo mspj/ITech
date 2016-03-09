@@ -3,12 +3,6 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, Read
 
 from .models import Reader
 
-#class ImageUploadTestForm(forms.ModelForm):
-#        class Meta:
- #               model = ImageUpload
- #               fields = ['picture']
-
-
 class ReaderForm(AuthenticationForm):
     username = forms.CharField(max_length=30)
 

@@ -1,36 +1,6 @@
 {% extends "bookwormsunite/base.html" %}
 
-<form id='myform'>
-        {% csrf_token %}
-        {{ form.as_p }}
-</form>
 
-<button id="submit-image"> Upload Image </button>
 
-<script>
-$('#submit-image').click(function() {
-	var form_data = new FormData();
-	form_data.append('file', $('#myform').get(0).files);
-	console.log(form_data);
-	$.ajax({
-		url: '/api/create/image/',
-		data: form_data,
-		processData: false,
-		contentType: false,
-		type: 'POST',
-		success: function(data) {
-			var data = $.parseJSON(data);
-			alert('Success');
-		},
-		error: function(xhr) {
-			alert(xhr.statusText);
-		},
-		params: {
-      		'csrf_token': '{{ csrf_token }}',
-      		'csrf_name': 'csrfmiddlewaretoken',
-      		'csrf_xname': 'X-CSRFToken',
-		},
-	});
-});
-</script>
+<button id = "upload">"Profile Picture Selector"</button>
 

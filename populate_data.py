@@ -398,6 +398,22 @@ def populate():
     add_activity('book', reader19,
                  " completed challenge '" + r2c1.name + "' in " + r2.name + " by reading '" + b13.book_name + "'")
 
+    add_activity('asterisk', reader1, 'joined ' + r3.name)
+    add_activity('asterisk', reader2, 'joined ' + r3.name)
+    add_activity('asterisk', reader3, 'joined ' + r3.name)
+    add_activity('asterisk', reader4, 'joined ' + r3.name)
+    add_activity('asterisk', reader5, 'joined ' + r3.name)
+    add_activity('asterisk', reader7, 'joined ' + r3.name)
+    add_activity('asterisk', reader8, 'joined ' + r3.name)
+    add_activity('asterisk', reader9, 'joined ' + r3.name)
+    add_activity('asterisk', reader10, 'joined ' + r3.name)
+    add_activity('asterisk', reader11, 'joined ' + r3.name)
+    add_activity('asterisk', reader12, 'joined ' + r3.name)
+    add_activity('asterisk', reader13, 'joined ' + r3.name)
+    add_activity('asterisk', reader14, 'joined ' + r3.name)
+    add_activity('asterisk', reader15, 'joined ' + r3.name)
+    add_activity('asterisk', reader16, 'joined ' + r3.name)
+
     add_accomplishment(reader1, r3c1, [b2])
     add_accomplishment(reader2, r3c1, [b2])
     add_accomplishment(reader3, r3c1, [b2])

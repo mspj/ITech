@@ -11,12 +11,14 @@ class ReaderForm(AuthenticationForm):
         model = Reader
         fields = ('username', 'password')
 
+
 class PictureForm(forms.ModelForm):
     picture = forms.ImageField()
 
     class Meta:
         model = Reader
-        fields = 'picture',
+        fields = ('picture',)
+
 
 class ReaderCreationForm(forms.ModelForm):
     error_messages = {
@@ -63,5 +65,3 @@ class ReaderCreationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
-
-

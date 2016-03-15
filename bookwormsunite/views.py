@@ -104,6 +104,8 @@ def readathon_info(request, readathon_name_slug):
 
 @require_GET
 def user_info(request, uid):
+    picture_form = PictureForm()
+
     joined_readathons = Readathon.objects.filter(readers=uid).order_by('-created')
     try:
         reader = Reader.objects.get(id=uid)
@@ -119,7 +121,7 @@ def user_info(request, uid):
     recent_books = list(set(recent_books))[:12]
 
     context_dict = {'title': title, 'joined_r': joined_readathons, 'reader': reader, 'activities': activities,
-                    'accomplishments': accomplishments, 'recent_books': recent_books}
+                    'accomplishments': accomplishments, 'recent_books': recent_books, 'picture_form': picture_form}
     return render(request, 'bookwormsunite/user_info.html', context_dict)
 
 
@@ -221,36 +223,15 @@ def calendar(request, offset):
     return HttpResponse(response, content_type='application/json')
 
 
-def upload_pic(request, uid):
-    title="Select your profile picture!"
-    if request.method == 'POST:':
-        picture_form = PictureForm(data=request.post)
-        reader = Reader.objects.get(id=uid)
-        user=reader.username()
+@require_POST
+def upload_pic(request):
+    response = {'status': FAIL_STATUS}
+    picture_form = PictureForm(request.POST, request.FILES, instance=request.user)
 
-        context_dict= {'user': user, 'picture_form': picture_form, 'title' : title}
+    if picture_form.is_valid():
+        user = picture_form.save()
+        response['status'] = SUCCESS_STATUS
+    else:
+        response['msg'] = picture_form.errors
 
-        if picture_form.is_valid():
-            user_info = picture_form.save()
-
-
-            if 'picture' in request.FILES:
-             user_info.picture = picture_form.save()
-
-        else:
-            print picture_form.errors
-    else:#GET REQUEST
-        picture_form = PictureForm()
-        reader = Reader.objects.get(id=uid)
-        user = reader.username
-        context_dict={'picture_form':picture_form, 'user': user, 'title':title}
-
-    return render(request, 'bookwormsunite/upload_picture.html',context_dict)
-
-
-
-
-
-
-
-
+    return JsonResponse(response)

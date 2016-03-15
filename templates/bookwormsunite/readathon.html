@@ -125,6 +125,20 @@
             <div id="readathon-tweet-panel">
                 <div class="blog-post">
                     <h3 class="blog-title"><span>#{{ readathon.slug }}</span></h3>
+{#                        {% block twitter_feed %}#}
+{#                            {% load cache %}#}
+{#                            {% load twitter_tag cache %}#}
+{#                            {% cache 60 my_tweets %}#}
+{#                            {% search_tweets for readathon.slug as tweets limit 10 %}#}
+{##}
+{#                            {% endcache %}#}
+{##}
+{#                            <ul>#}
+{#                            {% for tweet in tweets %}#}
+{#                                <li>{{ tweet.html|safe }}.....{{ tweet.datetime|date:"D d M Y" }}</li>#}
+{#                            {% endfor %}#}
+{#                            </ul>#}
+{#                        {% endblock %}#}
                 </div>
             </div>
         </div>
@@ -133,21 +147,9 @@
 
 {% endblock %}
 
+{#<a class="twitter-timeline" href="https://twitter.com/BBCScotlandNews" data-widget-id="700124731345924096">Tweets by @BBCScotlandNews</a>#}
+{#                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>#}
 
-{#    {% block twitter_feed %}#}
-{#        {% load cache %}#}
-{#        {% load twitter_tag cache %}#}
-{#        {% cache 60 my_tweets %}#}
-{#        {% search_tweets for "readathon" as tweets limit 10 %}#}
-{##}
-{#        {% endcache %}#}
-{##}
-{#        <ul>#}
-{#        {% for tweet in tweets %}#}
-{#            <li>{{ tweet.html|safe }}.....{{ tweet.datetime|date:"D d M Y" }}</li>#}
-{#        {% endfor %}#}
-{#        </ul>#}
-{#    {% endblock %}#}
 
 
 

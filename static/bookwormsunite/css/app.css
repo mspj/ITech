@@ -7,6 +7,10 @@
     font-family: MyRoboto;
 }
 
+html, body {
+    height: 100%;
+}
+
 .hili-text {
     /*font-size: 1.5rem;*/
     color: rgb(242, 99, 75);
@@ -43,12 +47,16 @@
     border-radius: 5px;
 }
 
+.footer .page-content:after {
+    height: 80px;
+}
+
 .footer {
     font-size: 14px;
     padding-top: 1rem;
     padding-bottom: 1rem;
-    position: absolute;
-    bottom: 0;
+    /*position: absolute;*/
+    /*bottom: 0;*/
 }
 
 .footer span {
@@ -56,9 +64,15 @@
 }
 
 .page-content {
+    margin-bottom: -80px;
     min-height: 100%;
-    padding-bottom: 50px;
+    /*padding-bottom: 50px;*/
     background-color: rgb(244, 244, 244);
+}
+
+.page-content:after {
+    content: "";
+    display: block;
 }
 
 #index_header {

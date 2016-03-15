@@ -1,5 +1,6 @@
 from django.contrib.auth.models import BaseUserManager
 from django.utils import timezone
+from django.db import models
 
 
 class ReaderManager(BaseUserManager):
@@ -21,3 +22,20 @@ class ReaderManager(BaseUserManager):
         return self._create_user(username, email, password, is_superuser=True, **extra_fields)
 
 
+class ActivityManager(models.Manager):
+    def joined(self, user):
+        activity = self.model(icon='heart', user=user, message='joined Bookwormsunite')
+        activity.save()
+        return activity
+
+    def joined_readathon(self, user, readathon):
+        message = 'joined {0}'.format(readathon.name)
+        activity = self.model(icon='asterisk', user=user, message=message)
+        activity.save()
+        return activity
+
+    def completed_challenge(self, user, readathon, challenge, book):
+        message = 'completed challenge \'{0}\' in {1} by reading \'{2}\''.format(challenge.name, readathon.name, book.book_name)
+        activity = self.model(icon='book', user=user, message=message)
+        activity.save()
+        return activity

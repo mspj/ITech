@@ -126,6 +126,10 @@ def populate():
     b49 = add_book("Annie on My Mind", "9780374404147", "https://d.gr-assets.com/books/1388360021l/595375.jpg",
                    "Nancy Garden")
 
+    b50 = add_book("Think Before You Speak: A Complete Guide to Strategic Negotiation", "0723812013210",
+                   "https://d.gr-assets.com/books/1347914134l/1146299.jpg",
+                   "Roy J. Lewicki, Alexander Hiam")
+
     # -----------------------------------------------------------------------------------
 
     reader1 = add_reader("sashaalsberg", 'https://d.gr-assets.com/users/1444743640p6/10915830.jpg')
@@ -148,6 +152,8 @@ def populate():
     reader18 = add_reader("manna", "https://d.gr-assets.com/users/1426922465p6/19723258.jpg")
     reader19 = add_reader("phah", "https://d.gr-assets.com/users/1445248393p6/48061010.jpg")
     reader20 = add_reader("luan", "https://d.gr-assets.com/users/1361115028p6/17551516.jpg")
+    reader21 = add_reader("leifos",
+                          "https://trello-attachments.s3.amazonaws.com/56d18016c64dd25034b830cd/500x333/cd40e2407d6ae97fe6a7b1e766667de9/0d41808f60af8871fa122b3b0f37ab1b.gif")
 
     # -----------------------------------------------------------------------------------
 
@@ -186,7 +192,7 @@ def populate():
                        datetime.datetime(2016, 1, 17, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
                        datetime.datetime(2016, 1, 17, 23, 59, 59, tzinfo=timezone.get_current_timezone()),
                        [reader1, reader2, reader3, reader4, reader5, reader6, reader7, reader8, reader9, reader10,
-                        reader11, reader12, reader13, reader14, reader15, reader16])
+                        reader11, reader12, reader13, reader14, reader15, reader16, reader21])
     r3c1 = add_challenge(r3, "Read as many as books as you can!")
 
     r4 = add_readathon("The Under-Hyped Readathon",
@@ -305,6 +311,7 @@ def populate():
     add_activity('heart', reader18, 'joined Bookwormsunite!')
     add_activity('heart', reader19, 'joined Bookwormsunite!')
     add_activity('heart', reader20, 'joined Bookwormsunite!')
+    add_activity('heart', reader21, 'joined Bookwormsunite!')
 
     add_activity('asterisk', reader1, 'joined ' + r1.name)
     add_activity('asterisk', reader3, 'joined ' + r1.name)
@@ -413,6 +420,7 @@ def populate():
     add_activity('asterisk', reader14, 'joined ' + r3.name)
     add_activity('asterisk', reader15, 'joined ' + r3.name)
     add_activity('asterisk', reader16, 'joined ' + r3.name)
+    add_activity('asterisk', reader21, 'joined ' + r3.name)
 
     add_accomplishment(reader1, r3c1, [b2])
     add_accomplishment(reader2, r3c1, [b2])
@@ -430,6 +438,12 @@ def populate():
     add_accomplishment(reader14, r3c1, [b1])
     add_accomplishment(reader15, r3c1, [b12])
     add_accomplishment(reader16, r3c1, [b14])
+    add_accomplishment(reader21, r3c1, [b15])
+    add_activity('book', reader21,
+                 " completed challenge '" + r3c1.name + "' in " + r3.name + " by reading '" + b15.book_name + "'")
+    add_accomplishment(reader21, r3c1, [b50])
+    add_activity('book', reader21,
+                 " completed challenge '" + r3c1.name + "' in " + r3.name + " by reading '" + b50.book_name + "'")
 
     add_accomplishment(reader1, r4c1, [b19])
     add_accomplishment(reader3, r4c1, [b19])
@@ -473,7 +487,10 @@ def populate():
 
 def add_reader(username, img, is_superuser=False):
     r = Reader.objects.get_or_create(username=username, img=img, is_superuser=is_superuser)[0]
-    r.set_password('1234')
+    if username == 'leifos':
+        r.set_password('leifos')
+    else:
+        r.set_password('1234')
     r.save()
     return r
 

@@ -16,3 +16,4 @@ class ReadathonTest(TestCase):
     def test_slug_creation(self):
         slug = Readathon.objects.get(name="test readathon").slug
         self.assertEqual(slug, "test-readathon")
+

@@ -3,7 +3,7 @@ import operator
 
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login, logout as auth_logout
-from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse, HttpResponseBadRequest
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.utils import timezone
@@ -12,7 +12,7 @@ from django.views.decorators.http import require_http_methods, require_GET, requ
 from ITech.settings import LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL, SUCCESS_STATUS, FAIL_STATUS, INCORRECT_CREDS_MSG, \
     DISABLED_ACC_MSG, SUCCESS_LOGIN_MSG, SUCCESS_REGISTER_MSG
 from bookwormsunite.forms import ReaderCreationForm
-from bookwormsunite.models import Readathon, Accomplishment, Reader, Challenge, Activity
+from bookwormsunite.models import Readathon, Accomplishment, Reader, Challenge, Activity, Book
 
 
 @require_GET
@@ -83,6 +83,44 @@ def readathon_info(request, readathon_name_slug):
                     'num_books_read': num_books_read, 'challenge_books_read': challenge_books_read,
                     'avg_num_books_read': avg_num_books_read, 'is_finished': is_finished, 'is_started': is_started}
     return render(request, 'bookwormsunite/readathon.html', context_dict)
+
+
+@require_POST
+def add_accomplishment(request):
+    response = {'status': FAIL_STATUS}
+
+    challenge_id = request.POST.get('challenge_id', None)
+    book_name = request.POST.get('name', None)
+    isbn = request.POST.get('isbn', None)
+    cover = request.POST.get('cover', None)
+    author = request.POST.get('author', None)
+
+    if book_name is None:
+        response['msg'] = 'Missing Book Name'
+        return JsonResponse(response)
+
+    if isbn is None:
+        response['msg'] = 'Missing ISBN'
+        return JsonResponse(response)
+
+    if cover is None:
+        response['msg'] = 'Missing Cover URL'
+        return JsonResponse(response)
+
+    if author is None:
+        response['msg'] = 'Missing Author Name'
+        return JsonResponse(response)
+
+    if challenge_id is None:
+        response['msg'] = 'Invalid Challenge ID'
+        return JsonResponse(response)
+
+    accomplishment = Accomplishment.objects.get_or_create(user=request.user, challenge=challenge_id)[0]
+    book = Book.objects.get_or_create(book_name=book_name, isbn=isbn, cover=cover, author=author)[0]
+    accomplishment.books.add(book)
+    response['status'] = SUCCESS_STATUS
+
+    return JsonResponse(response)
 
 
 @require_GET

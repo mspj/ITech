@@ -40,26 +40,40 @@
 
                     <div class="blog-post">
                         <h3 class="blog-title"><span>{{ reader.username | title }}'s Recent Reads</span></h3>
-                        <div class="jcarousel-wrapper">
-                            <div class="jcarousel" id="profile-books-carousel">
-                                <ul>
-                                    {% for recent_book in recent_books %}
-                                        <li>
-                                            <a href="http://www.bookdepository.com/search?searchTerm={{ recent_book.book_name|urlencode }}">
-                                                <img src="{{ recent_book.cover }}" alt="{{ recent_book.book_name }}"
-                                                     data-tooltip aria-haspopup="true" class="has-tip"
-                                                     title="{{ recent_book.book_name }}">
-                                            </a>
-                                        </li>
-                                    {% endfor %}
 
-                                </ul>
+                        {% if recent_books|length > 0 %}
+                            <div class="jcarousel-wrapper">
+                                <div class="jcarousel" id="profile-books-carousel">
+                                    <ul>
+                                        {% for recent_book in recent_books %}
+                                            <li>
+                                                <a href="http://www.bookdepository.com/search?searchTerm={{ recent_book.book_name|urlencode }}">
+                                                    <img src="{{ recent_book.cover }}" alt="{{ recent_book.book_name }}"
+                                                         data-tooltip aria-haspopup="true" class="has-tip"
+                                                         title="{{ recent_book.book_name }}">
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+
+                                    </ul>
+                                </div>
+
+                                <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+                                <a href="#" class="jcarousel-control-next">&rsaquo;</a>
                             </div>
+                        {% else %}
+                            <div class="jcarousel-wrapper" style="margin: 0;">
+                                <div class="jcarousel">
+                                    <ul>
+                                        <li style="border: none;">
+                                        </li>
+                                    </ul>
+                                </div>
 
-                            <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
-                            <a href="#" class="jcarousel-control-next">&rsaquo;</a>
-
-                        </div>
+                                <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+                                <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+                            </div>
+                        {% endif %}
                     </div>
 
                     <div class="blog-post">

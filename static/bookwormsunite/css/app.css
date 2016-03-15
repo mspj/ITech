@@ -47,6 +47,8 @@
     font-size: 14px;
     padding-top: 1rem;
     padding-bottom: 1rem;
+    position: absolute;
+    bottom: 0;
 }
 
 .footer span {

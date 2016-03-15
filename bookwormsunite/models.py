@@ -72,11 +72,17 @@ class Book(TimeStampedModel):
     cover = models.URLField()
     author = models.CharField(max_length=128)
 
+    def __unicode__(self):
+        return '[{0}] {1} By {2}'.format(self.isbn, self.book_name, self.author)
+
 
 class Accomplishment(TimeStampedModel):
     user = models.ForeignKey(Reader, on_delete=models.CASCADE)
     challenge = models.ForeignKey(Challenge, on_delete=models.CASCADE)
     books = models.ManyToManyField(Book)
+
+    def __unicode__(self):
+        return '{0} has accomplished {1} with {2} books'.format(self.user.username, self.challenge.name, len(self.books))
 
 
 class Activity(TimeStampedModel):
@@ -85,3 +91,6 @@ class Activity(TimeStampedModel):
     message = models.CharField(max_length=512)
 
     objects = ActivityManager()
+
+    def __unicode__(self):
+        return '{0} {1}'.format(self.user.username, self.message)

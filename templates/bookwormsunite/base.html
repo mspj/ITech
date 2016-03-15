@@ -69,27 +69,45 @@
 
 {% block navbar %}
 
-    <div class="row medium-9 large-8 columns">
-        <div class="top-bar">
-            <div class="top-bar-left">
-                <ul class="dropdown menu" data-dropdown-menu style="margin-left: -30px;">
-                    <li class="menu-text"><a href="{% url 'index' %}">Bookwormsunite</a></li>
-                    <li>
-                        <span class="icon"><i class="fi-magnifying-glass"></i></span>
-                        <input type="search" class="top-bar-search-box" placeholder="Search Readathon"></li>
-                </ul>
+    <div class="top-bar">
+
+        <div class="row medium-9 large-8 columns">
+
+            <div class="top-bar-title">
+                <div class="top-bar-left">
+                    <span data-responsive-toggle="responsive-menu" data-hide-for="medium">
+                         <span style="cursor: pointer;" data-toggle><i class="fi-list"></i></span>
+                    </span>
+
+                    <a class="menu-text" href="{% url 'index' %}">Bookwormsunite</a>
+                </div>
             </div>
-            <div class="top-bar-right">
-                <ul class="menu">
-                    {% if user.is_authenticated %}
-                        <li class="menu-text">Hi <a href="{% url 'user_info' uid=user.id %}">{{ user.username }}</a>
+
+            <div id="responsive-menu">
+                <div class="top-bar-left">
+                    <ul class="menu">
+                        <li>
+                            <span class="icon"><i class="fi-magnifying-glass"></i></span>
+                            <input type="search" class="top-bar-search-box" placeholder="Search Readathon">
                         </li>
-                        <li class="menu-text"><a href="{% url 'logout' %}">logout</a></li>
-                    {% else %}
-                        <li class="menu-text"><a data-open="loginModal">login/register</a></li>
-                    {% endif %}
-                </ul>
+                    </ul>
+                </div>
+
+                <div class="top-bar-right">
+                    <ul class="menu">
+                        {% if user.is_authenticated %}
+                            <li class="menu-text">Hi <a
+                                    href="{% url 'user_info' uid=user.id %}">{{ user.username }}</a>
+                            </li>
+                            <li class="menu-text"><a href="{% url 'logout' %}">logout</a></li>
+                        {% else %}
+                            <li class="menu-text"><a data-open="loginModal">login/register</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
+
         </div>
     </div>
 
@@ -101,6 +119,7 @@
             <div class="row">
                 <div class="large-6 columns">
                     <h2>Register</h2>
+
                     <form action="{% url 'register' %}" id="register_form" method="post"
                           enctype="multipart/form-data">{% csrf_token %}
                         {{ register_form.as_p }}
@@ -109,6 +128,7 @@
                 </div>
                 <div class="large-6 columns">
                     <h2>Login</h2>
+
                     <form action="{% url 'login' %}" id="login_form" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ login_form.as_p }}
@@ -132,20 +152,6 @@
     This is content
 {% endblock %}
 
-{% block footer %}
-
-    <div class="row medium-9 large-8 columns footer" style="padding-left: 0;">
-
-        <a href="{% url 'index' %}">Bookwormsunite</a>
-
-        <span class="float-right"><a href="#">Tell Us About New Readathon</a></span>
-        <span class="float-right">|</span>
-        <span class="float-right"><a href="#">About Us</a></span>
-
-    </div>
-
-{% endblock %}
-
 {% block js %}
     <script src="{% static "bookwormsunite/js/vendor/jquery.min.js" %}"></script>
     <script src="{% static "bookwormsunite/js/vendor/what-input.min.js" %}"></script>
@@ -154,7 +160,7 @@
     <script src="{% static "bookwormsunite/js/jquery.jcarousel.min.js" %}"></script>
     <script src="{% static "bookwormsunite/js/jcarousel.responsive.js" %}"></script>
     <script src="{% static "bookwormsunite/js/app.js" %}"></script>
-    <script>src="{% static "bookwormsunite/js/upload_picture.js" %}"</script>
+    <script>src = "{% static "bookwormsunite/js/upload_picture.js" %}"</script>
 {% endblock %}
 </body>
 </html>

@@ -17,8 +17,17 @@
                                 <tbody>
                                 <tr>
                                     <td>
-                                        <div class="profile-img-lg"
-                                             style="background-image: url('{{ reader.img }}');"></div>
+                                        {% if reader.picture %}
+                                            <div class="profile-img-lg"
+                                                 style="background-image: url('{{ reader.picture.url }}');"></div>
+                                        {% elif reader.img %}
+                                            <div class="profile-img-lg"
+                                                 style="background-image: url('{{ reader.img }}');"></div>
+                                        {% else %}
+                                            {% load staticfiles %}
+                                            <div class="profile-img-lg"
+                                                 style="background-image: url('{% static "bookwormsunite/images/blank-profile.png" %}');"></div>
+                                        {% endif %}
                                     </td>
                                     <td style="width: 100%;">
                                         <h3 style="font-weight: 200;"> {{ reader.username | title }}</h3>
@@ -32,9 +41,12 @@
                                 </tr>
                                 </tbody>
                             </table>
-
-                            <a href="/user/{{ reader.id }}/upload_picture">Click here to upload a new profile
-                                picture!</a>
+                            <form action="{% url 'upload_pic' %}" id="upload_pic_form" method="post"
+                                  enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ picture_form }}
+                                <input class="button" type="submit" value="Upload">
+                            </form>
                         </div>
                     </div>
 

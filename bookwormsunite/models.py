@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.template.defaultfilters import slugify
 
-from bookwormsunite.managers import ReaderManager
+from bookwormsunite.managers import ReaderManager, ActivityManager
 
 
 class Reader(AbstractBaseUser, PermissionsMixin):
@@ -83,3 +83,5 @@ class Activity(TimeStampedModel):
     icon = models.CharField(max_length=20, default='star')
     user = models.ForeignKey(Reader, on_delete=models.CASCADE)
     message = models.CharField(max_length=512)
+
+    objects = ActivityManager()

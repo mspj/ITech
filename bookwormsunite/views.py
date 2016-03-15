@@ -11,7 +11,7 @@ from django.views.decorators.http import require_http_methods, require_GET, requ
 
 from ITech.settings import LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL, SUCCESS_STATUS, FAIL_STATUS, INCORRECT_CREDS_MSG, \
     DISABLED_ACC_MSG, SUCCESS_LOGIN_MSG, SUCCESS_REGISTER_MSG
-from bookwormsunite.forms import ReaderCreationForm
+from bookwormsunite.forms import ReaderCreationForm, PictureForm
 from bookwormsunite.models import Readathon, Accomplishment, Reader, Challenge, Activity
 
 
@@ -199,14 +199,35 @@ def calendar(request, offset):
 
 
 def upload_pic(request, uid):
-    if request.method == 'GET':
-        return render(request, 'bookwormsunite/upload_picture.html')
-
-        if form.is_valid():
-            m = Reader.objects.get(readers=uid)
-            m.model_pic = form.cleaned_data['image']
-            m.save()
-            return render(request, 'bookwormsunite/upload_picture.html')
-
+    title="Select your profile picture!"
     if request.method == 'POST:':
-        return HttpResponseForbidden('allowed only via POST')
+        picture_form = PictureForm(data=request.post)
+        reader = Reader.objects.get(id=uid)
+        user=reader.username()
+
+        context_dict= {'user': user, 'picture_form': picture_form, 'title' : title}
+
+        if picture_form.is_valid():
+            user_info = picture_form.save()
+
+
+            if 'picture' in request.FILES:
+             user_info.picture = picture_form.save()
+
+        else:
+            print picture_form.errors
+    else:#GET REQUEST
+        picture_form = PictureForm()
+        reader = Reader.objects.get(id=uid)
+        user = reader.username
+        context_dict={'picture_form':picture_form, 'user': user, 'title':title}
+
+    return render(request, 'bookwormsunite/upload_picture.html',context_dict)
+
+
+
+
+
+
+
+

@@ -153,21 +153,22 @@ def register(request):
         response['msg'] = reader_form.errors
     return JsonResponse(response)
 
-
-@require_POST
-def search(request):
-    if request.method == "POST":
-        search_text = request.POST['query']
+def autocomplete_search(request):
+    if request.is_ajax():
+        q = request.GET.get('term')
+        readathons = Readathon.objects.filter(name__icontains=q)
+        results = []
+        for readathon in readathons:
+            readathon_json = {}
+            readathon_json['label'] = readathon.name
+            readathon_json['slug'] = readathon.slug
+            results.append(readathon_json)
+        data = json.dumps(results)
+        print data
     else:
-        search_text = ''
-    try:
-        readathons = Readathon.objects.filter(name__contains=search_text)
-    except Readathon.DoesNotExist:
-        readathons = None
-        pass
-    context_dict = {'readathons': readathons}
-    return render(request, 'bookwormsunite/base.html', context_dict)
-
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
 
 @require_GET
 def calendar(request, offset):

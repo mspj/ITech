@@ -1,9 +1,8 @@
 import json
-import operator
 
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login, logout as auth_logout
-from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse, Http404
+from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.utils import timezone
@@ -64,28 +63,44 @@ def readathon_info(request, readathon_name_slug):
 
     challenges = Challenge.objects.filter(readathon=readathon.id).all()
 
+    readers = readathon.readers.all()
+    is_joined = False
+    if request.user.is_authenticated():
+        if len(readers.filter(id=request.user.id)) != 0:
+            is_joined = True
+
     num_books_read = 0
     challenge_books_read = {}
     # This nested for loop can lead to the end of humanity
     # TODO - somebody please make it better
     for challenge in challenges:
+
+        challenge_books_read[challenge.id] = {}
         accomplishments = Accomplishment.objects.filter(challenge=challenge.id)
+
         dummy_books_read = {}
+        is_completed = False
         for accomplishment in accomplishments:
-            num_books_read += len(accomplishment.books.all())
+            num_books_read = num_books_read + len(accomplishment.books.all())
+
+            if is_joined and accomplishment.user_id == request.user.id:
+                is_completed = True
+
             for book in accomplishment.books.all():
-                if dummy_books_read.get(book) is None:
-                    dummy_books_read[book] = 1
+                if dummy_books_read.get(book) == None:
+                    dummy_books_read[book] = [1, False]
                 else:
-                    dummy_books_read[book] = dummy_books_read.get(book) + 1
+                    dummy_books_read[book][0] = dummy_books_read.get(book)[0] + 1
 
-        sorted_books_read = sorted(dummy_books_read.items(), key=operator.itemgetter(1))
+                if accomplishment.user_id == request.user.id:
+                    dummy_books_read[book][1] = is_joined
 
-        challenge_books_read[challenge.id] = []
-        for book, count in sorted_books_read:
-            challenge_books_read[challenge.id].append((book, count))
+        challenge_books_read[challenge.id]['is_completed'] = is_completed
+        sorted_books_read = sorted(dummy_books_read.items(), key=lambda x: x[1][0], reverse=True)
 
-    readers = readathon.readers.all()
+        challenge_books_read[challenge.id]['details'] = []
+        for book, detail in sorted_books_read:
+            challenge_books_read[challenge.id]['details'].append((book, detail[0], detail[1]))
 
     avg_num_books_read = 0
     if len(readers) > 0:
@@ -98,7 +113,8 @@ def readathon_info(request, readathon_name_slug):
 
     context_dict = {'title': title, 'readathon': readathon, 'challenges': challenges, 'readers': readers,
                     'num_books_read': num_books_read, 'challenge_books_read': challenge_books_read,
-                    'avg_num_books_read': avg_num_books_read, 'is_finished': is_finished, 'is_started': is_started}
+                    'avg_num_books_read': avg_num_books_read, 'is_finished': is_finished, 'is_started': is_started,
+                    'is_joined': is_joined}
     return render(request, 'bookwormsunite/readathon.html', context_dict)
 
 

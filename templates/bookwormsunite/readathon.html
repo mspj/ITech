@@ -7,144 +7,192 @@
 
     <div class="page-content">
 
-    <div class="row medium-9 large-8 columns">
-
-        <div class="blog-post">
-            <h3 class="blog-title"><span>{{ readathon.name | title }}
-                {% if is_started == False %}
-                    <small>(Not Started)</small></span>
-                {% elif is_finished == True %}
-                    <small>(Close)</small></span>
-                {% endif %}
-                {% if is_started == True and is_finished == False %}
-                    <a href="#" class="button hollow" id="readathon-join-btn">Join</a>
-                {% endif %}
-            </h3>
-            <div id="readathon-summary-plate">
-                <table>
-                    <tbody>
-                    <tr>
-                        <td style="width: 70%">
-                            <div class="datetime-text">Period: {{ readathon.start_date|date:"D d M y" }}
-                                - {{ readathon.end_date|date:"D d M y" }}</div>
-                            <div>{{ readathon.description }}
-                            </div>
-                        </td>
-                        <td style="width: 30%; text-align: right;">
-                            <div>Number of Participants: {{ readers|length }}</div>
-                            <div>Number of Books Read: {{ num_books_read }}</div>
-                            <div>Avg Number of Books Read: {{ avg_num_books_read }}</div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-
-        {% for challenge in challenges %}
+        <div class="row medium-9 large-8 columns">
 
             <div class="blog-post">
-                <h5 class="blog-title challenge-title smaller"><span>Challenge #{{ forloop.counter }}</span></h5>
-                <h5 class="readathon-challenge-title">{{ challenge.name }}</h5>
+                <h3 class="blog-title"><span>{{ readathon.name | title }}
+                    {% if is_started == False %}
+                        <small>(Not Started)</small></span>
+                    {% elif is_finished == True %}
+                        <small>(Close)</small></span>
+                    {% endif %}
 
-                {% if is_started == True %}
+                    {% if is_joined == False and is_finished == False %}
+                        <a href="#" class="button readathon-join-btn join" id="readathon-join-btn">Join</a>
+                    {% elif is_joined == True %}
+                        <a href="#" class="button readathon-join-btn joined" id="readathon-join-btn">Joined</a>
+                    {% endif %}
+                </h3>
+                <div id="readathon-summary-plate">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td style="width: 70%; padding-left: 0;">
+                                <div class="datetime-text">Period: {{ readathon.start_date|date:"D d M y" }}
+                                    - {{ readathon.end_date|date:"D d M y" }}</div>
+                                <div>{{ readathon.description }}
+                                </div>
+                            </td>
+                            <td style="width: 30%; text-align: right;">
+                                <div>Number of Participants: {{ readers|length }}</div>
+                                <div>Number of Books Read: {{ num_books_read }}</div>
+                                <div>Avg Number of Books Read: {{ avg_num_books_read }}</div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-                    <div>Top Books People Read in This Challenge</div>
+            {% for challenge in challenges %}
+
+                <div class="blog-post">
+                    <h5 class="blog-title challenge-title smaller"><span>Challenge #{{ forloop.counter }}</span></h5>
 
                     <div class="row">
-                        <div class="medium-10 large-10 column">
-                            {% if challenge_books_read|get_item:challenge.id|length > 0 %}
-                                <div class="jcarousel-wrapper" style="margin: 0;">
-                                    <div class="jcarousel">
-                                        <ul>
-                                            {% for book, count in  challenge_books_read|get_item:challenge.id %}
-                                                <li>
-                                                    <a href="http://www.bookdepository.com/search?searchTerm={{ book.book_name|urlencode }}">
-                                                        <img src="{{ book.cover }}" alt="{{ book.book_name }}"
-                                                             data-tooltip aria-haspopup="true" class="has-tip"
-                                                             title="{{ book.book_name }} (read {{ count }} times)">
-                                                    </a>
-                                                </li>
-                                            {% endfor %}
-
-                                        </ul>
-                                    </div>
-
-                                    <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
-                                    <a href="#" class="jcarousel-control-next">&rsaquo;</a>
-                                </div>
-                            {% else %}
-                                <div class="jcarousel-wrapper" style="margin: 0;">
-                                    <div class="jcarousel">
-                                        <ul>
-                                            <li style="border: none;">
-
-                                            </li>
-
-                                        </ul>
-                                    </div>
-
-                                    <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
-                                    <a href="#" class="jcarousel-control-next">&rsaquo;</a>
-                                </div>
-                            {% endif %}
+                        <div class="medium-8 large-8 columns">
+                            <h5 class="readathon-challenge-title">{{ challenge.name }}</h5>
                         </div>
-
-                        <div class="medium-2 large-2 column readathon-add-book-plate">
-
-
+                        <div class="medium-4 large-4 columns">
+                            {% if is_started == True %}
+                                {% if is_joined == True %}
+                                    {% if challenge_books_read|get_item:challenge.id|get_item:'is_completed' == False and is_finished == False %}
+                                        <a href="#" class="button challenge-complete-btn join" id="readathon-join-btn">Complete
+                                            This
+                                            Challenge</a>
+                                    {% elif challenge_books_read|get_item:challenge.id|get_item:'is_completed' == False and is_finished == True %}
+                                        <a href="#" class="button challenge-complete-btn due" id="readathon-join-btn">Did
+                                            Not
+                                            Complete Challenge</a>
+                                    {% elif challenge_books_read|get_item:challenge.id|get_item:'is_completed' == True %}
+                                        <a href="#" class="button challenge-complete-btn joined"
+                                           id="readathon-join-btn">Challenge
+                                            Completed</a>
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
                         </div>
                     </div>
 
-                {% endif %}
-            </div>
+                    {% if is_started == True %}
 
-        {% endfor %}
+                        <div class="row">
+                            <div class="medium-12 large-12 column">
 
-    </div>
+                                <div>Top Books People Read in This Challenge</div>
 
-    <div class="row medium-9 large-8">
+                                {% if challenge_books_read|get_item:challenge.id|get_item:'details'|length > 0 %}
+                                    <div class="jcarousel-wrapper" style="margin: 0;">
+                                        <div class="jcarousel">
+                                            <ul>
+                                                {% for book, count, is_user_choice in  challenge_books_read|get_item:challenge.id|get_item:'details' %}
+                                                    <li style="position: relative; text-align: center">
+                                                        <a href="http://www.bookdepository.com/search?searchTerm={{ book.book_name|urlencode }}">
 
+                                                            {% if is_user_choice == True %}
+                                                                <div class="challenge-cover">
+                                                                    YOUR READ
+                                                                </div>
+                                                            {% endif %}
 
-        <div class="medium-6 large-6 columns">
-            <div id="readathon-thumbnail-panel">
-                <div class="blog-post">
-                    <h3 class="blog-title"><span>Joined Readers</span></h3>
+                                                            <img src="{{ book.cover }}"
+                                                                 alt="{{ book.book_name }}"
+                                                                 data-tooltip aria-haspopup="true"
+                                                                 class="has-tip challenge-img"
+                                                                 title="{{ book.book_name }} (read {{ count }} times)">
+                                                        </a>
+                                                    </li>
+                                                {% endfor %}
 
-                    <ul>
-                        {% for reader in  readers %}
-                            <li><a href="{% url 'user_info' uid=reader.id %}"><img
-                                    src="{{ reader.img }}"></a></li>
-                        {% endfor %}
-                    </ul>
+                                            </ul>
+                                        </div>
+
+                                        <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+                                        <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+                                    </div>
+                                {% else %}
+                                    <div class="jcarousel-wrapper" style="margin: 0;">
+                                        <div class="jcarousel">
+                                            <ul>
+                                                <li style="border: none;">
+
+                                                </li>
+
+                                            </ul>
+                                        </div>
+
+                                        <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+                                        <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    {% endif %}
                 </div>
-            </div>
+
+            {% endfor %}
+
         </div>
 
-        <div class="medium-6 large-6 columns" id="twitter-widget">
-            <div id="readathon-tweet-panel">
-                <div class="blog-post">
-                    <h3 class="blog-title"><span><a class="twitter-timeline" href="https://twitter.com/hashtag/{{ readathon.slug }}">#{{ readathon.slug }}</a></span></h3>
-{#                    <a class="twitter-timeline" href="https://twitter.com/hashtag/{{ readathon.slug }}">#{{ readathon.slug }}</a>#}
-{#                    <a class="twitter-timeline" href="https://twitter.com/hashtag/book-shimmy-awards-readathon" data-widget-id="710115961341399042">#book-shimmy-awards-readathon Tweets</a>#}
-{#                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>#}
-                    <div id="twitter">
-                        {% load cache %}
-                        {% load twitter_tag cache %}
-                        {% cache 60 my_tweets %}
-                        {% search_tweets for readathon.slug as tweets limit 20 %}
-                        {% endcache %}
+        <div class="row medium-9 large-8">
+
+
+            <div class="medium-6 large-6 columns">
+                <div id="readathon-thumbnail-panel">
+                    <div class="blog-post">
+                        <h3 class="blog-title"><span>Joined Readers</span></h3>
+
                         <ul>
-                        {% for tweet in tweets %}
-                            <li>{{ tweet.html|safe }} ({{ tweet.datetime|date:"d/M/Y h:m" }})</li>
-                        {% endfor %}
+                            {% for reader in  readers %}
+                                <li><a href="{% url 'user_info' uid=reader.id %}"><img
+                                        src="{{ reader.img }}"></a></li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
             </div>
+
+            <div class="medium-6 large-6 columns" id="twitter-widget">
+                <div id="readathon-tweet-panel">
+                    <div class="blog-post">
+                        <h3 class="blog-title"><span>#{{ readathon.slug }}</span></h3>
+                        {#                        {% block twitter_feed %}#}
+                        {#                            {% load cache %}#}
+                        {#                            {% load twitter_tag cache %}#}
+                        {#                            {% cache 60 my_tweets %}#}
+                        {#                            {% search_tweets for readathon.slug as tweets limit 10 %}#}
+                        {##}
+                        {#                            {% endcache %}#}
+                        {##}
+                        {#                            <ul>#}
+                        {#                            {% for tweet in tweets %}#}
+                        {#                                <li>{{ tweet.html|safe }}.....{{ tweet.datetime|date:"D d M Y" }}</li>#}
+                        {#                            {% endfor %}#}
+                        {#                            </ul>#}
+                        {#                        {% endblock %}#}
+                        <h3 class="blog-title"><span><a class="twitter-timeline"
+                                                        href="https://twitter.com/hashtag/{{ readathon.slug }}">#{{ readathon.slug }}</a></span>
+                        </h3>
+                        {#                    <a class="twitter-timeline" href="https://twitter.com/hashtag/{{ readathon.slug }}">#{{ readathon.slug }}</a>#}
+                        {#                    <a class="twitter-timeline" href="https://twitter.com/hashtag/book-shimmy-awards-readathon" data-widget-id="710115961341399042">#book-shimmy-awards-readathon Tweets</a>#}
+                        {#                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>#}
+                        <div id="twitter">
+                            {% load cache %}
+                            {% load twitter_tag cache %}
+                            {% cache 60 my_tweets %}
+                                {% search_tweets for readathon.slug as tweets limit 20 %}
+                            {% endcache %}
+                            <ul>
+                                {% for tweet in tweets %}
+                                    <li>{{ tweet.html|safe }} ({{ tweet.datetime|date:"d/M/Y h:m" }})</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
     </div>
 
 {% endblock %}

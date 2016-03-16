@@ -192,25 +192,64 @@ div#profile-readathon-list a {
     background-position: 50% 50%;
 }
 
-#readathon-join-btn {
+.readathon-join-btn {
     float: right;
     margin-bottom: 0;
     margin-top: -1rem;
-    border: 1px solid rgb(174, 170, 198);
-    background-color: rgb(244, 244, 244);
-    color: rgb(174, 170, 198);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    color: rgba(0, 0, 0, 0.5);
     font-weight: 700;
+    min-width: 80px;
+    text-align: center;
 }
 
-#readathon-join-btn:hover {
-    background-color: white;
+.challenge-complete-btn {
+    float: right;
+    margin-top: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 700;
+    width: 100%;
+    text-align: center;
+}
+
+.readathon-join-btn.join {
+    /*background-color: rgb(235, 208, 166);*/
+    background-color: rgb(242, 99, 75);
+    color: white;
+}
+
+.readathon-join-btn.joined {
+    background-color: rgba(148, 206, 99, 1);
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.challenge-complete-btn.join {
+    background-color: rgb(242, 99, 75);
+    color: white;
+}
+
+.challenge-complete-btn.joined {
+    background-color: rgba(148, 206, 99, 1);
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.challenge-complete-btn.due {
+    background-color: rgb(217, 215, 185);
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.readathon-join-btn:hover {
+    border: 1px solid rgba(0, 0, 0, 0.4);
     font-weight: 900;
 }
 
 .datetime-text {
     font-weight: bolder;
     font-size: 13px;
-    color: rgba(253, 175, 43, 1)
+    color: rgb(242, 99, 75);
 }
 
 #readathon-summary-plate table {
@@ -285,4 +324,25 @@ div#profile-readathon-list a {
 
 .calendar-event a:hover {
     color: black
+}
+
+.challenge-cover {
+    letter-spacing: 3px;
+    line-height: 30px;
+    color: black;
+    text-align: center;
+    font-weight: 900;
+    font-size: 14px;
+    width: 90%;
+    position: absolute;
+    bottom: 15px;
+    height: 30px;
+    background-color: rgb(253, 175, 43);
+    z-index: 777;
+}
+
+.challenge-img {
+    position: absolute;
+    top: 0;
+    cursor: pointer;
 }

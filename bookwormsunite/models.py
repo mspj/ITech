@@ -2,14 +2,13 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.template.defaultfilters import slugify
 
-from bookwormsunite.managers import ReaderManager
+from bookwormsunite.managers import ReaderManager, ActivityManager
 
 
 class Reader(AbstractBaseUser, PermissionsMixin):
     username = models.CharField('username', max_length=30, unique=True)
     img = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
-
 
     USERNAME_FIELD = 'username'
 
@@ -72,14 +71,26 @@ class Book(TimeStampedModel):
     cover = models.URLField()
     author = models.CharField(max_length=128)
 
+    def __unicode__(self):
+        return '[{0}] {1} By {2}'.format(self.isbn, self.book_name, self.author)
+
 
 class Accomplishment(TimeStampedModel):
     user = models.ForeignKey(Reader, on_delete=models.CASCADE)
     challenge = models.ForeignKey(Challenge, on_delete=models.CASCADE)
     books = models.ManyToManyField(Book)
 
+    def __unicode__(self):
+        return '{0} has accomplished {1} with {2} books'.format(self.user.username, self.challenge.name,
+                                                                len(self.books))
+
 
 class Activity(TimeStampedModel):
     icon = models.CharField(max_length=20, default='star')
     user = models.ForeignKey(Reader, on_delete=models.CASCADE)
     message = models.CharField(max_length=512)
+
+    objects = ActivityManager()
+
+    def __unicode__(self):
+        return '{0} {1}'.format(self.user.username, self.message)

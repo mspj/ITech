@@ -3,7 +3,7 @@ import operator
 
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login, logout as auth_logout
-from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse, Http404
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.utils import timezone
@@ -42,9 +42,26 @@ def index(request):
     return render(request, 'bookwormsunite/index.html', context_dict)
 
 
+@require_POST
+def readathon_join(request, readathon_name_slug):
+    response = {'status': FAIL_STATUS}
+    try:
+        readathon = Readathon.objects.get(slug=readathon_name_slug)
+        readathon.readers.add(request.user)
+        response['status'] = SUCCESS_STATUS
+    except Readathon.DoesNotExist as e:
+        response['msg'] = 'Readathon not found: {0}'.format(e.message)
+
+    return JsonResponse(response)
+
+
 @require_http_methods(["GET", "POST"])
 def readathon_info(request, readathon_name_slug):
-    readathon = Readathon.objects.get(slug=readathon_name_slug)
+    try:
+        readathon = Readathon.objects.get(slug=readathon_name_slug)
+    except Readathon.DoesNotExist:
+        raise Http404('Readathon does not exist')
+
     challenges = Challenge.objects.filter(readathon=readathon.id).all()
 
     num_books_read = 0
@@ -55,9 +72,9 @@ def readathon_info(request, readathon_name_slug):
         accomplishments = Accomplishment.objects.filter(challenge=challenge.id)
         dummy_books_read = {}
         for accomplishment in accomplishments:
-            num_books_read = num_books_read + len(accomplishment.books.all())
+            num_books_read += len(accomplishment.books.all())
             for book in accomplishment.books.all():
-                if dummy_books_read.get(book) == None:
+                if dummy_books_read.get(book) is None:
                     dummy_books_read[book] = 1
                 else:
                     dummy_books_read[book] = dummy_books_read.get(book) + 1
@@ -90,7 +107,10 @@ def user_info(request, uid):
     picture_form = PictureForm()
 
     joined_readathons = Readathon.objects.filter(readers=uid).order_by('-created')
-    reader = Reader.objects.get(id=uid)
+    try:
+        reader = Reader.objects.get(id=uid)
+    except Reader.DoesNotExist as e:
+        raise Http404('Reader does not exist: {0}'.format(e.message))
     title = reader.username
     activities = Activity.objects.filter(user=uid).order_by('-created')[:10]
     accomplishments = Accomplishment.objects.filter(user_id=uid).order_by('-created')
@@ -148,6 +168,7 @@ def register(request):
         reader = authenticate(username=reader_form.cleaned_data['username'],
                               password=reader_form.cleaned_data['password'])
         auth_login(request, reader)
+        Activity.objects.joined(request.user)
         response['status'] = SUCCESS_STATUS
         response['msg'] = SUCCESS_REGISTER_MSG
         response['redirect_to'] = LOGIN_REDIRECT_URL
@@ -156,19 +177,21 @@ def register(request):
     return JsonResponse(response)
 
 
-@require_POST
-def search(request):
-    if request.method == "POST":
-        search_text = request.POST['query']
+@require_GET
+def autocomplete_search(request):
+    response = {'status': FAIL_STATUS}
+    if request.is_ajax():
+        q = request.GET.get('term')
+        readathons = Readathon.objects.filter(name__icontains=q)
+        results = []
+        for readathon in readathons:
+            readathon_json = {'label': readathon.name, 'slug': readathon.slug}
+            results.append(readathon_json)
+        response['result'] = results
+        response['status'] = SUCCESS_STATUS
     else:
-        search_text = ''
-    try:
-        readathons = Readathon.objects.filter(name__contains=search_text)
-    except Readathon.DoesNotExist:
-        readathons = None
-        pass
-    context_dict = {'readathons': readathons}
-    return render(request, 'bookwormsunite/base.html', context_dict)
+        response['status'] = FAIL_STATUS
+    return JsonResponse(response)
 
 
 @require_GET
@@ -178,7 +201,7 @@ def calendar(request, offset):
     today = timezone.now()
     monday = today - timezone.timedelta(days=today.weekday())
 
-    if (offset < 0):
+    if offset < 0:
         monday = monday - timezone.timedelta(abs(offset) * 7)
     else:
         monday = monday + timezone.timedelta(abs(offset) * 7)

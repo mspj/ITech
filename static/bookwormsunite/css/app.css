@@ -7,6 +7,10 @@
     font-family: MyRoboto;
 }
 
+html, body {
+    height: 100%;
+}
+
 .hili-text {
     /*font-size: 1.5rem;*/
     color: rgb(242, 99, 75);
@@ -43,19 +47,8 @@
     border-radius: 5px;
 }
 
-.footer {
-    font-size: 14px;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-}
-
-.footer span {
-    margin-right: 0.5rem;
-}
-
 .page-content {
     min-height: 100%;
-    padding-bottom: 50px;
     background-color: rgb(244, 244, 244);
 }
 

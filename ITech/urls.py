@@ -10,19 +10,40 @@ urlpatterns = patterns('',
                        # url(r'^$', 'ITech.views.home', name='home'),
                        # url(r'^blog/', include('blog.urls')),
 
+                       # Index
                        url(r'^$', index, name='index'),
+
+                       # REST API
+                       url(r'^autocomplete_search/$', autocomplete_search, name='get_readathons'),
                        url(r'^calendar/(?P<offset>\-?[0-9]+)/$', calendar, name='calendar'),
+<<<<<<< HEAD
                        url(r'^readathon/$', RedirectView.as_view(pattern_name='index'), name='readathon'),
                        url(r'^readathon/(?P<readathon_name_slug>[\w\-]+)/$', readathon_info),
                        url(r'^user/upload_pic/$', upload_pic, name="upload_pic"),
                        url(r'^user/(?P<uid>[0-9]+)/$', user_info, name="user_info"),
                        url(r'^user/(?P<uid>[0-9]+)/summary/$', user_summary),
+=======
+
+>>>>>>> 2df0c9b26f380fcdd16964e31d3140d86b8a8073
                        url(r'^login/$', login, name='login'),
                        url(r'^logout/$', logout, name='logout'),
                        url(r'^register/$', register, name='register'),
-                       url(r'^search/$', search),
-                       url(r'^admin/', include(admin.site.urls)),
+
+                       url(r'^readathon/(?P<readathon_name_slug>[\w\-]+)/join/$', readathon_join,
+                           name='readathon_join'),
+
                        url(r'^user/(?P<uid>[0-9]+)/upload_picture/', upload_pic, name='upload_pic'),
+
+                       # Readathons
+                       url(r'^readathon/$', RedirectView.as_view(pattern_name='index'), name='readathon'),
+                       url(r'^readathon/(?P<readathon_name_slug>[\w\-]+)/$', readathon_info, name='readathon_info'),
+
+                       # Users
+                       url(r'^user/(?P<uid>[0-9]+)/$', user_info, name="user_info"),
+                       url(r'^user/(?P<uid>[0-9]+)/summary/$', user_summary),
+
+                       # Admin
+                       url(r'^admin/', include(admin.site.urls)),
                        )
 
 if settings.DEBUG:

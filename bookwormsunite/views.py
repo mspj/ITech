@@ -42,6 +42,16 @@ def index(request):
     return render(request, 'bookwormsunite/index.html', context_dict)
 
 
+@require_POST
+def readathon_join(request, readathon_name_slug):
+    response = {'status': FAIL_STATUS}
+    readathon = Readathon.objects.get(slug=readathon_name_slug)
+    readathon.readers.add(request.user)
+    response['status'] = SUCCESS_STATUS
+
+    return JsonResponse(response)
+
+
 @require_http_methods(["GET", "POST"])
 def readathon_info(request, readathon_name_slug):
     readathon = Readathon.objects.get(slug=readathon_name_slug)

@@ -55,9 +55,9 @@ def readathon_info(request, readathon_name_slug):
         accomplishments = Accomplishment.objects.filter(challenge=challenge.id)
         dummy_books_read = {}
         for accomplishment in accomplishments:
-            num_books_read = num_books_read + len(accomplishment.books.all())
+            num_books_read += len(accomplishment.books.all())
             for book in accomplishment.books.all():
-                if dummy_books_read.get(book) == None:
+                if dummy_books_read.get(book) is None:
                     dummy_books_read[book] = 1
                 else:
                     dummy_books_read[book] = dummy_books_read.get(book) + 1
@@ -153,15 +153,14 @@ def register(request):
         response['msg'] = reader_form.errors
     return JsonResponse(response)
 
+
 def autocomplete_search(request):
     if request.is_ajax():
         q = request.GET.get('term')
         readathons = Readathon.objects.filter(name__icontains=q)
         results = []
         for readathon in readathons:
-            readathon_json = {}
-            readathon_json['label'] = readathon.name
-            readathon_json['slug'] = readathon.slug
+            readathon_json = {'label': readathon.name, 'slug': readathon.slug}
             results.append(readathon_json)
         data = json.dumps(results)
         print data
@@ -170,6 +169,7 @@ def autocomplete_search(request):
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
 
+
 @require_GET
 def calendar(request, offset):
     offset = int(offset)
@@ -177,7 +177,7 @@ def calendar(request, offset):
     today = timezone.now()
     monday = today - timezone.timedelta(days=today.weekday())
 
-    if (offset < 0):
+    if offset < 0:
         monday = monday - timezone.timedelta(abs(offset) * 7)
     else:
         monday = monday + timezone.timedelta(abs(offset) * 7)

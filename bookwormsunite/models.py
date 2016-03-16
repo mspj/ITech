@@ -10,7 +10,6 @@ class Reader(AbstractBaseUser, PermissionsMixin):
     img = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
 
-
     USERNAME_FIELD = 'username'
 
     objects = ReaderManager()
@@ -82,7 +81,8 @@ class Accomplishment(TimeStampedModel):
     books = models.ManyToManyField(Book)
 
     def __unicode__(self):
-        return '{0} has accomplished {1} with {2} books'.format(self.user.username, self.challenge.name, len(self.books))
+        return '{0} has accomplished {1} with {2} books'.format(self.user.username, self.challenge.name,
+                                                                len(self.books))
 
 
 class Activity(TimeStampedModel):

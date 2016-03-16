@@ -35,7 +35,8 @@ class ActivityManager(models.Manager):
         return activity
 
     def completed_challenge(self, user, readathon, challenge, book):
-        message = 'completed challenge \'{0}\' in {1} by reading \'{2}\''.format(challenge.name, readathon.name, book.book_name)
+        message = 'completed challenge \'{0}\' in {1} by reading \'{2}\''.format(challenge.name, readathon.name,
+                                                                                 book.book_name)
         activity = self.model(icon='book', user=user, message=message)
         activity.save()
         return activity

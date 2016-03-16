@@ -32,7 +32,7 @@ urlpatterns = patterns('',
                        url(r'^readathon/(?P<readathon_name_slug>[\w\-]+)/join/$', readathon_join,
                            name='readathon_join'),
 
-                       url(r'^user/(?P<uid>[0-9]+)/upload_picture/', upload_pic, name='upload_pic'),
+                       url(r'^user/upload_picture/', upload_pic, name='upload_pic'),
 
                        # Readathons
                        url(r'^readathon/$', RedirectView.as_view(pattern_name='index'), name='readathon'),

@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.views.generic import RedirectView
 
+from ITech import settings
 from bookwormsunite.views import *
 
 urlpatterns = patterns('',
@@ -23,7 +24,7 @@ urlpatterns = patterns('',
                        url(r'^readathon/(?P<readathon_name_slug>[\w\-]+)/join/$', readathon_join,
                            name='readathon_join'),
 
-                       url(r'^user/(?P<uid>[0-9]+)/upload_picture/', upload_pic, name='upload_pic'),
+                       url(r'^user/upload_picture/', upload_pic, name='upload_pic'),
 
                        # Readathons
                        url(r'^readathon/$', RedirectView.as_view(pattern_name='index'), name='readathon'),
@@ -36,3 +37,10 @@ urlpatterns = patterns('',
                        # Admin
                        url(r'^admin/', include(admin.site.urls)),
                        )
+
+if settings.DEBUG:
+    urlpatterns += patterns(
+        'django.views.static',
+        (r'^media/(?P<path>.*)',
+         'serve',
+         {'document_root': settings.MEDIA_ROOT}), )

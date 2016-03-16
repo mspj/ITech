@@ -11,7 +11,7 @@ from django.views.decorators.http import require_http_methods, require_GET, requ
 
 from ITech.settings import LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL, SUCCESS_STATUS, FAIL_STATUS, INCORRECT_CREDS_MSG, \
     DISABLED_ACC_MSG, SUCCESS_LOGIN_MSG, SUCCESS_REGISTER_MSG
-from bookwormsunite.forms import ReaderCreationForm
+from bookwormsunite.forms import ReaderCreationForm, PictureForm
 from bookwormsunite.models import Readathon, Accomplishment, Reader, Challenge, Activity
 
 
@@ -104,6 +104,8 @@ def readathon_info(request, readathon_name_slug):
 
 @require_GET
 def user_info(request, uid):
+    picture_form = PictureForm()
+
     joined_readathons = Readathon.objects.filter(readers=uid).order_by('-created')
     try:
         reader = Reader.objects.get(id=uid)
@@ -119,7 +121,7 @@ def user_info(request, uid):
     recent_books = list(set(recent_books))[:12]
 
     context_dict = {'title': title, 'joined_r': joined_readathons, 'reader': reader, 'activities': activities,
-                    'accomplishments': accomplishments, 'recent_books': recent_books}
+                    'accomplishments': accomplishments, 'recent_books': recent_books, 'picture_form': picture_form}
     return render(request, 'bookwormsunite/user_info.html', context_dict)
 
 
@@ -221,15 +223,15 @@ def calendar(request, offset):
     return HttpResponse(response, content_type='application/json')
 
 
-def upload_pic(request, uid):
-    if request.method == 'GET':
-        return render(request, 'bookwormsunite/upload_picture.html')
+@require_POST
+def upload_pic(request):
+    response = {'status': FAIL_STATUS}
+    picture_form = PictureForm(request.POST, request.FILES, instance=request.user)
 
-        if form.is_valid():
-            m = Reader.objects.get(readers=uid)
-            m.model_pic = form.cleaned_data['image']
-            m.save()
-            return render(request, 'bookwormsunite/upload_picture.html')
+    if picture_form.is_valid():
+        user = picture_form.save()
+        response['status'] = SUCCESS_STATUS
+    else:
+        response['msg'] = picture_form.errors
 
-    if request.method == 'POST:':
-        return HttpResponseForbidden('allowed only via POST')
+    return JsonResponse(response)

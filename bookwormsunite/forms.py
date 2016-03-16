@@ -12,6 +12,14 @@ class ReaderForm(AuthenticationForm):
         fields = ('username', 'password')
 
 
+class PictureForm(forms.ModelForm):
+    picture = forms.ImageField()
+
+    class Meta:
+        model = Reader
+        fields = ('picture',)
+
+
 class ReaderCreationForm(forms.ModelForm):
     error_messages = {
         'duplicate_username': "A user with that username already exists.",

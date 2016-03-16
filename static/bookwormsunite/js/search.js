@@ -4,15 +4,15 @@ $(function () {
             $.getJSON("/autocomplete_search/?term=" + request.term, function (data) {
                 response($.map(data.result, function (data) {
                     return {
-                        label: data.slug,
-                        value: data.label
+                        label: data.label,
+                        value: data.slug
                     };
                 }));
             });
         },
         minLength: 2,
         select: function (event, ui) {
-            goToReadathon(ui.item.slug);
+            goToReadathon(ui.item.value);
         }
     });
 

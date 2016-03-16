@@ -12,7 +12,7 @@ $(function () {
         },
         minLength: 2,
         select: function (event, ui) {
-            goToReadathon(ui.item.value);
+            goToReadathon(ui.item.label);
         }
     });
 

@@ -164,7 +164,6 @@ def autocomplete_search(request):
             readathon_json['slug'] = readathon.slug
             results.append(readathon_json)
         data = json.dumps(results)
-        print data
     else:
         data = 'fail'
     mimetype = 'application/json'

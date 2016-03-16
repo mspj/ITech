@@ -192,6 +192,29 @@ div#profile-readathon-list a {
     background-position: 50% 50%;
 }
 
+.challenge-search-box {
+    height: 40px;
+    width: 450px;
+    float: right;
+    background: rgba(0, 0, 0, -1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 11pt;
+    padding-left: 25px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.challenge-save-btn {
+    margin-top: 25px;
+    float: right;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 700;
+    min-width: 100px;
+    text-align: center;
+}
+
 .readathon-join-btn {
     float: right;
     margin-bottom: 0;

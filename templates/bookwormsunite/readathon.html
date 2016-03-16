@@ -57,7 +57,8 @@
                             {% if is_started == True %}
                                 {% if is_joined == True %}
                                     {% if challenge_books_read|get_item:challenge.id|get_item:'is_completed' == False and is_finished == False %}
-                                        <a href="#" class="button challenge-complete-btn join" id="readathon-join-btn">Complete
+                                        <a data-open="challengeModal" class="button challenge-complete-btn join"
+                                           id="readathon-join-btn">Complete
                                             This
                                             Challenge</a>
                                     {% elif challenge_books_read|get_item:challenge.id|get_item:'is_completed' == False and is_finished == True %}
@@ -134,10 +135,21 @@
             {% endfor %}
 
         </div>
+        <div class="small reveal" id="challengeModal" data-options="showDelay:300; hideDelay:50" data-reveal>
+            <button class="close-button" data-close aria-label="Close reveal" type="button">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h2>Select a book</h2>
+            <div class="row medium-6 large-9 columns">
+                <input id="searchBook" name="bookName" class="challenge-search-box"
+                       placeholder="Enter title, author, or ISBN">
+            </div>
+{#            <div class="row medium-6 large-9 columns">#}
+{#                <input class="button challenge-save-btn" type="button" value="Save">#}
+{#            </div>#}
+        </div>
 
         <div class="row medium-9 large-8">
-
-
             <div class="medium-6 large-6 columns">
                 <div id="readathon-thumbnail-panel">
                     <div class="blog-post">
@@ -156,27 +168,9 @@
             <div class="medium-6 large-6 columns" id="twitter-widget">
                 <div id="readathon-tweet-panel">
                     <div class="blog-post">
-                        <h3 class="blog-title"><span>#{{ readathon.slug }}</span></h3>
-                        {#                        {% block twitter_feed %}#}
-                        {#                            {% load cache %}#}
-                        {#                            {% load twitter_tag cache %}#}
-                        {#                            {% cache 60 my_tweets %}#}
-                        {#                            {% search_tweets for readathon.slug as tweets limit 10 %}#}
-                        {##}
-                        {#                            {% endcache %}#}
-                        {##}
-                        {#                            <ul>#}
-                        {#                            {% for tweet in tweets %}#}
-                        {#                                <li>{{ tweet.html|safe }}.....{{ tweet.datetime|date:"D d M Y" }}</li>#}
-                        {#                            {% endfor %}#}
-                        {#                            </ul>#}
-                        {#                        {% endblock %}#}
                         <h3 class="blog-title"><span><a class="twitter-timeline"
                                                         href="https://twitter.com/hashtag/{{ readathon.slug }}">#{{ readathon.slug }}</a></span>
                         </h3>
-                        {#                    <a class="twitter-timeline" href="https://twitter.com/hashtag/{{ readathon.slug }}">#{{ readathon.slug }}</a>#}
-                        {#                    <a class="twitter-timeline" href="https://twitter.com/hashtag/book-shimmy-awards-readathon" data-widget-id="710115961341399042">#book-shimmy-awards-readathon Tweets</a>#}
-                        {#                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>#}
                         <div id="twitter">
                             {% load cache %}
                             {% load twitter_tag cache %}

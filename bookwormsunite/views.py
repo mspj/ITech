@@ -146,6 +146,7 @@ def register(request):
         reader = authenticate(username=reader_form.cleaned_data['username'],
                               password=reader_form.cleaned_data['password'])
         auth_login(request, reader)
+        Activity.objects.joined(request.user)
         response['status'] = SUCCESS_STATUS
         response['msg'] = SUCCESS_REGISTER_MSG
         response['redirect_to'] = LOGIN_REDIRECT_URL

@@ -14,7 +14,7 @@ urlpatterns = patterns('',
                        url(r'^$', index, name='index'),
 
                        # REST API
-                       # url(r'^autocomplete_search/$', autocomplete_search, name='get_readathons'),
+                       url(r'^autocomplete_search/$', autocomplete_search, name='get_readathons'),
                        url(r'^calendar/(?P<offset>\-?[0-9]+)/$', calendar, name='calendar'),
                        url(r'^readathon/$', RedirectView.as_view(pattern_name='index'), name='readathon'),
                        url(r'^readathon/(?P<readathon_name_slug>[\w\-]+)/$', readathon_info),
@@ -25,8 +25,8 @@ urlpatterns = patterns('',
                        url(r'^logout/$', logout, name='logout'),
                        url(r'^register/$', register, name='register'),
 
-                       # url(r'^readathon/(?P<readathon_name_slug>[\w\-]+)/join/$', readathon_join,
-                       #     name='readathon_join'),
+                       url(r'^readathon/(?P<readathon_name_slug>[\w\-]+)/join/$', readathon_join,
+                           name='readathon_join'),
 
                        url(r'^user/upload_picture/', upload_pic, name='upload_pic'),
 

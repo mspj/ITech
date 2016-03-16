@@ -3,7 +3,7 @@ import operator
 
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login, logout as auth_logout
-from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse, Http404
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.utils import timezone
@@ -11,7 +11,7 @@ from django.views.decorators.http import require_http_methods, require_GET, requ
 
 from ITech.settings import LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL, SUCCESS_STATUS, FAIL_STATUS, INCORRECT_CREDS_MSG, \
     DISABLED_ACC_MSG, SUCCESS_LOGIN_MSG, SUCCESS_REGISTER_MSG
-from bookwormsunite.forms import ReaderCreationForm
+from bookwormsunite.forms import ReaderCreationForm, PictureForm
 from bookwormsunite.models import Readathon, Accomplishment, Reader, Challenge, Activity
 
 
@@ -42,9 +42,26 @@ def index(request):
     return render(request, 'bookwormsunite/index.html', context_dict)
 
 
+@require_POST
+def readathon_join(request, readathon_name_slug):
+    response = {'status': FAIL_STATUS}
+    try:
+        readathon = Readathon.objects.get(slug=readathon_name_slug)
+        readathon.readers.add(request.user)
+        response['status'] = SUCCESS_STATUS
+    except Readathon.DoesNotExist as e:
+        response['msg'] = 'Readathon not found: {0}'.format(e.message)
+
+    return JsonResponse(response)
+
+
 @require_http_methods(["GET", "POST"])
 def readathon_info(request, readathon_name_slug):
-    readathon = Readathon.objects.get(slug=readathon_name_slug)
+    try:
+        readathon = Readathon.objects.get(slug=readathon_name_slug)
+    except Readathon.DoesNotExist:
+        raise Http404('Readathon does not exist')
+
     challenges = Challenge.objects.filter(readathon=readathon.id).all()
 
     num_books_read = 0
@@ -55,9 +72,9 @@ def readathon_info(request, readathon_name_slug):
         accomplishments = Accomplishment.objects.filter(challenge=challenge.id)
         dummy_books_read = {}
         for accomplishment in accomplishments:
-            num_books_read = num_books_read + len(accomplishment.books.all())
+            num_books_read += len(accomplishment.books.all())
             for book in accomplishment.books.all():
-                if dummy_books_read.get(book) == None:
+                if dummy_books_read.get(book) is None:
                     dummy_books_read[book] = 1
                 else:
                     dummy_books_read[book] = dummy_books_read.get(book) + 1
@@ -87,8 +104,13 @@ def readathon_info(request, readathon_name_slug):
 
 @require_GET
 def user_info(request, uid):
+    picture_form = PictureForm()
+
     joined_readathons = Readathon.objects.filter(readers=uid).order_by('-created')
-    reader = Reader.objects.get(id=uid)
+    try:
+        reader = Reader.objects.get(id=uid)
+    except Reader.DoesNotExist as e:
+        raise Http404('Reader does not exist: {0}'.format(e.message))
     title = reader.username
     activities = Activity.objects.filter(user=uid).order_by('-created')[:10]
     accomplishments = Accomplishment.objects.filter(user_id=uid).order_by('-created')
@@ -99,7 +121,7 @@ def user_info(request, uid):
     recent_books = list(set(recent_books))[:12]
 
     context_dict = {'title': title, 'joined_r': joined_readathons, 'reader': reader, 'activities': activities,
-                    'accomplishments': accomplishments, 'recent_books': recent_books}
+                    'accomplishments': accomplishments, 'recent_books': recent_books, 'picture_form': picture_form}
     return render(request, 'bookwormsunite/user_info.html', context_dict)
 
 
@@ -146,6 +168,7 @@ def register(request):
         reader = authenticate(username=reader_form.cleaned_data['username'],
                               password=reader_form.cleaned_data['password'])
         auth_login(request, reader)
+        Activity.objects.joined(request.user)
         response['status'] = SUCCESS_STATUS
         response['msg'] = SUCCESS_REGISTER_MSG
         response['redirect_to'] = LOGIN_REDIRECT_URL
@@ -153,21 +176,23 @@ def register(request):
         response['msg'] = reader_form.errors
     return JsonResponse(response)
 
+
+@require_GET
 def autocomplete_search(request):
+    response = {'status': FAIL_STATUS}
     if request.is_ajax():
         q = request.GET.get('term')
         readathons = Readathon.objects.filter(name__icontains=q)
         results = []
         for readathon in readathons:
-            readathon_json = {}
-            readathon_json['label'] = readathon.name
-            readathon_json['slug'] = readathon.slug
+            readathon_json = {'label': readathon.name, 'slug': readathon.slug}
             results.append(readathon_json)
-        data = json.dumps(results)
+        response['result'] = results
+        response['status'] = SUCCESS_STATUS
     else:
-        data = 'fail'
-    mimetype = 'application/json'
-    return HttpResponse(data, mimetype)
+        response['status'] = FAIL_STATUS
+    return JsonResponse(response)
+
 
 @require_GET
 def calendar(request, offset):
@@ -176,7 +201,7 @@ def calendar(request, offset):
     today = timezone.now()
     monday = today - timezone.timedelta(days=today.weekday())
 
-    if (offset < 0):
+    if offset < 0:
         monday = monday - timezone.timedelta(abs(offset) * 7)
     else:
         monday = monday + timezone.timedelta(abs(offset) * 7)
@@ -198,15 +223,15 @@ def calendar(request, offset):
     return HttpResponse(response, content_type='application/json')
 
 
-def upload_pic(request, uid):
-    if request.method == 'GET':
-        return render(request, 'bookwormsunite/upload_picture.html')
+@require_POST
+def upload_pic(request):
+    response = {'status': FAIL_STATUS}
+    picture_form = PictureForm(request.POST, request.FILES, instance=request.user)
 
-        if form.is_valid():
-            m = Reader.objects.get(readers=uid)
-            m.model_pic = form.cleaned_data['image']
-            m.save()
-            return render(request, 'bookwormsunite/upload_picture.html')
+    if picture_form.is_valid():
+        user = picture_form.save()
+        response['status'] = SUCCESS_STATUS
+    else:
+        response['msg'] = picture_form.errors
 
-    if request.method == 'POST:':
-        return HttpResponseForbidden('allowed only via POST')
+    return JsonResponse(response)

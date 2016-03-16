@@ -1,7 +1,8 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, ReadOnlyPasswordHashField
+from django.contrib.auth.forms import AuthenticationForm
 
 from .models import Reader
+
 
 class ReaderForm(AuthenticationForm):
     username = forms.CharField(max_length=30)
@@ -9,6 +10,14 @@ class ReaderForm(AuthenticationForm):
     class Meta:
         model = Reader
         fields = ('username', 'password')
+
+
+class PictureForm(forms.ModelForm):
+    picture = forms.ImageField()
+
+    class Meta:
+        model = Reader
+        fields = ('picture',)
 
 
 class ReaderCreationForm(forms.ModelForm):

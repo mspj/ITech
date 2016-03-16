@@ -3,8 +3,8 @@ import urllib2
 import urllib
 import logging
 
-class APIWrapper(object):
 
+class APIWrapper(object):
     BASE_URL = "http://www.goodreads.com/"
     KEY = "MDJqEMH3YFyMuHGWqYCnHg"
 
@@ -33,15 +33,15 @@ class APIWrapper(object):
         # get the authors of the book
         authors = ""
         num_authors = len(book.find("authors"))
-        for i in range (num_authors):
+        for i in range(num_authors):
             authors = authors + book.find("authors")[i].find("name").text
-            if( i < num_authors - 1 ):
-                authors = authors + ", "
+            if i < num_authors - 1:
+                authors += ", "
 
         # get the cover of the book
         cover_url = book.find("image_url").text
 
-        return (title, authors, cover_url)
+        return title, authors, cover_url
 
     def search_book(self, keywords):
 
@@ -63,17 +63,17 @@ class APIWrapper(object):
             cover_url = book.find("image_url").text
             results.append((title, author, cover_url))
 
-            num_results = num_results + 1
+            num_results += 1
             if num_results == self.MAX_SEARCH_RESULTS:
                 break
 
         return results
 
 
-# x = APIWrapper()
-# title, authors, img = x.get_book_info_by_isbn('9780679783268')
-# print title
-# print authors
-#
-# results = x.search_book("hunger's games")
-# print results
+        # x = APIWrapper()
+        # title, authors, img = x.get_book_info_by_isbn('9780679783268')
+        # print title
+        # print authors
+        #
+        # results = x.search_book("hunger's games")
+        # print results

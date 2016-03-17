@@ -199,6 +199,7 @@ div#profile-readathon-list a {
     border-radius: 3px;
     width: 150px;
     height: 150px;
+    background-size: cover;
     background-position: 50% 50%;
 }
 

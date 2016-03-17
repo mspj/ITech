@@ -1,35 +1,51 @@
 #twitter {
-	width: 380px;
-	height: 300px;
-	overflow: auto;
+    height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-bottom: 20px;
 }
 
-	#twitter h1 a {
-		display: block; margin: 0 0 15px 0;
-		font: 90px Helvetica, Arial, Sans-Serif; color: rgba(255,255,255,0.2);
-		text-decoration: none;
-	}
-		#twitter h1 a:hover { color: rgba(255,255,255,0.3); }
+#twitter h1 a {
+    display: block;
+    margin: 0 0 15px 0;
+    font: 90px Helvetica, Arial, Sans-Serif;
+    color: rgba(255, 255, 255, 0.2);
+    text-decoration: none;
+}
 
-	#twitter ul {
-		list-style: none; padding: 0 0 0 0px;
-		background: rgba(255,255,255,0.1);
-	}
-	#twitter ul li {
-		padding: 20px;
-		background: rgba(255,140,0,0.1);
-		border-radius: 20px; -moz-border-radius: 20px; -webkit-border-radius: 20px;
-		border: 1px dashed grey;
-	}
-	#twitter ul li a {
-		font: italic 12px/30px Georgia, Times, Serif;
-		color: #6e1500;
-	}
-	#twitter ul li a:hover { color: #1b2f6f; }
+#twitter h1 a:hover {
+    color: rgba(255, 255, 255, 0.3);
+}
 
-	#twitter ul li span {
-		font: 16px/30px Helvetica, Arial, Sans-Serif; color: #fff;
-	}
-	#twitter ul li span a {
-		font: 16px/30px Helvetica, Arial, Sans-Serif;
-	}
+#twitter ul {
+    list-style: none;
+    padding: 0 0 0 0px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#twitter ul li {
+    padding: 20px;
+    background: rgba(255, 140, 0, 0.1);
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border: 1px dashed grey;
+}
+
+#twitter ul li a {
+    font: italic 12px/30px Georgia, Times, Serif;
+    color: #6e1500;
+}
+
+#twitter ul li a:hover {
+    color: #1b2f6f;
+}
+
+#twitter ul li span {
+    font: 16px/30px Helvetica, Arial, Sans-Serif;
+    color: #fff;
+}
+
+#twitter ul li span a {
+    font: 16px/30px Helvetica, Arial, Sans-Serif;
+}

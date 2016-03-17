@@ -64,7 +64,8 @@
                                 {% if is_joined == True %}
                                     {% if challenge_books_read|get_item:challenge.id|get_item:'is_completed' == False and is_finished == False %}
                                         <a data-open="challengeModal" class="button challenge-complete-btn join"
-                                           id="challenge-join-btn">Complete
+                                           id="challenge-join-btn"
+                                           onclick="$('#cur_challenge_id').html({{ challenge.id }})">Complete
                                             This
                                             Challenge</a>
                                     {% elif challenge_books_read|get_item:challenge.id|get_item:'is_completed' == False and is_finished == True %}
@@ -142,6 +143,7 @@
 
         </div>
         <div class="medium reveal" id="challengeModal" data-options="showDelay:300; hideDelay:50" data-reveal>
+            <span style="display: none" id="cur_challenge_id"></span>
             <button class="close-button" data-close aria-label="Close reveal" type="button">
                 <span aria-hidden="true">&times;</span>
             </button>

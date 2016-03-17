@@ -1,7 +1,6 @@
 $(function () {
     $("#searchBook").keyup(function (e) {
         if (e.keyCode == 13) {
-
             $.ajax({
                 url: "/search/books/" + encodeURIComponent(this.value),
                 method: 'GET',
@@ -33,9 +32,34 @@ $(function () {
         }
     });
 
-    $("#searchResult").click(function (e) {
-        //$('#booksSelected').html("<p>"+$('#searchResult').find('p:eq(0s)').text()+"</p>")
-        console.log($('#searchResult').find('p:eq(0)').text());
+    $("#searchResult").on('click', 'li', function () {
+        var booksSel='';
+        if($('#bookList').html()!=null) {
+            booksSel = $('#bookList').html();
+        }
+        booksSel += "<li>"+$(this).html()+"</li>";
+        $('#bookList').html(booksSel);
+    });
 
+    $('#saveBook').on('click', 'bookList', function (event) {
+        event.preventDefault();
+        $('#modalAlert').fadeIn();
+        console.log("hello: "+$('#bookList').text());
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $('#register_form').serialize(),
+            dataType: 'json',
+            success: function (data) {
+                if (data.status === "success") {
+
+                } else {
+
+                }
+            },
+            error: function (data) {
+                //display failed msg
+            }
+        });
     });
 });

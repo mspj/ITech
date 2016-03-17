@@ -165,4 +165,8 @@ $(function () {
         join_readathon(this.name);
     });
 
+    //$('#profile-uploadimg-icon').click(function () {
+    //    $("#upload_pic_form").click();
+    //});
+
 });

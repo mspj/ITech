@@ -16,7 +16,14 @@
                             <table>
                                 <tbody>
                                 <tr>
-                                    <td>
+                                    <td style="position: relative;">
+
+                                        {% if user.is_authenticated and reader.id == user.id %}
+                                            <label for="file-input">
+                                                <i class="fi-camera" id="profile-uploadimg-icon"></i>
+                                            </label>
+                                        {% endif %}
+
                                         {% if reader.picture %}
                                             <div class="profile-img-lg"
                                                  style="background-image: url('{{ reader.picture.url }}');"></div>
@@ -28,6 +35,7 @@
                                             <div class="profile-img-lg"
                                                  style="background-image: url('{% static "bookwormsunite/images/blank-profile.png" %}');"></div>
                                         {% endif %}
+
                                     </td>
                                     <td style="width: 100%;">
                                         <h3 style="font-weight: 200;"> {{ reader.username | title }}</h3>
@@ -41,6 +49,7 @@
                                 </tr>
                                 </tbody>
                             </table>
+
                             <form action="{% url 'upload_pic' %}" id="upload_pic_form" method="post"
                                   enctype="multipart/form-data">
                                 {% csrf_token %}

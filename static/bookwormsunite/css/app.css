@@ -179,6 +179,16 @@ div#profile-readathon-list a {
     margin-bottom: 0;
 }
 
+#profile-uploadimg-icon {
+    font-size: 30px;
+    color: rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+    position: absolute;
+    bottom: 0.5rem;
+    right: 1.2rem;
+    z-index: 7777;
+}
+
 #profile-profile-plate table tbody {
     border: none;
     background-color: transparent;
@@ -203,6 +213,7 @@ div#profile-readathon-list a {
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
+
 .challenge-save-btn {
     margin-top: 25px;
     margin-bottom: 0;

@@ -273,4 +273,10 @@ def search_book(request, query):
 
 @require_POST
 def save_accomplishment(request):
-    print 's'
+    print 'a'
+    # check book
+    # Book.objects.filter(isbn=)
+
+    # save book
+
+    # save accomplishent

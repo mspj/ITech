@@ -33,9 +33,9 @@ $(function () {
         }
     });
 
-    //$("#searchResult").click(function (e) {
-    //    $('#booksSelected').html("<p>"+$('#searchResult').find('p:eq(0s)').text()+"</p>")
-    //    console.log($('#searchResult').find('p:eq(0)').text());
-    //
-    //});
+    $("#searchResult").click(function (e) {
+        //$('#booksSelected').html("<p>"+$('#searchResult').find('p:eq(0s)').text()+"</p>")
+        console.log($('#searchResult').find('p:eq(0)').text());
+
+    });
 });

@@ -11,12 +11,14 @@ $(function () {
 
                     if (data.status == 'success') {
 
-                        var searchRes = "";
+                        var searchRes = "<ul style='list-style-type:none' class='search-result-box'>";
                         var books = data.data;
 
                         for (var i = 0; i < books.length; i++) {
-                            searchRes += '<p> ' + books[i].title + ',' + books[i].author + ',' + ' </p>';
+                            searchRes += '<li><img src="' + books[i].cover_url + '"/>' + books[i].title + ',' + books[i].author + ',' + ' </li> ';
                         }
+
+                        searchRes += "</ul>";
 
                         $('#searchResult').html(searchRes);
 

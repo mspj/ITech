@@ -19,7 +19,7 @@
                                     <td style="position: relative;">
 
                                         {% if user.is_authenticated and reader.id == user.id %}
-                                            <label onclick="$('#id_picture').click();" for="file-input">
+                                            <label for="file-input">
                                                 <i class="fi-camera" id="profile-uploadimg-icon"></i>
                                             </label>
                                         {% endif %}
@@ -50,11 +50,13 @@
                                 </tbody>
                             </table>
 
-                            <form action="{% url 'upload_pic' %}" id="upload_pic_form" method="post"
+                            <form style="display: none;" action="{% url 'upload_pic' %}" id="upload_pic_form"
+                                  method="post"
                                   enctype="multipart/form-data">
                                 {% csrf_token %}
                                 {{ picture_form }}
-                                <input class="button" type="submit" value="Upload">
+                                <input name="upload_pic_input" id="upload_pic_input" class="button" type="submit"
+                                       value="Upload">
                             </form>
                         </div>
                     </div>

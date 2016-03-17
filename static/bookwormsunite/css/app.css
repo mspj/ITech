@@ -168,6 +168,8 @@ div#profile-readathon-list a {
 }
 
 #profile-profile-plate {
+    margin-left: 0;
+    margin-right: 0;
     border-radius: 3px;
     padding: 0.5rem;
     border: 1px solid rgba(0, 0, 0, 0.2);
@@ -199,6 +201,14 @@ div#profile-readathon-list a {
     border-radius: 3px;
     width: 150px;
     height: 150px;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.profile-img-sm {
+    border-radius: 3px;
+    width: 60px;
+    height: 60px;
     background-size: cover;
     background-position: 50% 50%;
 }
@@ -311,7 +321,6 @@ div#profile-readathon-list a {
 #readathon-thumbnail-panel {
     width: 100%;
     margin: 0 auto;
-    overflow: auto;
 }
 
 #readathon-thumbnail-panel ul {
@@ -414,4 +423,10 @@ div#profile-readathon-list a {
     border-radius: 10px;
     width: 250px;
     height: 250px;
+}
+
+.summary-img {
+    cursor: pointer;
+    width: 100%;
+    height: auto;
 }

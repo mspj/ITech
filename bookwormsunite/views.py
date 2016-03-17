@@ -17,22 +17,22 @@ from bookwormsunite.utils.api_wrapper import APIWrapper
 
 @require_GET
 def index(request):
-    #Home page
+    # Home page
     title = "Index"
     upcoming_readathons = Readathon.objects.filter(end_date__gt=timezone.now())[:4]
     accomplishments = Accomplishment.objects.order_by('-created')
     recent_books = []
-    for accomplishment in accomplishments:#loop constructs a list of recent books added to the website by users
+    for accomplishment in accomplishments:  # loop constructs a list of recent books added to the website by users
         for book in accomplishment.books.all():
             recent_books.append(book)
 
-    recent_books = list(set(recent_books))[:12]#up to 12 books
+    recent_books = list(set(recent_books))[:12]  # up to 12 books
 
     today = timezone.now()
     monday = today - timezone.timedelta(days=today.weekday())
     calendar_obj = [{}, {}, {}, {}, {}, {}, {}]
 
-    for i in range(7):#loop constructs a calender for the home page
+    for i in range(7):  # loop constructs a calender for the home page
         event_day = monday + timezone.timedelta(i)
         calendar_obj[i]['day'] = event_day
         readathons = Readathon.objects.filter(start_date__lt=event_day, end_date__gt=event_day)
@@ -45,7 +45,7 @@ def index(request):
 
 @require_POST
 def readathon_join(request, readathon_name_slug):
-    #view for joining readathon
+    # view for joining readathon
     response = {'status': FAIL_STATUS}
     try:
         readathon = Readathon.objects.get(slug=readathon_name_slug)
@@ -127,7 +127,7 @@ def readathon_info(request, readathon_name_slug):
 
 @require_GET
 def user_info(request, uid):
-    #view for the user profile page as viewed by the user
+    # view for the user profile page as viewed by the user
     picture_form = PictureForm()
 
     joined_readathons = Readathon.objects.filter(readers=uid).order_by('-created')
@@ -151,10 +151,32 @@ def user_info(request, uid):
 
 @require_GET
 def user_summary(request, uid):
-    #Perhaps change the name of this view or delete it - it's not very clear what this view does
-    title = "Index"
-    content = "This is index page"
-    context_dict = {'title': title, 'content': content}
+    try:
+        joined_readathons = Readathon.objects.filter(readers=uid).order_by('-created')
+        reader = Reader.objects.get(id=uid)
+    except Reader.DoesNotExist as e:
+        raise Http404('Object does not exist: {0}'.format(e.message))
+
+    title = reader.username + "'s Readathons"
+
+    readathons = {}
+
+    for readathon in joined_readathons:
+        readathons[readathon] = {}
+        challenges = Challenge.objects.filter(readathon=readathon.id).values_list('id', flat=True)
+        readathons[readathon]['num_challenge'] = len(challenges)
+        readathons[readathon]['num_complete'] = 0
+        acs = Accomplishment.objects.filter(challenge__in=challenges, user=uid)
+        readathons[readathon]['num_complete'] = readathons[readathon]['num_complete'] + len(acs)
+
+        read_books = []
+        for ac in acs:
+            for book in ac.books.all():
+                read_books.append(book)
+
+        readathons[readathon]['books'] = list(set(read_books))
+
+    context_dict = {'title': title, 'reader': reader, 'readathons': readathons}
     return render(request, 'bookwormsunite/user_summary.html', context_dict)
 
 
@@ -167,7 +189,7 @@ def about(request):
 
 @require_POST
 def login(request):
-    #login view with authentication
+    # login view with authentication
     response = {'status': FAIL_STATUS}
     username = request.POST.get('username', '')
     password = request.POST.get('password', '')
@@ -195,7 +217,7 @@ def logout(request):
 
 @require_POST
 def register(request):
-    #registering view
+    # registering view
     response = {'status': FAIL_STATUS}
     reader_form = ReaderCreationForm(data=request.POST)
     if reader_form.is_valid():
@@ -214,8 +236,8 @@ def register(request):
 
 @require_GET
 def autocomplete_search(request):
-    #this view produces automatic search suggestions for user when
-    #they begin entering items into the search box
+    # this view produces automatic search suggestions for user when
+    # they begin entering items into the search box
     response = {'status': FAIL_STATUS}
     if request.is_ajax():
         q = request.GET.get('term')
@@ -233,7 +255,7 @@ def autocomplete_search(request):
 
 @require_GET
 def calendar(request, offset):
-    #creates a calender for the home page
+    # creates a calender for the home page
     offset = int(offset)
 
     today = timezone.now()
@@ -263,7 +285,7 @@ def calendar(request, offset):
 
 @require_POST
 def upload_pic(request):
-    #changes a profile picture for the user
+    # changes a profile picture for the user
     response = {'status': FAIL_STATUS}
     picture_form = PictureForm(request.POST, request.FILES, instance=request.user)
 

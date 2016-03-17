@@ -380,3 +380,32 @@ div#profile-readathon-list a {
     top: 0;
     cursor: pointer;
 }
+
+#searchResult {
+    height: 250px;
+    overflow: auto;
+    margin-top: 15px;
+}
+
+.search-result-box {
+    padding: 1rem;
+    padding-left: 0;
+    padding-top: 0;
+    margin-left: 0;
+}
+
+.search-result-box li {
+    cursor: pointer;
+    padding: 0.3rem;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+}
+
+.search-result-box li:hover {
+    color: rgb(242, 99, 75);
+}
+
+.search-result-box li img {
+    width: 40px;
+    height: 57px;
+    margin-right: 0.5rem;
+}

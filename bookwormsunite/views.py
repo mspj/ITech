@@ -269,3 +269,8 @@ def search_book(request, query):
     else:
         response['msg'] = 'Request to Goodreads API failed'
     return JsonResponse(response)
+
+
+@require_POST
+def save_accomplishment(request):
+    print 's'

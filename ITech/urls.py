@@ -35,6 +35,9 @@ urlpatterns = patterns('',
                        url(r'^user/(?P<uid>[0-9]+)/$', user_info, name="user_info"),
                        url(r'^user/(?P<uid>[0-9]+)/summary/$', user_summary),
 
+                       # Others
+                       url(r'^about/$', about, name="about"),
+
                        # Admin
                        url(r'^admin/', include(admin.site.urls)),
                        )

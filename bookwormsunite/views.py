@@ -158,6 +158,13 @@ def user_summary(request, uid):
     return render(request, 'bookwormsunite/user_summary.html', context_dict)
 
 
+@require_GET
+def about(request):
+    title = "About"
+    context_dict = {'title': title}
+    return render(request, 'bookwormsunite/about.html', context_dict)
+
+
 @require_POST
 def login(request):
     #login view with authentication
@@ -294,3 +301,5 @@ def save_accomplishment(request):
     # save book
 
     # save accomplishent
+
+    # add activity

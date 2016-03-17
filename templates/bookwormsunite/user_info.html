@@ -19,7 +19,7 @@
                                     <td style="position: relative;">
 
                                         {% if user.is_authenticated and reader.id == user.id %}
-                                            <label for="file-input">
+                                            <label onclick="$('#id_picture').click();" for="file-input">
                                                 <i class="fi-camera" id="profile-uploadimg-icon"></i>
                                             </label>
                                         {% endif %}

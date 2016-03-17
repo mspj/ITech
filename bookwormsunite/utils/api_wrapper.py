@@ -79,10 +79,11 @@ class APIWrapper(object):
         results = []
         for result in search.find("results"):
             book = result.find("best_book")
+            id = book.find("id").text
             title = book.find("title").text
             author = book.find("author").find("name").text
             cover_url = book.find("image_url").text
-            results.append({'title': title, 'author': author, 'cover_url': cover_url})
+            results.append({'id': id, 'title': title, 'author': author, 'cover_url': cover_url})
             # results.append((title, author, cover_url))
 
             num_results += 1

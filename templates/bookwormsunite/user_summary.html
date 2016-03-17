@@ -1,5 +1,82 @@
 {% extends "bookwormsunite/base.html" %}
 
+{% load dict_filter %}
+
 {% block title %}{{ title }}{% endblock %}
 
-{% block content %}{{ content }}{% endblock %}
+{% block content %}
+
+    <div class="page-content">
+
+        <div class="row medium-9 large-8 columns">
+
+            <div class="blog-post">
+                <div class="row" id="profile-profile-plate">
+
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td style="position: relative; padding-bottom: 0;">
+                                <a href="/user/{{ reader.id }}">
+                                    {% if reader.picture %}
+                                        <div class="profile-img-sm"
+                                             style="background-image: url('{{ reader.picture.url }}');"></div>
+                                    {% elif reader.img %}
+                                        <div class="profile-img-sm"
+                                             style="background-image: url('{{ reader.img }}');"></div>
+                                    {% else %}
+                                        {% load staticfiles %}
+                                        <div class="profile-img-sm"
+                                             style="background-image: url('{% static "bookwormsunite/images/blank-profile.png" %}');"></div>
+                                    {% endif %}
+                                </a>
+                            </td>
+                            <td style="width: 100%; padding-bottom: 0;">
+                                <h3 style="line-height: 60px; font-weight: 200;"> {{ reader.username | title }}'s
+                                    Readathons</h3>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {% for readathon in readathons %}
+
+                <div class="blog-post" style="margin-bottom: 30px;">
+                    <h3 class="blog-title"><span>{{ readathon.name | title }} <small>
+                        ( {{ readathons|get_item:readathon|get_item:'num_complete' }}/{{ readathons|get_item:readathon|get_item:'num_challenge' }})
+                    </small></span></h3>
+
+                    <div class="row">
+
+                        {% for book in readathons|get_item:readathon|get_item:'books' %}
+
+                            <div class="large-2 medium-4 small-6 columns" style="float:left;">
+                                <img src="{{ book.cover }}" data-tooltip aria-haspopup="true"
+                                     class="has-tip"
+                                     title="{{ book.book_name }}">
+                            </div>
+                            {#                            <div class="large-2 medium-4 small-6 columns">#}
+                            {#                                <img src="http://placehold.it/500x500&amp;text=Thumbnail">#}
+                            {#                            </div>#}
+                            {#                            <div class="large-2 medium-4 small-6 columns">#}
+                            {#                                <img src="http://placehold.it/500x500&amp;text=Thumbnail">#}
+                            {#                            </div>#}
+                            {#                            <div class="large-2 medium-4 small-6 columns">#}
+                            {#                                <img src="http://placehold.it/500x500&amp;text=Thumbnail">#}
+                            {#                            </div>#}
+
+                        {% endfor %}
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+

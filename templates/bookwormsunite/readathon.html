@@ -199,14 +199,14 @@
             <div class="medium-6 large-6 columns" id="twitter-widget">
                 <div id="readathon-tweet-panel">
                     <div class="blog-post">
-                        <h3 class="blog-title"><span><a class="twitter-timeline"
-                                                        href="https://twitter.com/search/{{ readathon.slug }}">#{{ readathon.slug }}</a></span>
+                        <h3 class="blog-title"><span><a class="twitter-timeline" style="color: black;"
+                                                        href="https://twitter.com/search/{{ readathon.name }}">#{{ readathon.slug }}</a></span>
                         </h3>
                         <div id="twitter">
                             {% load cache %}
                             {% load twitter_tag cache %}
                             {% cache 60 my_tweets %}
-                                {% search_tweets for readathon.slug as tweets limit 20 %}
+                                {% search_tweets for readathon.name as tweets limit 20 %}
                             {% endcache %}
                             <ul>
                                 {% for tweet in tweets %}

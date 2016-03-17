@@ -1,4 +1,5 @@
 #twitter {
+    padding-right: 10px;
     height: 300px;
     overflow-y: auto;
     overflow-x: hidden;
@@ -8,7 +9,7 @@
 #twitter h1 a {
     display: block;
     margin: 0 0 15px 0;
-    font: 90px Helvetica, Arial, Sans-Serif;
+    font-size: 90px;
     color: rgba(255, 255, 255, 0.2);
     text-decoration: none;
 }
@@ -19,13 +20,14 @@
 
 #twitter ul {
     list-style: none;
-    padding: 0 0 0 0px;
+    padding: 0 0 0 0;
     background: rgba(255, 255, 255, 0.1);
 }
 
 #twitter ul li {
+    margin-bottom: 10px;
     padding: 20px;
-    background: rgba(255, 140, 0, 0.1);
+    background: rgb(244, 244, 244);
     border-radius: 20px;
     -moz-border-radius: 20px;
     -webkit-border-radius: 20px;
@@ -34,18 +36,18 @@
 
 #twitter ul li a {
     font: italic 12px/30px Georgia, Times, Serif;
-    color: #6e1500;
+    color: rgb(242, 99, 75);
 }
 
 #twitter ul li a:hover {
-    color: #1b2f6f;
+    color: rgb(33, 153, 232);
 }
 
 #twitter ul li span {
-    font: 16px/30px Helvetica, Arial, Sans-Serif;
+    font-size: 16px;
     color: #fff;
 }
 
 #twitter ul li span a {
-    font: 16px/30px Helvetica, Arial, Sans-Serif;
+    font-size: 16px;
 }

@@ -6,6 +6,26 @@ Reporting issues for bugs: [Link](https://github.com/mspj/ITech/issues)
 Trello for todo list and progress: [Link](https://trello.com/b/IXdehIOW)
 
 ## How to
+### Instructions for assessors
+Please make sure you have virtual environment installed and currently in it. Then follow the instructions that match your operating system and run the server.
+
+#### For *nix and OS X
+```
+$ make deploy
+```
+
+#### For Windows
+```
+$ pip install -r requirements.txt
+$ python manage.py migrate
+$ python populate_data.py
+```
+
+#### Run the application
+```
+$ python manage.py runserver
+```
+
 ### To deploy
 ```
 $ make        # pull new commits

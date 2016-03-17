@@ -295,6 +295,7 @@ def search_book(request, query):
 @require_POST
 def save_accomplishment(request):
     print 'a'
+    print request.POST.get("books");
     # check book
     # Book.objects.filter(isbn=)
 
@@ -303,3 +304,7 @@ def save_accomplishment(request):
     # save accomplishent
 
     # add activity
+    response = {'status': FAIL_STATUS}
+    response['status'] = SUCCESS_STATUS
+    # response['redirect_to'] = readathon_info;
+    return JsonResponse(response)

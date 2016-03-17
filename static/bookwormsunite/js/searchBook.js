@@ -14,7 +14,7 @@ $(function () {
                         var books = data.data;
 
                         for (var i = 0; i < books.length; i++) {
-                            searchRes += '<li><span style="display: none;">' + books[i].id + '</span><img src="' + books[i].cover_url + '"/>' + books[i].title + ',' + books[i].author + ',' + ' </li> ';
+                            searchRes += '<li><span id="bookID" style="display: none;">' + books[i].id + '</span><img id="bookCover" src="' + books[i].cover_url + '"/><span id="bookTitle">' + books[i].title + '</span>,<span id="bookAuthor">' + books[i].author + '</span>,' + ' </li> ';
                         }
 
                         searchRes += "</ul>";
@@ -33,33 +33,55 @@ $(function () {
     });
 
     $("#searchResult").on('click', 'li', function () {
-        var booksSel='';
-        if($('#bookList').html()!=null) {
+        var booksSel = '';
+        if ($('#bookList').html() != null) {
             booksSel = $('#bookList').html();
         }
-        booksSel += "<li>"+$(this).html()+"</li>";
+        booksSel += "<li>" + $(this).html() + "</li>";
         $('#bookList').html(booksSel);
     });
 
-    $('#saveBook').on('click', 'bookList', function (event) {
-        event.preventDefault();
+    $('#saveBook').click(function (e) {
+        e.preventDefault();
         $('#modalAlert').fadeIn();
-        console.log("hello: "+$('#bookList').text());
+        //$('#challengeModal').fadeOut();
+        //$('#challenge-join-btn').fadeIn();
+        var challengeID = $('#cur_challenge_id').text();
+        var books = [];
+        var jsonData = {};
+        $('#bookList').find('li').each(function () {
+            jsonData['challenge_id'] = challengeID;
+            jsonData['id'] = $(this).children("#bookID").text();
+            jsonData['cover'] = $(this).children("#bookCover").attr('src');
+            jsonData['title'] = $(this).children("#bookTitle").text();
+            jsonData['author'] = $(this).children("#bookAuthor").text();
+            books.push(jsonData);
+        });
+
         $.ajax({
             type: 'POST',
-            url: $(this).attr('action'),
-            data: $('#register_form').serialize(),
+            url: "/save_accomplishment/",
+            data: {"books": JSON.stringify(books)},
             dataType: 'json',
             success: function (data) {
+                var alertArea = $('#modalAlert');
+                var alertMsg = $('#modalAlertMsg');
                 if (data.status === "success") {
-
+                    alertMsg.text("Add Books Success");
+                    alertArea.attr('class', 'callout success');
+                    alertArea.fadeIn();
+                    window.location.reload();
                 } else {
-
+                    alertMsg.text("Please Try Again!");
+                    alertArea.fadeIn();
                 }
             },
             error: function (data) {
                 //display failed msg
             }
         });
+
     });
+
+
 });

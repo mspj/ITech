@@ -26,6 +26,7 @@ urlpatterns = patterns('',
 
                        url(r'^user/upload_picture/', upload_pic, name='upload_pic'),
                        url(r'^search/books/(?P<query>[\w|\W]+)/$', search_book, name='search_book'),
+                       url(r'^save_accomplishment/$', save_accomplishment, name='save_accomplishment'),
 
                        # Readathons
                        url(r'^readathon/$', RedirectView.as_view(pattern_name='index'), name='readathon'),
@@ -44,7 +45,7 @@ urlpatterns = patterns('',
 
 if settings.DEBUG:
     urlpatterns += patterns(
-        'django.views.static',
-        (r'^media/(?P<path>.*)',
-         'serve',
-         {'document_root': settings.MEDIA_ROOT}), )
+            'django.views.static',
+            (r'^media/(?P<path>.*)',
+             'serve',
+             {'document_root': settings.MEDIA_ROOT}), )

@@ -149,10 +149,10 @@
                 <h2>What did you read?</h2>
                 <input id="searchBook" name="bookName" class="challenge-search-box"
                        placeholder="Enter book title, author, or ISBN" style="width: 100%;">
-                <div id="searchResult" style="height: 300px; overflow: auto;">
+                <div id="searchResult" style="height: 250px; overflow: auto;">
 
                 </div>
-                <div id="booksSelected">
+                <div id="booksSelected" style="height: 100px; overflow: auto;">
 
                 </div>
                 <a href="#" class="button challenge-save-btn">SAVE</a>
@@ -167,8 +167,18 @@
 
                         <ul>
                             {% for reader in  readers %}
-                                <li><a href="{% url 'user_info' uid=reader.id %}"><img
-                                        src="{{ reader.img }}"></a></li>
+                                <li><a href="{% url 'user_info' uid=reader.id %}">
+
+                                    {% if reader.picture %}
+                                        <img src="{{ reader.picture.url }}"/>
+                                    {% elif reader.img %}
+                                        <img src="{{ reader.img }}"/>
+                                    {% else %}
+                                        {% load staticfiles %}
+                                        <img src='{% static "bookwormsunite/images/blank-profile.png" %}'/>
+                                    {% endif %}
+
+                                </a></li>
                             {% endfor %}
                         </ul>
                     </div>

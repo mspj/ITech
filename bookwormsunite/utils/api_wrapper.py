@@ -9,7 +9,7 @@ class APIWrapper(object):
     BASE_URL = "http://www.goodreads.com/"
     KEY = "MDJqEMH3YFyMuHGWqYCnHg"
 
-    MAX_SEARCH_RESULTS = 10
+    MAX_SEARCH_RESULTS = 15
 
     def http_request(self, url):
 

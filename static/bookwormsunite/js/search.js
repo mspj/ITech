@@ -12,11 +12,13 @@ $(function () {
         },
         minLength: 2,
         select: function (event, ui) {
-            goToReadathon(ui.item.label);
+            event.preventDefault();
+            this.value = ui.item.label;
+            goToReadathon(ui.item.value);
         }
     });
 
-    function goToReadathon(slug_readathon) {
-        location.href = "/readathon/" + slug_readathon;
+    function goToReadathon(slug) {
+        location.href = "/readathon/" + slug;
     }
 });

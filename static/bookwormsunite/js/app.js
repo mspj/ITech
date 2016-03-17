@@ -16,6 +16,26 @@ function getCookie(name) {
     return cookieValue;
 }
 
+function join_readathon(readathon_slug) {
+
+    $.ajax({
+            type: 'POST',
+            url: "/readathon/" + readathon_slug + "/join/",
+            success: function (data) {
+
+                if (data.status == 'success') {
+                    $('#readathon-join-section').html('<a href="#" class="button readathon-join-btn joined" id="readathon-quit-btn">Joined</a>');
+                } else {
+                    alert('could not join the readathon');
+                }
+            },
+            error: function (data) {
+                alert('could not join the readathon');
+            }
+        }
+    )
+}
+
 function updateCalendar(offset) {
 
     // Check to see if the counter has been initialized
@@ -28,7 +48,7 @@ function updateCalendar(offset) {
 
     $.ajax({
         type: 'GET',
-        url: "calendar/" + updateCalendar.counter,
+        url: "/calendar/" + updateCalendar.counter,
         success: function (data) {
 
             $('#readathon-calendar-month').html(data.month);
@@ -51,7 +71,7 @@ function updateCalendar(offset) {
             $('#readathon-calendar-events').html(cal);
         },
         error: function (data) {
-            alert('cannot update calendar');
+            //display failed msg
         }
     })
 
@@ -137,6 +157,12 @@ $(function () {
 
     $('#readathon-calendar-right').click(function () {
         updateCalendar(1);
+    });
+
+    //$('#readathon-join-btn').preventDefault()
+    $('#readathon-join-btn').click(function (e) {
+        e.preventDefault();
+        join_readathon(this.name);
     });
 
 });

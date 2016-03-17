@@ -12,6 +12,7 @@ from ITech.settings import LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL, SUCCESS_STAT
     DISABLED_ACC_MSG, SUCCESS_LOGIN_MSG, SUCCESS_REGISTER_MSG
 from bookwormsunite.forms import ReaderCreationForm, PictureForm
 from bookwormsunite.models import Readathon, Accomplishment, Reader, Challenge, Activity
+from bookwormsunite.utils.api_wrapper import APIWrapper
 
 
 @require_GET
@@ -46,8 +47,9 @@ def readathon_join(request, readathon_name_slug):
     response = {'status': FAIL_STATUS}
     try:
         readathon = Readathon.objects.get(slug=readathon_name_slug)
-        readathon.readers.add(request.user)
+        readathon.readers.add(request.user.id)
         response['status'] = SUCCESS_STATUS
+        Activity.objects.joined_readathon(request.user, readathon)
     except Readathon.DoesNotExist as e:
         response['msg'] = 'Readathon not found: {0}'.format(e.message)
 
@@ -250,4 +252,20 @@ def upload_pic(request):
     else:
         response['msg'] = picture_form.errors
 
+    return JsonResponse(response)
+
+
+@require_GET
+def search_book(request, query):
+    response = {'status': FAIL_STATUS}
+
+    apiWrapper = APIWrapper()
+    # HTTP Errors are caught in the API Wrapper
+    # In case of error, its return None
+    res = apiWrapper.search_book(query)
+    if res is not None:
+        response['status'] = SUCCESS_STATUS
+        response['data'] = res
+    else:
+        response['msg'] = 'Request to Goodreads API failed'
     return JsonResponse(response)

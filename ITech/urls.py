@@ -25,6 +25,7 @@ urlpatterns = patterns('',
                            name='readathon_join'),
 
                        url(r'^user/upload_picture/', upload_pic, name='upload_pic'),
+                       url(r'^search/books/(?P<query>[\w|\W]+)/$', search_book, name='search_book'),
 
                        # Readathons
                        url(r'^readathon/$', RedirectView.as_view(pattern_name='index'), name='readathon'),

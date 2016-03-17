@@ -1,7 +1,8 @@
-import xml.etree.ElementTree as ET
-import urllib2
-import urllib
+import httplib
 import logging
+import urllib
+import urllib2
+import xml.etree.ElementTree as ET
 
 
 class APIWrapper(object):
@@ -11,9 +12,26 @@ class APIWrapper(object):
     MAX_SEARCH_RESULTS = 10
 
     def http_request(self, url):
-        request = urllib2.Request(url)
-        logging.info("Making request to %s" % url)
-        return urllib2.urlopen(request)
+
+        response = None
+
+        try:
+            request = urllib2.Request(url)
+            logging.info("Making request to %s" % url)
+            response = urllib2.urlopen(request)
+            logging.info("Returning response from %s" % url)
+        except urllib2.HTTPError, e:
+            response = False
+            logging.error('HTTPError = ' + str(e.code))
+        except urllib2.URLError, e:
+            logging.error('URLError = ' + str(e.reason))
+        except httplib.HTTPException, e:
+            logging.error('HTTPException')
+        except Exception:
+            import traceback
+            logging.error('generic exception: ' + traceback.format_exc())
+
+        return response
 
     # get the details of a book from its ISBN (Can be both ISBN10 and ISBN13)
     def get_book_info_by_isbn(self, isbn):
@@ -49,6 +67,9 @@ class APIWrapper(object):
         print url
         response = self.http_request(url)
 
+        if response is None:
+            return response
+
         # parse the response
         resp_parsed = ET.parse(response)
         root = resp_parsed.getroot()
@@ -61,7 +82,8 @@ class APIWrapper(object):
             title = book.find("title").text
             author = book.find("author").find("name").text
             cover_url = book.find("image_url").text
-            results.append((title, author, cover_url))
+            results.append({'title': title, 'author': author, 'cover_url': cover_url})
+            # results.append((title, author, cover_url))
 
             num_results += 1
             if num_results == self.MAX_SEARCH_RESULTS:

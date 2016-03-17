@@ -11,17 +11,23 @@
 
             <div class="blog-post">
                 <h3 class="blog-title"><span>{{ readathon.name | title }}
+
                     {% if is_started == False %}
                         <small>(Not Started)</small></span>
                     {% elif is_finished == True %}
                         <small>(Close)</small></span>
                     {% endif %}
 
-                    {% if is_joined == False and is_finished == False %}
-                        <a href="#" class="button readathon-join-btn join" id="readathon-join-btn">Join</a>
-                    {% elif is_joined == True %}
-                        <a href="#" class="button readathon-join-btn joined" id="readathon-join-btn">Joined</a>
-                    {% endif %}
+                    <span id="readathon-join-section">
+                        {% if user.is_authenticated %}
+                            {% if is_joined == False and is_finished == False %}
+                                <a name="{{ readathon.slug }}" href="#" class="button readathon-join-btn join"
+                                   id="readathon-join-btn">Join</a>
+                            {% elif is_joined == True %}
+                                <a href="#" class="button readathon-join-btn joined" id="readathon-quit-btn">Joined</a>
+                            {% endif %}
+                        {% endif %}
+                    </span>
                 </h3>
                 <div id="readathon-summary-plate">
                     <table>
@@ -58,16 +64,16 @@
                                 {% if is_joined == True %}
                                     {% if challenge_books_read|get_item:challenge.id|get_item:'is_completed' == False and is_finished == False %}
                                         <a data-open="challengeModal" class="button challenge-complete-btn join"
-                                           id="readathon-join-btn">Complete
+                                           id="challenge-join-btn">Complete
                                             This
                                             Challenge</a>
                                     {% elif challenge_books_read|get_item:challenge.id|get_item:'is_completed' == False and is_finished == True %}
-                                        <a href="#" class="button challenge-complete-btn due" id="readathon-join-btn">Did
+                                        <a href="#" class="button challenge-complete-btn due">Did
                                             Not
                                             Complete Challenge</a>
                                     {% elif challenge_books_read|get_item:challenge.id|get_item:'is_completed' == True %}
                                         <a href="#" class="button challenge-complete-btn joined"
-                                           id="readathon-join-btn">Challenge
+                                        >Challenge
                                             Completed</a>
                                     {% endif %}
                                 {% endif %}
@@ -135,18 +141,22 @@
             {% endfor %}
 
         </div>
-        <div class="small reveal" id="challengeModal" data-options="showDelay:300; hideDelay:50" data-reveal>
+        <div class="medium reveal" id="challengeModal" data-options="showDelay:300; hideDelay:50" data-reveal>
             <button class="close-button" data-close aria-label="Close reveal" type="button">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <h2>Select a book</h2>
-            <div class="row medium-6 large-9 columns">
+            <div style="height: 350px;">
+                <h2>What did you read?</h2>
                 <input id="searchBook" name="bookName" class="challenge-search-box"
-                       placeholder="Enter title, author, or ISBN">
+                       placeholder="Enter book title, author, or ISBN" style="width: 100%;">
+                <div id="searchResult" style="height: 300px; overflow: auto;">
+
+                </div>
+                <div id="booksSelected">
+
+                </div>
+                <a href="#" class="button challenge-save-btn">SAVE</a>
             </div>
-{#            <div class="row medium-6 large-9 columns">#}
-{#                <input class="button challenge-save-btn" type="button" value="Save">#}
-{#            </div>#}
         </div>
 
         <div class="row medium-9 large-8">

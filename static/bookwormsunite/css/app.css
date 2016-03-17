@@ -409,3 +409,9 @@ div#profile-readathon-list a {
     height: 57px;
     margin-right: 0.5rem;
 }
+
+.about-img {
+    border-radius: 10px;
+    width: 250px;
+    height: 250px;
+}

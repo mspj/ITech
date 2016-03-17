@@ -1,0 +1,86 @@
+{% extends "bookwormsunite/base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+    <div class="page-content">
+
+        <div class="row medium-9 large-8 columns">
+
+            <div class="row">
+                <hr>
+                <div class="large-12 columns">
+                    <h4>About the Project</h4>
+                    <p>Bookswormsunite is a place where readers can come and find readathons happening all over the
+                        world. </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <hr>
+                <div class="large-12 columns">
+                    <h4>About the Team</h4>
+                    <p>We are computer science students from the University of Glasgow.</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="large-3 small-6 columns">
+                    {% load staticfiles %}
+                    <img class="about-img" src='{% static "bookwormsunite/images/catherine.png" %}'/>
+                    <div class="panel">
+                        <h5>Catherine</h5>
+                        <h6 class="subheader">"Books and soup for life"</h6>
+                    </div>
+                </div>
+                <div class="large-3 small-6 columns">
+                    {% load staticfiles %}
+                    <img class="about-img" src='{% static "bookwormsunite/images/prapaipim.png" %}'/>
+                    <div class="panel">
+                        <h5>Prapaipim</h5>
+                        <h6 class="subheader">"I'm a bookdragon"</h6>
+                    </div>
+                </div>
+                <div class="large-3 small-6 columns">
+                    {% load staticfiles %}
+                    <img class="about-img" src='{% static "bookwormsunite/images/thanat.jpg" %}'/>
+                    <div class="panel">
+                        <h5>Thanat</h5>
+                        <h6 class="subheader">"I don't read and I don't put my pictures on the Internet."</h6>
+                    </div>
+                </div>
+                <div class="large-3 small-6 columns">
+                    {% load staticfiles %}
+                    <img class="about-img" src='{% static "bookwormsunite/images/thunchanok.png" %}'/>
+                    <div class="panel">
+                        <h5>Thunchanok</h5>
+                        <h6 class="subheader">"Reading is sexy (like me)"</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-bottom: 10px;">
+                <div class="large-12 columns">
+                    <hr>
+                    <h4>Contact Us</h4>
+                    <div class="large-6 columns">
+                        University of Glasgow
+                        <br>
+                        Glasgow
+                        <br>
+                        G12 8QQ
+                    </div>
+                    <div class="large-6 columns">
+                        Email: bw@bookwormsunite.com
+                        <br>
+                        Phone: +44 141 123 3456
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

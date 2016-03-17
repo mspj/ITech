@@ -6,6 +6,8 @@ from bookwormsunite.managers import ReaderManager, ActivityManager
 
 
 class Reader(AbstractBaseUser, PermissionsMixin):
+    #main variables of reader = username, profile picture(optional) and
+    #thumbnail
     username = models.CharField('username', max_length=30, unique=True)
     img = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
@@ -37,6 +39,7 @@ class TimeStampedModel(models.Model):
 
 
 class Readathon(TimeStampedModel):
+    #model describing readathons
     readers = models.ManyToManyField(Reader)
     name = models.CharField(max_length=64)
     description = models.CharField(max_length=1024)
@@ -53,6 +56,7 @@ class Readathon(TimeStampedModel):
 
 
 class Challenge(TimeStampedModel):
+    #challenges associated with readathons
     readathon = models.ForeignKey(Readathon, on_delete=models.CASCADE)
     name = models.CharField(max_length=256)
     slug = models.SlugField()
@@ -66,6 +70,7 @@ class Challenge(TimeStampedModel):
 
 
 class Book(TimeStampedModel):
+    # book that readers add as part of readathon challnge
     book_name = models.CharField(max_length=512)
     isbn = models.CharField(max_length=13)
     cover = models.URLField()
@@ -76,6 +81,7 @@ class Book(TimeStampedModel):
 
 
 class Accomplishment(TimeStampedModel):
+    #returns short summary of challenge completed by user and with what book
     user = models.ForeignKey(Reader, on_delete=models.CASCADE)
     challenge = models.ForeignKey(Challenge, on_delete=models.CASCADE)
     books = models.ManyToManyField(Book)
@@ -86,6 +92,7 @@ class Accomplishment(TimeStampedModel):
 
 
 class Activity(TimeStampedModel):
+    #returns activity of user e.g. joining a readathon
     icon = models.CharField(max_length=20, default='star')
     user = models.ForeignKey(Reader, on_delete=models.CASCADE)
     message = models.CharField(max_length=512)

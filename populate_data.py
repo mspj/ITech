@@ -153,6 +153,9 @@ def populate():
     reader19 = add_reader("phah", "https://d.gr-assets.com/users/1445248393p6/48061010.jpg")
     reader20 = add_reader("luan", "https://d.gr-assets.com/users/1361115028p6/17551516.jpg")
     reader21 = add_reader("leifos", "http://www.dcs.gla.ac.uk/~leif/images/leif-azzopardi.jpg")
+    reader22 = add_reader("laura",
+                          "http://www.inspirefirst.com/wp-content/uploads/2014/07/IF-icones-star-wars-flat-design_1.jpg")
+    reader23 = add_reader("david", "http://design.printexpress.co.uk/wp-content/uploads/2013/11/01-art.jpg")
 
     # -----------------------------------------------------------------------------------
 
@@ -488,6 +491,10 @@ def add_reader(username, img, is_superuser=False):
     r = Reader.objects.get_or_create(username=username, img=img, is_superuser=is_superuser)[0]
     if username == 'leifos':
         r.set_password('leifos')
+    elif username == 'laura':
+        r.set_password('laura')
+    elif username == 'david':
+        r.set_password('david')
     else:
         r.set_password('1234')
     r.save()

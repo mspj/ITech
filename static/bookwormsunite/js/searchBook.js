@@ -10,7 +10,7 @@ $(function () {
 
                     if (data.status == 'success') {
 
-                        var searchRes = "<ul style='list-style-type:none' class='search-result-box'>";
+                        var searchRes = "<ul class='search-result-box'>";
                         var books = data.data;
 
                         for (var i = 0; i < books.length; i++) {
@@ -34,18 +34,32 @@ $(function () {
 
     $("#searchResult").on('click', 'li', function () {
         var booksSel = '';
-        if ($('#bookList').html() != null) {
-            booksSel = $('#bookList').html();
+        var toAdd = $(this).html();
+        var isDuplicated = false;
+        var bookList = $('#bookList');
+        var bookLiList = $('#bookList li');
+
+        if ($(bookList).html() != null) {
+            booksSel = $(bookList).html();
         }
-        booksSel += "<li>" + $(this).html() + "</li>";
-        $('#bookList').html(booksSel);
+
+        // check duplicate
+        $(bookLiList).each(function () {
+            if ($(this).html() == toAdd) {
+                isDuplicated = true;
+            }
+        });
+
+        // if not duplicate, then add to the selected books section
+        if (!isDuplicated) {
+            booksSel += "<li>" + $(this).html() + "</li>";
+            $(bookList).html(booksSel);
+        }
     });
 
     $('#saveBook').click(function (e) {
         e.preventDefault();
         $('#modalAlert').fadeIn();
-        //$('#challengeModal').fadeOut();
-        //$('#challenge-join-btn').fadeIn();
         var challengeID = $('#cur_challenge_id').text();
         var books = [];
         var jsonData = {};

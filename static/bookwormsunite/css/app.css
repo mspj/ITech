@@ -226,7 +226,6 @@ div#profile-readathon-list a {
 }
 
 .challenge-save-btn {
-    margin-top: 25px;
     margin-bottom: 0;
     float: right;
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -401,6 +400,7 @@ div#profile-readathon-list a {
     padding-left: 0;
     padding-top: 0;
     margin-left: 0;
+    list-style-type: none;
 }
 
 .search-result-box li {
@@ -414,6 +414,27 @@ div#profile-readathon-list a {
 }
 
 .search-result-box li img {
+    width: 40px;
+    height: 57px;
+    margin-right: 0.5rem;
+}
+
+.book-selected-box {
+    padding: 1rem;
+    padding-left: 0;
+    padding-top: 0;
+    margin-left: 0;
+    list-style-type: none;
+    margin-top: 15px;
+}
+
+.book-selected-box li {
+    cursor: pointer;
+    padding: 0.3rem;
+    color: rgb(242, 99, 75);
+}
+
+.book-selected-box li img {
     width: 40px;
     height: 57px;
     margin-right: 0.5rem;

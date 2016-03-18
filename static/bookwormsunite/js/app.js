@@ -26,11 +26,11 @@ function join_readathon(readathon_slug) {
                 if (data.status == 'success') {
                     $('#readathon-join-section').html('<a href="#" class="button readathon-join-btn joined" id="readathon-quit-btn">Joined</a>');
                 } else {
-                    alert('could not join the readathon');
+                    //alert('could not join the readathon');
                 }
             },
             error: function (data) {
-                alert('could not join the readathon');
+                //alert('could not join the readathon');
             }
         }
     )
@@ -163,6 +163,7 @@ $(function () {
     $('#readathon-join-btn').click(function (e) {
         e.preventDefault();
         join_readathon(this.name);
+        window.location.reload();
     });
 
     $('#profile-uploadimg-icon').click(function () {

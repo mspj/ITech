@@ -330,7 +330,8 @@ def save_accomplishment(request):
         # check book
         for book in requestData:
 
-            book['cover'] = book['cover'].replace('m', 'l', 1)
+            k = book['cover'].rfind("m")
+            book['cover'] = book['cover'][:k] + "l" + book['cover'][k + 1:]
 
             checkedBook, created = Book.objects.get_or_create(book_name=book['title'], isbn=book['id'],
                                                               cover=book['cover'],

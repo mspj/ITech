@@ -1,6 +1,6 @@
 from django.contrib.auth.models import BaseUserManager
-from django.utils import timezone
 from django.db import models
+from django.utils import timezone
 
 
 class ReaderManager(BaseUserManager):
@@ -32,9 +32,9 @@ class ActivityManager(models.Manager):
         activity.save()
         return activity
 
-    def completed_challenge(self, user, readathon, challenge, book):
+    def completed_challenge(self, user, readathon, challenge, booknames):
         message = 'completed challenge \'{0}\' in {1} by reading \'{2}\''.format(challenge.name, readathon.name,
-                                                                                 book.book_name)
+                                                                                 booknames)
         activity = self.model(icon='book', user=user, message=message)
         activity.save()
         return activity

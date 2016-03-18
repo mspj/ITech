@@ -62,8 +62,8 @@ $(function () {
         $('#modalAlert').fadeIn();
         var challengeID = $('#cur_challenge_id').text();
         var books = [];
-        var jsonData = {};
         $('#bookList').find('li').each(function () {
+            var jsonData = {};
             jsonData['challenge_id'] = challengeID;
             jsonData['id'] = $(this).children("#bookID").text();
             jsonData['cover'] = $(this).children("#bookCover").attr('src');
@@ -72,10 +72,19 @@ $(function () {
             books.push(jsonData);
         });
 
+        if (books.length == 0) {
+            var alertArea = $('#modalAlert');
+            var alertMsg = $('#modalAlertMsg');
+            alertMsg.text("Please Select Some Books!");
+            alertArea.fadeIn();
+            return;
+        }
+
         $.ajax({
             type: 'POST',
             url: "/save_accomplishment/",
-            data: {"books": JSON.stringify(books)},
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(books),
             dataType: 'json',
             success: function (data) {
                 var alertArea = $('#modalAlert');
@@ -91,7 +100,10 @@ $(function () {
                 }
             },
             error: function (data) {
-                //display failed msg
+                var alertArea = $('#modalAlert');
+                var alertMsg = $('#modalAlertMsg');
+                alertMsg.text("Please Try Again!");
+                alertArea.fadeIn();
             }
         });
 

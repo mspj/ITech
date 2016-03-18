@@ -11,7 +11,7 @@ from django.views.decorators.http import require_http_methods, require_GET, requ
 from ITech.settings import LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL, SUCCESS_STATUS, FAIL_STATUS, INCORRECT_CREDS_MSG, \
     DISABLED_ACC_MSG, SUCCESS_LOGIN_MSG, SUCCESS_REGISTER_MSG
 from bookwormsunite.forms import ReaderCreationForm, PictureForm
-from bookwormsunite.models import Readathon, Accomplishment, Reader, Challenge, Activity
+from bookwormsunite.models import Readathon, Accomplishment, Reader, Challenge, Activity, Book
 from bookwormsunite.utils.api_wrapper import APIWrapper
 
 
@@ -316,17 +316,49 @@ def search_book(request, query):
 
 @require_POST
 def save_accomplishment(request):
-    print 'a'
-    print request.POST.get("books");
-    # check book
-    # Book.objects.filter(isbn=)
-
-    # save book
-
-    # save accomplishent
-
-    # add activity
     response = {'status': FAIL_STATUS}
-    response['status'] = SUCCESS_STATUS
-    # response['redirect_to'] = readathon_info;
+
+    requestData = json.loads(request.body.decode('utf-8'))
+
+    bookNames = ''
+    books = []
+
+    try:
+        challenge = Challenge.objects.get(id=requestData[0]['challenge_id'])
+        readathon = Readathon.objects.get(id=challenge.readathon.id)
+
+        # check book
+        for book in requestData:
+
+            book['cover'].replace('m', 'l', 1)
+
+            checkedBook, created = Book.objects.get_or_create(book_name=book['title'], isbn=book['id'],
+                                                              cover=book['cover'],
+                                                              author=book['author'])
+            if created:
+                checkedBook.save()
+
+            books.append(checkedBook)
+
+            if bookNames == '':
+                bookNames = bookNames + checkedBook.book_name
+            else:
+                bookNames = bookNames + ' and ' + checkedBook.book_name
+
+        # save accomplishment
+        a = Accomplishment.objects.create(user=request.user, challenge=challenge)
+        a.save()
+        for book in books:
+            a.books.add(book)
+
+        # add activity
+        Activity.objects.completed_challenge(request.user, readathon, challenge, bookNames)
+
+        response['status'] = SUCCESS_STATUS
+
+    except Challenge.DoesNotExist as e:
+        raise Http404('Challenge does not exist: {0}'.format(e.message))
+    except Readathon.DoesNotExist as e:
+        raise Http404('Readathon does not exist: {0}'.format(e.message))
+
     return JsonResponse(response)

@@ -18,7 +18,7 @@ from bookwormsunite.utils.api_wrapper import APIWrapper
 @require_GET
 def index(request):
     # Home page
-    title = "Index"
+    title = "Bookwormsunite"
     upcoming_readathons = Readathon.objects.filter(end_date__gt=timezone.now())[:4]
     accomplishments = Accomplishment.objects.order_by('-created')
     recent_books = []
@@ -330,7 +330,7 @@ def save_accomplishment(request):
         # check book
         for book in requestData:
 
-            book['cover'].replace('m', 'l', 1)
+            book['cover'] = book['cover'].replace('m', 'l', 1)
 
             checkedBook, created = Book.objects.get_or_create(book_name=book['title'], isbn=book['id'],
                                                               cover=book['cover'],

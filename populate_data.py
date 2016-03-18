@@ -12,20 +12,20 @@ from bookwormsunite.models import *
 
 
 def populate():
-    b1 = add_book("Queen of Shadows (Throne of Glass #4)", "9781619636040",
+    b1 = add_book("Queen of Shadows (Throne of Glass #4)", "18006496",
                   "https://d.gr-assets.com/books/1441230104l/18006496.jpg",
                   "Sarah J. Maas")
-    b2 = add_book("An Ember in the Ashes (An Ember in the Ashes #1)", "9781595148049",
+    b2 = add_book("An Ember in the Ashes (An Ember in the Ashes #1)", "27774758",
                   "https://d.gr-assets.com/books/1449158871l/27774758.jpg",
                   "Sabaa Tahir")
-    b3 = add_book("Red Queen (Red Queen #1)", "9780062310637", "https://d.gr-assets.com/books/1449778912l/22328546.jpg",
+    b3 = add_book("Red Queen (Red Queen #1)", "25037051", "https://d.gr-assets.com/books/1449778912l/22328546.jpg",
                   "Victoria Aveyard")
-    b4 = add_book("The Wrath and the Dawn (The Wrath and the Dawn #1)", "9780399171611",
+    b4 = add_book("The Wrath and the Dawn (The Wrath and the Dawn #1)", "18798983",
                   "https://d.gr-assets.com/books/1417956963l/18798983.jpg",
                   "Renee Ahdieh")
-    b5 = add_book("All the Bright Places", "9780385755887", "https://d.gr-assets.com/books/1404331702l/18460392.jpg",
+    b5 = add_book("All the Bright Places", "26113532", "https://d.gr-assets.com/books/1404331702l/18460392.jpg",
                   "Jennifer Niven")
-    b6 = add_book("P.S. I Still Love You (To All the Boys I've Loved Before #2)", "9781442426733",
+    b6 = add_book("P.S. I Still Love You (To All the Boys I've Loved Before #2)", "15749186",
                   "https://d.gr-assets.com/books/1422881430l/20698530.jpg",
                   "Jenny Han")
 
@@ -135,7 +135,7 @@ def populate():
     reader1 = add_reader("sashaalsberg", 'https://d.gr-assets.com/users/1444743640p6/10915830.jpg')
     reader2 = add_reader("tammy", 'https://d.gr-assets.com/users/1394292082p6/28395194.jpg')
     reader3 = add_reader("emily-may", 'https://d.gr-assets.com/users/1402215455p6/4622890.jpg')
-    reader4 = add_reader("beckfoster", 'https://d.gr-assets.com/users/1383924009p6/5875398.jpg')
+    reader4 = add_reader("beckfoster", 'https://d.gr-assets.com/users/1457385390p6/5875398.jpg')
     reader5 = add_reader("maliemania", 'https://d.gr-assets.com/users/1415192892p6/1334245.jpg')
     reader6 = add_reader("pimjunha", 'https://d.gr-assets.com/users/1376729372p6/15480984.jpg', is_superuser=True)
     reader7 = add_reader("cmackie21", 'https://d.gr-assets.com/users/1376729372p6/15480984.jpg', is_superuser=True)
@@ -152,8 +152,7 @@ def populate():
     reader18 = add_reader("manna", "https://d.gr-assets.com/users/1426922465p6/19723258.jpg")
     reader19 = add_reader("phah", "https://d.gr-assets.com/users/1445248393p6/48061010.jpg")
     reader20 = add_reader("luan", "https://d.gr-assets.com/users/1361115028p6/17551516.jpg")
-    reader21 = add_reader("leifos",
-                          "https://trello-attachments.s3.amazonaws.com/56d18016c64dd25034b830cd/500x333/cd40e2407d6ae97fe6a7b1e766667de9/0d41808f60af8871fa122b3b0f37ab1b.gif")
+    reader21 = add_reader("leifos", "http://www.dcs.gla.ac.uk/~leif/images/leif-azzopardi.jpg")
 
     # -----------------------------------------------------------------------------------
 

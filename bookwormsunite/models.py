@@ -4,6 +4,14 @@ from django.template.defaultfilters import slugify
 
 from bookwormsunite.managers import ReaderManager, ActivityManager
 
+"""
+Reader class is the definition for model representing readers
+which contains 3 attributes namely username, profile picture and thumbnail.
+This class has following methods and properties
+  is_staff()
+  get_full_name()
+  get_short_name()
+"""
 
 class Reader(AbstractBaseUser, PermissionsMixin):
     #main variables of reader = username, profile picture(optional) and
@@ -29,6 +37,11 @@ class Reader(AbstractBaseUser, PermissionsMixin):
     def __unicode__(self):
         return "{0}".format(self.username)
 
+"""
+TimeStampedModel class is the definition for model representing timestamp.
+This model is used by 5 different models namely Readathon, Challenge, Book, Acomplishment and Activity
+It contains 2 attributes namely created and modified.
+"""
 
 class TimeStampedModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -37,6 +50,10 @@ class TimeStampedModel(models.Model):
     class Meta:
         abstract = True
 
+"""
+Readathon class is the definition for model representing readathons
+which contains 6 attributes namely readers, name, description, start_date, end_date and slug.
+"""
 
 class Readathon(TimeStampedModel):
     #model describing readathons
@@ -54,6 +71,10 @@ class Readathon(TimeStampedModel):
     def __unicode__(self):
         return "{0}: {1}".format(self.name, self.start_date)
 
+"""
+Challenge class is the definition for model representing challenges that associated with readathons.
+This model contains 3 attributes namely readathon, name and slug.
+"""
 
 class Challenge(TimeStampedModel):
     #challenges associated with readathons
@@ -68,6 +89,10 @@ class Challenge(TimeStampedModel):
     def __unicode__(self):
         return "{0}".format(self.name)
 
+"""
+Book class is the definition for model representing books that readers add as part of readathon challenge.
+This model contains 4 attributes namely book_name, isbn, cover and author.
+"""
 
 class Book(TimeStampedModel):
     # book that readers add as part of readathon challnge
@@ -79,6 +104,10 @@ class Book(TimeStampedModel):
     def __unicode__(self):
         return '[{0}] {1} By {2}'.format(self.isbn, self.book_name, self.author)
 
+"""
+Accomplishment class is the definition for model returning short summary of challenge completed by user and with what book.
+This model contains 3 attributes namely user, challenge and books.
+"""
 
 class Accomplishment(TimeStampedModel):
     #returns short summary of challenge completed by user and with what book
@@ -89,7 +118,10 @@ class Accomplishment(TimeStampedModel):
     def __unicode__(self):
         return '{0} has accomplished {1} with {2} books'.format(self.user.username, self.challenge.name,
                                                                 len(self.books))
-
+"""
+Accomplishment class is the definition for model returning activity of user e.g. joining a readathon.
+This model contains 4 attributes namely icon, user, message and objects of ActivityManager.
+"""
 
 class Activity(TimeStampedModel):
     #returns activity of user e.g. joining a readathon

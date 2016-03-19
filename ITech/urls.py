@@ -25,6 +25,7 @@ urlpatterns = patterns('',
                            name='readathon_join'),
 
                        url(r'^user/upload_picture/', upload_pic, name='upload_pic'),
+                       url(r'^twitter/(?P<query>[\w|\W-]+)/$', search_twitter_hashtag, name='search_twitter_hashtag'),
                        url(r'^search/books/(?P<query>[\w|\W]+)/$', search_book, name='search_book'),
                        url(r'^save_accomplishment/$', save_accomplishment, name='save_accomplishment'),
 

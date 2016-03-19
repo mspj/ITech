@@ -202,17 +202,9 @@
                         <h3 class="blog-title"><span><a class="twitter-timeline" style="color: black;"
                                                         href="https://twitter.com/search/{{ readathon.name }}">#{{ readathon.slug }}</a></span>
                         </h3>
-                        <div id="twitter">
-                            {% load cache %}
-                            {% load twitter_tag cache %}
-                            {% cache 60 my_tweets %}
-                                {% search_tweets for readathon.name as tweets limit 20 %}
-                            {% endcache %}
-                            <ul>
-                                {% for tweet in tweets %}
-                                    <li>{{ tweet.html|safe }} ({{ tweet.datetime|date:"d/M/Y h:m" }})</li>
-                                {% endfor %}
-                            </ul>
+                        <div id="twitter" >
+                            <span id="hashtag" style="display: none;">{{ readathon.name }}</span>
+
                         </div>
                     </div>
                 </div>

@@ -45,7 +45,18 @@
 
 #twitter ul li span {
     font-size: 16px;
-    color: #fff;
+    color: #ec5840;
+}
+
+#twitter ul li #username {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+}
+
+#twitter ul li #created_at {
+    font-size: 12px;
+    color: #6e6e6e;
 }
 
 #twitter ul li span a {

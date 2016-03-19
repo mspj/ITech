@@ -13,6 +13,7 @@ from ITech.settings import LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL, SUCCESS_STAT
 from bookwormsunite.forms import ReaderCreationForm, PictureForm
 from bookwormsunite.models import Readathon, Accomplishment, Reader, Challenge, Activity, Book
 from bookwormsunite.utils.api_wrapper import APIWrapper
+from bookwormsunite.utils.api_twitter import APITwitter
 
 
 @require_GET
@@ -313,6 +314,17 @@ def search_book(request, query):
         response['msg'] = 'Request to Goodreads API failed'
     return JsonResponse(response)
 
+@require_GET
+def search_twitter_hashtag(request, query):
+    response = {'status': FAIL_STATUS}
+    apiTwitter = APITwitter()
+    res = apiTwitter.search_twitter_hashtag(query)
+    if res is not None:
+        response['status'] = SUCCESS_STATUS
+        response['data'] = res
+    else:
+        response['msg'] = 'Request to Twitter API failed'
+    return JsonResponse(response)
 
 @require_POST
 def save_accomplishment(request):

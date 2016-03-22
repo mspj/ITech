@@ -1,4 +1,5 @@
 import json
+import datetime
 
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login, logout as auth_logout
@@ -61,9 +62,12 @@ def readathon_join(request, readathon_name_slug):
     response = {'status': FAIL_STATUS}
     try:
         readathon = Readathon.objects.get(slug=readathon_name_slug)
-        readathon.readers.add(request.user.id)
-        response['status'] = SUCCESS_STATUS
-        Activity.objects.joined_readathon(request.user, readathon)
+        if(datetime.datetime.now().date() < readathon.end_date.date()):
+            readathon.readers.add(request.user.id)
+            response['status'] = SUCCESS_STATUS
+            Activity.objects.joined_readathon(request.user, readathon)
+        else:
+            response['status'] = FAIL_STATUS
     except Readathon.DoesNotExist as e:
         response['msg'] = 'Readathon not found: {0}'.format(e.message)
 

@@ -22,7 +22,6 @@ function join_readathon(readathon_slug) {
             type: 'POST',
             url: "/readathon/" + readathon_slug + "/join/",
             success: function (data) {
-
                 if (data.status == 'success') {
                     $('#readathon-join-section').html('<a href="#" class="button readathon-join-btn joined" id="readathon-quit-btn">Joined</a>');
                 } else {

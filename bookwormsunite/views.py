@@ -15,14 +15,15 @@ from bookwormsunite.models import Readathon, Accomplishment, Reader, Challenge, 
 from bookwormsunite.utils.api_wrapper import APIWrapper
 from bookwormsunite.utils.api_twitter import APITwitter
 
-"""
-index function is the definition for controller preparing data representing the home page.
-This function prepares list of upcoming redathons up to 4 redathons and
-list of recent books added to the website by users up to 12 books.
-Also, it sends calendar object and today date to the home page.
-"""
+
 @require_GET
 def index(request):
+    """index function is the definition for controller preparing data representing the home page.
+    This function prepares list of upcoming redathons up to 4 redathons and
+    list of recent books added to the website by users up to 12 books.
+    Also, it sends calendar object and today date to the home page.
+
+    """
     # Home page
     title = "Bookwormsunite"
     upcoming_readathons = Readathon.objects.filter(end_date__gt=timezone.now())[:4]
@@ -48,13 +49,14 @@ def index(request):
                     'calendar_obj': calendar_obj, 'today': today}
     return render(request, 'bookwormsunite/index.html', context_dict)
 
-"""
-readathon_join function is the definition for controller preparing and sending the data to save in database.
-This function gets the detail of readathon then sends the readathon detail and user who joined this readathon
-to manager to save this activity into database (Activity model).
-"""
+
 @require_POST
 def readathon_join(request, readathon_name_slug):
+    """readathon_join function is the definition for controller preparing and sending the data to save in database.
+    This function gets the detail of readathon then sends the readathon detail and user who joined this readathon
+    to manager to save this activity into database (Activity model).
+
+    """
     # view for joining readathons
     response = {'status': FAIL_STATUS}
     try:
@@ -67,13 +69,14 @@ def readathon_join(request, readathon_name_slug):
 
     return JsonResponse(response)
 
-"""
-readathon_info function is the definition for controller preparing data representing the readathon page.
-This function prepares list of all challenges associated with this readathon and this readathon detail
-Also, it sends readers that joined this readathon detail and acomplishment detail to readathon page.
-"""
+
 @require_http_methods(["GET", "POST"])
 def readathon_info(request, readathon_name_slug):
+    """readathon_info function is the definition for controller preparing data representing the readathon page.
+    This function prepares list of all challenges associated with this readathon and this readathon detail
+    Also, it sends readers that joined this readathon detail and acomplishment detail to readathon page.
+
+    """
     try:
         readathon = Readathon.objects.get(slug=readathon_name_slug)
     except Readathon.DoesNotExist:
@@ -138,13 +141,14 @@ def readathon_info(request, readathon_name_slug):
                     'is_joined': is_joined}
     return render(request, 'bookwormsunite/readathon.html', context_dict)
 
-"""
-user_info function is the definition for controller preparing data representing the profile page.
-This function prepares user detail and list of joined readathon of this user.
-Also, it sends short summary of challenge completed by this user to profile page.
-"""
+
 @require_GET
 def user_info(request, uid):
+    """user_info function is the definition for controller preparing data representing the profile page.
+    This function prepares user detail and list of joined readathon of this user.
+    Also, it sends short summary of challenge completed by this user to profile page.
+
+    """
     # view for the user profile page as viewed by the user
     picture_form = PictureForm()
 
@@ -166,12 +170,13 @@ def user_info(request, uid):
                     'accomplishments': accomplishments, 'recent_books': recent_books, 'picture_form': picture_form}
     return render(request, 'bookwormsunite/user_info.html', context_dict)
 
-"""
-user_summary function is the definition for controller preparing data representing a user's readathons summary page.
-This function prepares all list of joined readathon of this user.
-"""
+
 @require_GET
 def user_summary(request, uid):
+    """user_summary function is the definition for controller preparing data representing a user's readathons summary page.
+    This function prepares all list of joined readathon of this user.
+
+    """
     try:
         joined_readathons = Readathon.objects.filter(readers=uid).order_by('-created')
         reader = Reader.objects.get(id=uid)
@@ -200,20 +205,22 @@ def user_summary(request, uid):
     context_dict = {'title': title, 'reader': reader, 'readathons': readathons}
     return render(request, 'bookwormsunite/user_summary.html', context_dict)
 
-"""
-about function is the definition for controller preparing data representing about page.
-"""
+
 @require_GET
 def about(request):
+    """about function is the definition for controller preparing data representing about page.
+
+    """
     title = "About"
     context_dict = {'title': title}
     return render(request, 'bookwormsunite/about.html', context_dict)
 
-"""
-login function is the definition for controller preparing data that gets from login view with authentication.
-"""
+
 @require_POST
 def login(request):
+    """login function is the definition for controller preparing data that gets from login view with authentication.
+
+    """
     # login view with authentication
     response = {'status': FAIL_STATUS}
     username = request.POST.get('username', '')
@@ -232,20 +239,22 @@ def login(request):
         response = {'msg': INCORRECT_CREDS_MSG}
     return JsonResponse(response)
 
-"""
-logout function is the definition for controller logging user out on request.
-"""
+
 @require_GET
 def logout(request):
+    """logout function is the definition for controller logging user out on request.
+
+    """
     # logs user out on request
     auth_logout(request)
     return HttpResponseRedirect(LOGOUT_REDIRECT_URL)
 
-"""
-register function is the definition for controller preparing data which get from registering view.
-"""
+
 @require_POST
 def register(request):
+    """register function is the definition for controller preparing data which get from registering view.
+
+    """
     # registering view
     response = {'status': FAIL_STATUS}
     reader_form = ReaderCreationForm(data=request.POST)
@@ -262,12 +271,13 @@ def register(request):
         response['msg'] = reader_form.errors
     return JsonResponse(response)
 
-"""
-autocomplete_search function is the definition for controller preparing data and
-producing automatic search suggestions for user when they begin entering 2 characters into the search box.
-"""
+
 @require_GET
 def autocomplete_search(request):
+    """autocomplete_search function is the definition for controller preparing data and
+    producing automatic search suggestions for user when they begin entering 2 characters into the search box.
+
+    """
     # this view produces automatic search suggestions for user when
     # they begin entering items into the search box
     response = {'status': FAIL_STATUS}
@@ -284,11 +294,12 @@ def autocomplete_search(request):
         response['status'] = FAIL_STATUS
     return JsonResponse(response)
 
-"""
-calendar function is the definition for controller creating a calender for the home page.
-"""
+
 @require_GET
 def calendar(request, offset):
+    """calendar function is the definition for controller creating a calender for the home page.
+
+    """
     # creates a calender for the home page
     offset = int(offset)
 
@@ -316,11 +327,12 @@ def calendar(request, offset):
     response = json.dumps(response)
     return HttpResponse(response, content_type='application/json')
 
-"""
-upload_pic function is the definition for changing a profile picture of the user.
-"""
+
 @require_POST
 def upload_pic(request):
+    """upload_pic function is the definition for changing a profile picture of the user.
+
+    """
     # changes a profile picture for the user
     response = {'status': FAIL_STATUS}
     picture_form = PictureForm(request.POST, request.FILES, instance=request.user)
@@ -333,11 +345,12 @@ def upload_pic(request):
 
     return JsonResponse(response)
 
-"""
-search_book function is the definition for controller preparing the list of books by calling Goodreads API.
-"""
+
 @require_GET
 def search_book(request, query):
+    """search_book function is the definition for controller preparing the list of books by calling Goodreads API.
+
+    """
     response = {'status': FAIL_STATUS}
 
     apiWrapper = APIWrapper()
@@ -351,11 +364,12 @@ def search_book(request, query):
         response['msg'] = 'Request to Goodreads API failed'
     return JsonResponse(response)
 
-"""
-search_twitter_hashtag function is the definition for controller preparing the list of tweets using readathon name by calling Twitter API.
-"""
+
 @require_GET
 def search_twitter_hashtag(request, query):
+    """search_twitter_hashtag function is the definition for controller preparing the list of tweets using readathon name by calling Twitter API.
+
+    """
     response = {'status': FAIL_STATUS}
     apiTwitter = APITwitter()
     res = apiTwitter.search_twitter_hashtag(query)
@@ -366,11 +380,12 @@ def search_twitter_hashtag(request, query):
         response['msg'] = 'Request to Twitter API failed'
     return JsonResponse(response)
 
-"""
-save_accomplishment function is the definition for controller preparing the list of selected books by user.
-"""
+
 @require_POST
 def save_accomplishment(request):
+    """save_accomplishment function is the definition for controller preparing the list of selected books by user.
+
+    """
     response = {'status': FAIL_STATUS}
 
     requestData = json.loads(request.body.decode('utf-8'))

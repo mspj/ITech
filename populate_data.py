@@ -191,9 +191,9 @@ def populate():
                        "The goal is to read as many books as you can in 24 hours. "
                        "You may take breaks to rest your eyes, eat, drink, take a shower or go to the bathroom. "
                        "I hope you will grab some Hot Cocoa or Coffee and a blanket and cozy up on the couch with us for the Winter 24 Hour Read-A-Thon for 2015!!!!!",
-                       datetime.datetime(2016, 1, 17, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
-                       datetime.datetime(2016, 1, 17, 23, 59, 59, tzinfo=timezone.get_current_timezone()),
-                       [reader1, reader2, reader3, reader4, reader5, reader6, reader7, reader8, reader9, reader10,
+                       datetime.datetime(2016, 3, 21, 0, 0, 0, tzinfo=timezone.get_current_timezone()),
+                       datetime.datetime(2016, 3, 23, 23, 59, 59, tzinfo=timezone.get_current_timezone()),
+                       [reader2, reader3, reader4, reader5, reader6, reader7, reader8, reader9, reader10,
                         reader11, reader12, reader13, reader14, reader15, reader16, reader21])
     r3c1 = add_challenge(r3, "Read as many as books as you can!")
 
@@ -407,7 +407,6 @@ def populate():
     add_activity('book', reader19,
                  " completed challenge '" + r2c1.name + "' in " + r2.name + " by reading '" + b13.book_name + "'")
 
-    add_activity('asterisk', reader1, 'joined ' + r3.name)
     add_activity('asterisk', reader2, 'joined ' + r3.name)
     add_activity('asterisk', reader3, 'joined ' + r3.name)
     add_activity('asterisk', reader4, 'joined ' + r3.name)
@@ -424,7 +423,6 @@ def populate():
     add_activity('asterisk', reader16, 'joined ' + r3.name)
     add_activity('asterisk', reader21, 'joined ' + r3.name)
 
-    add_accomplishment(reader1, r3c1, [b2])
     add_accomplishment(reader2, r3c1, [b2])
     add_accomplishment(reader3, r3c1, [b2])
     add_accomplishment(reader4, r3c1, [b2])

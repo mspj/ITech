@@ -5,14 +5,13 @@ from django.template.defaultfilters import slugify
 from bookwormsunite.managers import ReaderManager, ActivityManager
 
 
-
 class Reader(AbstractBaseUser, PermissionsMixin):
     """Reader class is the definition for model representing readers
     which contains 3 attributes namely username, profile picture and thumbnail.
 
     """
-    #main variables of reader = username, profile picture(optional) and
-    #thumbnail
+    # main variables of reader = username, profile picture(optional) and
+    # thumbnail
     username = models.CharField('username', max_length=30, unique=True)
     img = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
@@ -35,7 +34,6 @@ class Reader(AbstractBaseUser, PermissionsMixin):
         return "{0}".format(self.username)
 
 
-
 class TimeStampedModel(models.Model):
     """TimeStampedModel class is the definition for model representing timestamp.
     This model is used by 5 different models namely Readathon, Challenge, Book, Acomplishment and Activity
@@ -49,13 +47,12 @@ class TimeStampedModel(models.Model):
         abstract = True
 
 
-
 class Readathon(TimeStampedModel):
     """Readathon class is the definition for model representing readathons
     which contains 6 attributes namely readers, name, description, start_date, end_date and slug.
 
     """
-    #model describing readathons
+    # model describing readathons
     readers = models.ManyToManyField(Reader)
     name = models.CharField(max_length=64)
     description = models.CharField(max_length=1024)
@@ -71,13 +68,12 @@ class Readathon(TimeStampedModel):
         return "{0}: {1}".format(self.name, self.start_date)
 
 
-
 class Challenge(TimeStampedModel):
     """Challenge class is the definition for model representing challenges that associated with readathons.
     This model contains 3 attributes namely readathon, name and slug.
 
     """
-    #challenges associated with readathons
+    # challenges associated with readathons
     readathon = models.ForeignKey(Readathon, on_delete=models.CASCADE)
     name = models.CharField(max_length=256)
     slug = models.SlugField()
@@ -88,7 +84,6 @@ class Challenge(TimeStampedModel):
 
     def __unicode__(self):
         return "{0}".format(self.name)
-
 
 
 class Book(TimeStampedModel):
@@ -107,13 +102,12 @@ class Book(TimeStampedModel):
         return '[{0}] {1} By {2}'.format(self.isbn, self.book_name, self.author)
 
 
-
 class Accomplishment(TimeStampedModel):
     """Accomplishment class is the definition for model returning short summary of challenge completed by user and with what book.
     This model contains 3 attributes namely user, challenge and books.
 
     """
-    #returns short summary of challenge completed by user and with what book
+    # returns short summary of challenge completed by user and with what book
     user = models.ForeignKey(Reader, on_delete=models.CASCADE)
     challenge = models.ForeignKey(Challenge, on_delete=models.CASCADE)
     books = models.ManyToManyField(Book)
@@ -128,7 +122,7 @@ class Activity(TimeStampedModel):
     This model contains 4 attributes namely icon, user, message and objects of ActivityManager.
 
     """
-    #returns activity of user e.g. joining a readathon
+    # returns activity of user e.g. joining a readathon
     icon = models.CharField(max_length=20, default='star')
     user = models.ForeignKey(Reader, on_delete=models.CASCADE)
     message = models.CharField(max_length=512)

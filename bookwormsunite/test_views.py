@@ -26,7 +26,8 @@ class ReadathonRESTTests(TestCase):
         desc = 'a readathon to celebrate all the winners of the 2014 BookShimmyAwards.'
         st_date = datetime.datetime(2016, 1, 3, 0, 0, 0, tzinfo=timezone.get_current_timezone())
         ed_date = datetime.datetime(2016, 1, 31, 23, 59, 59, tzinfo=timezone.get_current_timezone())
-        self.readathon = Readathon.objects.get_or_create(name=self.readathon_name, description=desc, start_date=st_date, end_date=ed_date)[0]
+        self.readathon = Readathon.objects.get_or_create(name=self.readathon_name, description=desc, start_date=st_date,
+                                                         end_date=ed_date)[0]
         self.slug = self.readathon.slug
 
     def test_login(self):
@@ -58,4 +59,3 @@ class ReadathonRESTTests(TestCase):
         response = readathon_join(request, self.slug)
         content = json.loads(response.content)
         self.assertEqual('success', content['status'])
-

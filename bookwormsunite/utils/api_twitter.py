@@ -2,6 +2,7 @@ import oauth2
 import json
 import urllib
 
+
 class APITwitter(object):
     BASE_URL = "https://api.twitter.com/1.1/search/tweets.json"
     TWITTER_OAUTH_TOKEN = '4925320361-NfqsXqimaoh1w47oRkhLMTfsyMTY5wKVoOJC9KI'
@@ -13,7 +14,7 @@ class APITwitter(object):
         consumer = oauth2.Consumer(key=self.TWITTER_CONSUMER_KEY, secret=self.TWITTER_CONSUMER_SECRET)
         token = oauth2.Token(key=key, secret=secret)
         client = oauth2.Client(consumer, token)
-        resp, response = client.request(url, method=http_method, body=post_body, headers=http_headers )
+        resp, response = client.request(url, method=http_method, body=post_body, headers=http_headers)
 
         return response
 
@@ -31,8 +32,9 @@ class APITwitter(object):
             profile_username = result.get('user').get('name')
             profile_image_url = result.get('user').get('profile_image_url')
             media = None
-            if(result.get('entities').get('media')is not None):
+            if result.get('entities').get('media') is not None:
                 media = result.get('entities').get('media')[0].get('media_url')
-            results.append({'text': text, 'created_at': created_at, 'profile_username': profile_username, 'profile_image_url': profile_image_url, 'media':media})
+            results.append({'text': text, 'created_at': created_at, 'profile_username': profile_username,
+                            'profile_image_url': profile_image_url, 'media': media})
 
         return results

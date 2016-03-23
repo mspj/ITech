@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views.decorators.http import require_http_methods, require_GET, require_POST
 
@@ -347,7 +347,7 @@ def upload_pic(request):
     else:
         response['msg'] = picture_form.errors
 
-    return JsonResponse(response)
+    return redirect('user_info', uid=request.user.id)
 
 
 @require_GET

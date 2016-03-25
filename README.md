@@ -1,5 +1,9 @@
 # ITech
 
+## Design Presentation
+
+Initial Design: [Link](https://docs.google.com/presentation/d/1qCNANREaRASvqmX6hgpnG0I2Myh3L0AVHRpmZgr_0oM/edit?usp=sharing)
+
 ## Communication channels
 Reporting issues for bugs: [Link](https://github.com/mspj/ITech/issues)
 
